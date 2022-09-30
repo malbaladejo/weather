@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "WeatherImport2": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\Users\\mikea\\OneDrive\\Documents\\meteo"
+    }
+  }
+}

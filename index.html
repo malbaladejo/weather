@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Meteo Copponex</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <!-- build:css -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- endbuild -->
+
+</head>
+
+<body>
+    <div class="main">
+        <header>
+            <h1 id="title" style="margin-bottom: 20px;"></h1>
+            <button class="btn btn-primary" id="previous_button_top" onclick="previous()">previous</button>
+            <button class="btn btn-primary" id="next_button_top" onclick="next()">next</button>
+
+            <button class="btn btn-primary" id="day-button-top" onclick="showDay()">Day</button>
+            <button class="btn btn-primary" id="week-button-top" onclick="showWeek()">Week</button>
+
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <!-- <input type="radio" class="btn-check" name="period" id="day-radio" autocomplete="off">
+            <label class="btn btn-secondary" for="day">Day</label>
+
+            <input type="radio" class="btn-check" name="period" id="week-radio" autocomplete="off">
+            <label class="btn btn-secondary" for="week">Week</label> -->
+
+                <input type="radio" class="btn-check" name="options" id="day-value" autocomplete="off">
+                <label class="btn btn-secondary" for="option1">Day</label>
+
+                <input type="radio" class="btn-check" name="options" id="week-value" autocomplete="off">
+                <label class="btn btn-secondary" for="option2">Week</label>
+        </header>
+
+        <div class="grid">
+
+            <div class="row">
+                <div class="column">
+                    <div class="chart-container">
+                        <canvas id="rain" height="200"></canvas>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="chart-container">
+                        <canvas id="temperature" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="chart-container">
+                        <canvas id="wind" height="200"></canvas>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="chart-container">
+                        <canvas id="windDirection" height="50"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <button class="btn btn-primary" id="previous_button_bottom" onclick="previous()">previous</button>
+            <button class="btn btn-primary" id="next_button_bottom" onclick="next()">next</button>
+        </footer>
+    </div>
+    <!-- build:js -->
+    <script src="scripts/version.js"></script>
+    <script src="config/config-dev.js"></script>
+
+    <script src="scripts/charts/rain-charts.js"></script>
+    <script src="scripts/charts/wind-charts.js"></script>
+    <script src="scripts/charts/wind-direction-charts.js"></script>
+    <script src="scripts/charts/temperature-charts.js"></script>
+
+    <script src="scripts/period-strategies/period-strategy-factory.js"></script>
+    <script src="scripts/period-strategies/day-strategy.js"></script>
+    <script src="scripts/period-strategies/week-strategy.js"></script>
+
+    <script src="scripts/navigation/day-navigation-strategy.js"></script>
+    <script src="scripts/navigation/week-navigation-strategy.js"></script>
+    <script src="scripts/navigation/navigation-strategy-factory.js"></script>
+
+    <script src="scripts/controller.js"></script>
+    <script src="scripts/fetch-data.js"></script>
+    <script src="scripts/url-builder.js"></script>
+    <script src="scripts/script.js"></script>
+    <!-- endbuild -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.2/dist/chart.min.js"></script>
+
+    <!-- Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
