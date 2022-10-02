@@ -1,0 +1,53 @@
+﻿@using WeatherApp.Controllers.Home
+@model HomeDayTemperatureViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+
+<h1>
+
+    @if (Model.PreviousDate.HasValue)
+    {
+        <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+
+        <a class="btn btn-primary" asp-controller="Home" asp-route-date="@Model.PreviousDate.Value.ToString("yyyy-MM-dd")">
+            Prev
+        </a>
+    }
+
+    @Model.Date.ToShortDateString()
+
+    @if (Model.NextDate.HasValue)
+    {
+        <a class="btn btn-primary" asp-controller="Home" asp-route-date="@Model.NextDate.Value.ToString("yyyy-MM-dd")">
+            next
+        </a>
+    }
+
+</h1>
+
+<a class="btn btn-primary" asp-controller="Home" asp-route-date="@Model.PreviousDate.Value.ToString("yyyy-MM-dd")">
+    day
+</a>
+<a class="btn btn-primary" asp-controller="Home" asp-action="week" asp-route-date="@Model.PreviousDate.Value.ToString("yyyy-MM-dd")">
+    week
+</a>
+<a class="btn btn-primary" asp-controller="Home" asp-action="month" asp-route-date="@Model.PreviousDate.Value.ToString("yyyy-MM-dd")">
+    month
+</a>
+
+<canvas id="chart" height="200"></canvas>
+
+
+<script src="~/js/temperature.js" asp-append-version="true"></script>
+
+<script>
+    const data = @Html.Raw(Model.JsonData);
+
+    window.onload = (event) => {
+        buildTemperatureChart(data);
+    };
+</script>
