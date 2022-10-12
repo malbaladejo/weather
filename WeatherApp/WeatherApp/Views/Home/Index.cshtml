@@ -1,84 +1,15 @@
 ﻿@using WeatherApp.Controllers.Home
-@model HomeDayTemperatureViewModel
+@model WeatherApp.ViewModels.IWeatherDataViewModel
 @{
     ViewData["Title"] = "Home Page";
+    ViewData["View"] = "temperature";
 }
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2"> @Model.Date.ToShortDateString()</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group me-2">
-            @if (Model.PreviousDate.HasValue)
-            {
-                <a class="btn btn-sm btn-outline-secondary" asp-controller="Home" asp-route-date="@Model.PreviousDate.Value.ToString("yyyy-MM-dd")">
-                    Previous
-                </a>
-            }
-            @if (Model.NextDate.HasValue)
-            {
-                <a class="btn btn-sm btn-outline-secondary" asp-controller="Home" asp-route-date="@Model.NextDate.Value.ToString("yyyy-MM-dd")">
-                    Next
-                </a>
-            }
-        </div>
-       @* <div class="dropdown">
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar" class="align-text-bottom"></span>
-                Today
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This week</a></li>
-                <li><a class="dropdown-item" href="#">This month</a></li>
-            </ul>
-        </div>*@
-
-        <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <span data-feather="calendar" class="align-text-bottom"></span> Today
-            </a>
-
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" asp-controller="Home" asp-route-date="@Model.PreviousDate.Value.ToString("yyyy-MM-dd")">Today</a></li>
-                <li><a class="dropdown-item" asp-controller="Home" asp-action="week" asp-route-date="@Model.PreviousDate.Value.ToString("yyyy-MM-dd")">This week</a></li>
-                <li><a class="dropdown-item" asp-controller="Home" asp-action="month" asp-route-date="@Model.PreviousDate.Value.ToString("yyyy-MM-dd")">This month</a></li>
-            </ul>
-        </div>
-    </div>
+    <h1 class="h2"> @Model.Title</h1>
+    <partial name="_HomeToolbar"/>
 </div>
 
-@*<h1>
-
-    @if (Model.PreviousDate.HasValue)
-    {
-        <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
-
-        <a class="btn btn-primary" asp-controller="Home" asp-route-date="@Model.PreviousDate.Value.ToString("yyyy-MM-dd")">
-            Prev
-        </a>
-    }
-
-    @Model.Date.ToShortDateString()
-
-    @if (Model.NextDate.HasValue)
-    {
-        <a class="btn btn-primary" asp-controller="Home" asp-route-date="@Model.NextDate.Value.ToString("yyyy-MM-dd")">
-            next
-        </a>
-    }
-
-</h1>
-
-<a class="btn btn-primary" asp-controller="Home" asp-route-date="@Model.PreviousDate.Value.ToString("yyyy-MM-dd")">
-    day
-</a>
-<a class="btn btn-primary" asp-controller="Home" asp-action="week" asp-route-date="@Model.PreviousDate.Value.ToString("yyyy-MM-dd")">
-    week
-</a>
-<a class="btn btn-primary" asp-controller="Home" asp-action="month" asp-route-date="@Model.PreviousDate.Value.ToString("yyyy-MM-dd")">
-    month
-</a>
-*@
 <canvas id="chart" height="200"></canvas>
 <h2>Section title</h2>
 <div class="table-responsive">
@@ -91,14 +22,14 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Data)
+           @* @foreach (var item in Model.Data)
             {
                 <tr>
                     <td>@item.Date</td>
                     <td>@item.InTemperature</td>
                     <td>@item.OutTemperature</td>
                 </tr>
-            }
+            }*@
         </tbody>
     </table>
 </div>

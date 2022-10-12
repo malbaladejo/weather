@@ -1,0 +1,59 @@
+﻿@using WeatherApp.ViewModels
+@model WeatherApp.ViewModels.IWeatherDataViewModel
+
+<div class="btn-toolbar mb-2 mb-md-0">
+    <div class="btn-group me-2">
+        @if (Model.PreviousDate.HasValue)
+        {
+            <a class="btn btn-sm btn-outline-secondary btn-prev-next-width" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-date="@Model.PreviousDate.Value.ToString("yyyy-MM-dd")">
+                <i class="bi bi-rewind"></i> Previous
+            </a>
+        }
+        else
+        {
+            <button class="btn btn-sm btn-outline-secondary btn-prev-next-width" disabled>
+                <i class="bi bi-rewind"></i> Previous
+            </button>
+        }
+        @if (Model.NextDate.HasValue)
+        {
+            <a class="btn btn-sm btn-outline-secondary btn-prev-next-width" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-date="@Model.NextDate.Value.ToString("yyyy-MM-dd")">
+                <i class="bi bi-fast-forward"></i> Next
+            </a>
+        }
+        else
+        {
+            <button class="btn btn-sm btn-outline-secondary btn-prev-next-width" disabled>
+                <i class="bi bi-fast-forward"></i> Next
+            </button>
+        }
+    </div>
+
+    <div class="dropdown">
+        <a class="btn btn-sm btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-calendar2"></i>
+            @switch (Model.Period)
+            {
+                case Period.Day:
+                    <span>Day</span>
+                    break;
+                case Period.Week:
+                    <span> Week</span>
+                    break;
+                case Period.Month:
+                    <span>Month</span>
+                    break;
+                case Period.Year:
+                    <span>Year</span>
+                    break;
+            }
+        </a>
+
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="index" asp-route-date=" @Model.BeginDate.ToString("yyyy-MM-dd")">Today</a></li>
+            <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="week" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">This week</a></li>
+            <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="month" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">This month</a></li>
+            <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="year" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">This year</a></li>
+        </ul>
+    </div>
+</div>

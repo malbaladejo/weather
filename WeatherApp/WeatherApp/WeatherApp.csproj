@@ -18,4 +18,10 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Home\" />
+    <Folder Include="ViewModels\WindDirection\" />
+    <Folder Include="ViewModels\Wind\" />
+  </ItemGroup>
+
 </Project>

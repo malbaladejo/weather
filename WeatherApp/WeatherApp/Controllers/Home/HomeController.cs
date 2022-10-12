@@ -3,63 +3,47 @@ using System.Diagnostics;
 using WeatherApp.Extensions;
 using WeatherApp.Models;
 using WeatherApp.Services;
+using WeatherApp.ViewModels;
 
 namespace WeatherApp.Controllers.Home
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IWeatherService weatherService;
+        private readonly IWeatherDataViewModelFactory weatherDataViewModelFactory;
 
-        public HomeController(ILogger<HomeController> logger, IWeatherService weatherService)
+        public HomeController(ILogger<HomeController> logger, IWeatherDataViewModelFactory weatherDataViewModelFactory)
         {
             _logger = logger;
-            this.weatherService = weatherService;
+            this.weatherDataViewModelFactory = weatherDataViewModelFactory;
         }
+
 
         public async Task<IActionResult> Index(DateTime? date)
         {
-            var viewModel = await BuildHomeDayTemperatureViewModelAsync(date);
+            var controllerContext = new ControllerActionContext(ControllerNames.Temperature, ActionNames.Day);
+            var viewModel = await this.weatherDataViewModelFactory.CreateAsync(controllerContext, date, Period.Day);
             return View(viewModel);
-        }
-
-        private async Task<HomeDayTemperatureViewModel> BuildHomeDayTemperatureViewModelAsync(DateTime? date)
-        {
-            var minDate = await this.weatherService.GetMinDateRecordAsync();
-            var maxDate = await this.weatherService.GetMaxDateRecordAsync();
-
-            var selectedDate = date.HasValue ? date.Value : maxDate;
-
-            var data = await this.weatherService.GetWeatherDataAsync(selectedDate);
-            var viewModel = new HomeDayTemperatureViewModel(minDate, maxDate, selectedDate, data);
-            return viewModel;
         }
 
         public async Task<IActionResult> Week(DateTime? date)
         {
-            var viewModel = await BuildHomeWeekTemperatureViewModelAsync(date);
+            var controllerContext = new ControllerActionContext(ControllerNames.Temperature, ActionNames.Week);
+            var viewModel = await this.weatherDataViewModelFactory.CreateAsync(controllerContext, date, Period.Week);
             return View(viewModel);
-        }
-
-
-
-        private async Task<HomeWeekTemperatureViewModel> BuildHomeWeekTemperatureViewModelAsync(DateTime? date)
-        {
-            var minDate = await this.weatherService.GetMinDateRecordAsync();
-            var maxDate = await this.weatherService.GetMaxDateRecordAsync();
-
-            var selectedDate = date.HasValue ? date.Value : maxDate;
-            var firstDayOfWeek = selectedDate.FirstDayOfWeek();
-            var lastDayOfWeek = selectedDate.LastDayOfWeek();
-
-            var data = await this.weatherService.GetWeatherDataAsync(firstDayOfWeek, lastDayOfWeek);
-            var viewModel = new HomeWeekTemperatureViewModel(minDate, maxDate, firstDayOfWeek, data);
-            return viewModel;
         }
 
         public async Task<IActionResult> Month(DateTime? date)
         {
-            var viewModel = await BuildHomeDayTemperatureViewModelAsync(date);
+            var controllerContext = new ControllerActionContext(ControllerNames.Temperature, ActionNames.Month);
+            var viewModel = await this.weatherDataViewModelFactory.CreateAsync(controllerContext, date, Period.Month);
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> Year(DateTime? date)
+        {
+            var controllerContext = new ControllerActionContext(ControllerNames.Temperature, ActionNames.Year);
+            var viewModel = await this.weatherDataViewModelFactory.CreateAsync(controllerContext, date, Period.Year);
             return View(viewModel);
         }
 
