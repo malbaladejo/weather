@@ -1,4 +1,5 @@
-﻿using WeatherApp.ViewModels.DateContexts;
+﻿using WeatherApp.Extensions;
+using WeatherApp.ViewModels.DateContexts;
 
 namespace WeatherApp.ViewModels
 {
@@ -17,20 +18,27 @@ namespace WeatherApp.ViewModels
 
         public DateContext Create()
         {
-            var firstDayOfYear = new DateTime(selectedDate.Year, 1, 1);
+            DateTime? previousDate = null;
+            DateTime? nextDate = null;
 
-            var lastDayOfYear = new DateTime(selectedDate.Year, 12, 31);
+            var beginDate = this.selectedDate;
 
-            DateTime? previousDate = firstDayOfYear.AddYears(-1);
-            DateTime? nextDate = firstDayOfYear.AddYears(1);
+            if (this.selectedDate < minDate)
+                beginDate = minDate;
 
-            if (previousDate < minDate)
-                previousDate = null;
+            if (this.selectedDate > maxDate)
+                beginDate = maxDate.BeginOfDay();
 
-            if (nextDate > maxDate)
-                nextDate = null;
+            beginDate = new DateTime(beginDate.Year, 1, 1);
+            var endDate = new DateTime(beginDate.Year, 12, 31).EndOfDay();
 
-            return new DateContext(firstDayOfYear, lastDayOfYear, previousDate, nextDate, Period.Year);
+            if (this.selectedDate > minDate)
+                previousDate = new DateTime(beginDate.Year - 1, 1, 1);
+
+            if (this.selectedDate < maxDate)
+                nextDate = new DateTime(beginDate.Year + 1, 1, 1);
+
+            return new DateContext(beginDate, endDate, previousDate, nextDate, Period.Day);
         }
     }
 }

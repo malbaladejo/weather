@@ -18,20 +18,26 @@ namespace WeatherApp.ViewModels
 
         public DateContext Create()
         {
-            var firstDayOfMonth = selectedDate.FirstDayOfMonth();
+            DateTime? previousDate = null;
+            DateTime? nextDate = null;
 
-            var lastDayOfMonth = selectedDate.LastDayOfMonth();
+            var beginDate = this.selectedDate;
 
-            DateTime? previousDate = firstDayOfMonth.AddMonths(-1);
-            DateTime? nextDate = firstDayOfMonth.AddMonths(1);
+            if (this.selectedDate < minDate)
+                beginDate = minDate;
 
-            if (previousDate < minDate)
-                previousDate = null;
+            if (this.selectedDate > maxDate)
+                beginDate = maxDate.BeginOfDay();
 
-            if (nextDate > maxDate)
-                nextDate = null;
+            beginDate = new DateTime(beginDate.Year, beginDate.Month, 1);
 
-            return new DateContext(firstDayOfMonth, lastDayOfMonth, previousDate, nextDate, Period.Month);
+            if (this.selectedDate > minDate)
+                previousDate = beginDate.AddMonths(-1);
+
+            if (this.selectedDate < maxDate)
+                nextDate = beginDate.AddMonths(1);
+
+            return new DateContext(beginDate, beginDate.LastDayOfMonth(), previousDate, nextDate, Period.Day);
         }
     }
 }

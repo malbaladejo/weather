@@ -11,9 +11,9 @@ namespace WeatherApp.ViewModels
 
         public DayDateContextFactory(DateTime selectedDate, DateTime minDate, DateTime maxDate)
         {
-            this.selectedDate = selectedDate;
-            this.minDate = minDate;
-            this.maxDate = maxDate;
+            this.selectedDate = selectedDate.BeginOfDay();
+            this.minDate = minDate.BeginOfDay();
+            this.maxDate = maxDate.EndOfDay();
         }
 
         public DateContext Create()
@@ -21,13 +21,21 @@ namespace WeatherApp.ViewModels
             DateTime? previousDate = null;
             DateTime? nextDate = null;
 
-            if (selectedDate > minDate)
-                previousDate = selectedDate.AddDays(-1);
+            var beginDate = this.selectedDate;
 
-            if (selectedDate < maxDate)
-                nextDate = selectedDate.AddDays(1);
+            if (this.selectedDate < minDate)
+                beginDate = minDate;
 
-            return new DateContext(selectedDate, selectedDate.EndOfDay(), previousDate, nextDate, Period.Day);
+            if (this.selectedDate > maxDate)
+                beginDate = maxDate.BeginOfDay();
+
+            if (this.selectedDate > minDate)
+                previousDate = beginDate.AddDays(-1);
+
+            if (this.selectedDate < maxDate)
+                nextDate = beginDate.AddDays(1);
+
+            return new DateContext(beginDate, beginDate.EndOfDay(), previousDate, nextDate, Period.Day);
         }
     }
 }

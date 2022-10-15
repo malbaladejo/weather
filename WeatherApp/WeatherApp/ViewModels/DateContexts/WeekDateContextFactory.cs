@@ -18,18 +18,26 @@ namespace WeatherApp.ViewModels
 
         public DateContext Create()
         {
-            var firstDayOfWeek = selectedDate.FirstDayOfWeek();
+            DateTime? previousDate = null;
+            DateTime? nextDate = null;
 
-            DateTime? previousDate = firstDayOfWeek.AddDays(-7); ;
-            DateTime? nextDate = firstDayOfWeek.AddDays(7);
+            var beginDate = this.selectedDate;
 
-            if (previousDate < minDate)
-                previousDate = null;
+            if (this.selectedDate < minDate)
+                beginDate = minDate;
 
-            if (nextDate > maxDate)
-                nextDate = null;
+            if (this.selectedDate > maxDate)
+                beginDate = maxDate.BeginOfDay();
 
-            return new DateContext(firstDayOfWeek, firstDayOfWeek.LastDayOfWeek(), previousDate, nextDate, Period.Week);
+            beginDate = beginDate.FirstDayOfWeek();
+
+            if (this.selectedDate > minDate)
+                previousDate = beginDate.AddDays(-7);
+
+            if (this.selectedDate < maxDate)
+                nextDate = beginDate.AddDays(7);
+
+            return new DateContext(beginDate, beginDate.LastDayOfWeek(), previousDate, nextDate, Period.Day);
         }
     }
 }
