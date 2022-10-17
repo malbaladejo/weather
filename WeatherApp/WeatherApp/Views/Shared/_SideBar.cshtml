@@ -1,27 +1,29 @@
 ﻿<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
     <div class="position-sticky pt-3 sidebar-sticky">
         <ul class="nav flex-column">
-            <li class="nav-item">               
+            <li class="nav-item">
 
-                <a class="@("nav-link " + (@ViewData["View"]=="temperature"  ? "active" : "")) aria-current="page" href="#">
+                <a class="@("nav-link " + (@ViewData["View"]=="temperature"  ? "active" : "")) aria-current="page"
+                   asp-controller="home" asp-action="index">
                     <span data-feather="home" class="align-text-bottom"></span>
                     <i class="bi bi-thermometer-half"></i> Temperature
                 </a>
             </li>
             <li class="nav-item">
-                <a class="@("nav-link " + (@ViewData["View"]=="rain"  ? "active" : ""))  href="#">
+                <a class="@("nav-link " + (@ViewData["View"]=="rain"  ? "active" : ""))" 
+                asp-controller="rain" asp-action="index">
                     <span data-feather="file" class="align-text-bottom"></span>
                     <i class="bi bi-cloud-rain"></i> Rain
                 </a>
             </li>
             <li class="nav-item">
-                <a class="@("nav-link " + (@ViewData["View"]=="wind"  ? "active" : ""))   href="#">
+                <a class="@("nav-link " + (@ViewData["View"]=="wind"  ? "active" : ""))">
                     <i class="bi bi-tornado"></i>
                     Wind
                 </a>
             </li>
             <li class="nav-item">
-                <a class="@("nav-link " + (@ViewData["View"]=="wind-direction"  ? "active" : ""))   href="#">
+                <a class="@("nav-link " + (@ViewData["View"]=="wind-direction"  ? "active" : ""))">
                     <i class="bi bi-compass"></i>
                     Wind direction
                 </a>

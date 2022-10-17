@@ -1,8 +1,4 @@
-﻿using System.Globalization;
-using WeatherApp.Controllers.Home;
-using WeatherApp.Services;
-
-namespace WeatherApp.ViewModels
+﻿namespace WeatherApp.ViewModels
 {
     public interface IWeatherDataViewModel
     {

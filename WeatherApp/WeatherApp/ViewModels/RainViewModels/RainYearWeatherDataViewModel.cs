@@ -1,36 +1,38 @@
-﻿using WeatherApp.Services;
+﻿using WeatherApp.Extensions;
+using WeatherApp.JsonConverters;
+using WeatherApp.Models;
+using WeatherApp.Services;
 using WeatherApp.ViewModels.DateContexts;
 
 namespace WeatherApp.ViewModels.RainViewModels
 {
-    internal class RainYearWeatherDataViewModel : IWeatherDataViewModel
+    internal class RainYearWeatherDataViewModel : WeatherDataViewModelBase
     {
-        public RainYearWeatherDataViewModel(DateContext dateContext, ControllerActionContext controllerContext, IWeatherService weatherService)
-        {
+        private readonly DateContext dateContext;
+        private readonly IWeatherService weatherService;
 
+        public RainYearWeatherDataViewModel(ControllerActionContext controllerContext, DateContext dateContext, IWeatherService weatherService)
+            : base(controllerContext, dateContext, weatherService)
+        {
+            this.dateContext = dateContext;
+            this.weatherService = weatherService;
         }
 
-        public string Title => throw new NotImplementedException();
+        public override string Title => this.dateContext.BeginDate.ToString("yyyy");
 
-        public DateTime BeginDate { get; }
-
-        public DateTime? PreviousDate => throw new NotImplementedException();
-
-        public DateTime? NextDate => throw new NotImplementedException();
-
-        public Period Period => throw new NotImplementedException();
-
-        public string PeriodeLabel => throw new NotImplementedException();
-
-        public string Controller => throw new NotImplementedException();
-
-        public string Action => throw new NotImplementedException();
-
-        public string JsonData => throw new NotImplementedException();
-
-        public Task InitializeAsync()
+        public override async Task InitializeAsync()
         {
-            throw new NotImplementedException();
+            var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate, this.dateContext.EndDate);
+
+            var filteredData = data.GroupBy(d => d.Date.Month)
+                                    .Select(d => new WeatherData
+                                    {
+                                        Date = d.First().Date.FirstDayOfMonth(),
+                                        Rain = d.Sum(v => v.Rain)
+                                    })
+                                    .Select(d => new RainData(d, d.Date.ToString("MMMM yyyy")));
+
+            this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }
     }
 }

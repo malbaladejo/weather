@@ -1,13 +1,13 @@
-﻿@using WeatherApp.Controllers.Home
+﻿@using WeatherApp.Controllers
 @model WeatherApp.ViewModels.IWeatherDataViewModel
 @{
-    ViewData["Title"] = "Home Page";
-    ViewData["View"] = "temperature";
+    ViewData["Title"] = "Rain";
+    ViewData["View"] = "rain";
 }
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2"> @Model.Title</h1>
-    <partial name="_HomeToolbar" />
+    <partial name="_HomeToolbar"/>
 </div>
 
 <canvas id="chart" height="200"></canvas>
@@ -22,24 +22,24 @@
             </tr>
         </thead>
         <tbody>
-            @* @foreach (var item in Model.Data)
+           @* @foreach (var item in Model.Data)
             {
-            <tr>
-            <td>@item.Date</td>
-            <td>@item.InTemperature</td>
-            <td>@item.OutTemperature</td>
-            </tr>
+                <tr>
+                    <td>@item.Date</td>
+                    <td>@item.InTemperature</td>
+                    <td>@item.OutTemperature</td>
+                </tr>
             }*@
         </tbody>
     </table>
 </div>
 
-<script src="~/js/temperature.js" asp-append-version="true"></script>
+<script src="~/js/rain.js" asp-append-version="true"></script>
 
 <script>
     const data = @Html.Raw(Model.JsonData);
 
     window.onload = (event) => {
-        buildTemperatureChart(data);
+        buildRainChart(data);
     };
 </script>

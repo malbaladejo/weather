@@ -2,16 +2,16 @@
 
 namespace WeatherApp.ViewModels.Temperature
 {
-    public class TemperatureData
+    public class TemperatureDayData
     {
         private readonly WeatherData data;
 
-        public TemperatureData(WeatherData data)
+        public TemperatureDayData(WeatherData data)
         {
             this.data = data;
         }
 
-        public DateTime Date => this.data.Date;
+        public TimeSpan Date => this.data.Date.TimeOfDay;
 
         public decimal? OutTemperature => this.data.OutTemperature;
 

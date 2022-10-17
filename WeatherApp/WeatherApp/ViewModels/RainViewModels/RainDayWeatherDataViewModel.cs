@@ -1,28 +1,27 @@
-﻿namespace WeatherApp.ViewModels.RainViewModels
+﻿using WeatherApp.JsonConverters;
+using WeatherApp.Services;
+using WeatherApp.ViewModels.DateContexts;
+
+namespace WeatherApp.ViewModels.RainViewModels
 {
-    internal class RainDayWeatherDataViewModel : IWeatherDataViewModel
+    internal class RainDayWeatherDataViewModel : WeatherDataViewModelBase
     {
-        public string Title => throw new NotImplementedException();
+        private readonly DateContext dateContext;
+        private readonly IWeatherService weatherService;
 
-        public DateTime BeginDate { get; }
-
-        public DateTime? PreviousDate => throw new NotImplementedException();
-
-        public DateTime? NextDate => throw new NotImplementedException();
-
-        public Period Period => throw new NotImplementedException();
-
-        public string PeriodeLabel => throw new NotImplementedException();
-
-        public string Controller => throw new NotImplementedException();
-
-        public string Action => throw new NotImplementedException();
-
-        public string JsonData => throw new NotImplementedException();
-
-        public Task InitializeAsync()
+        public RainDayWeatherDataViewModel(ControllerActionContext controllerContext, DateContext dateContext, IWeatherService weatherService)
+            : base(controllerContext, dateContext, weatherService)
         {
-            throw new NotImplementedException();
+            this.dateContext = dateContext;
+            this.weatherService = weatherService;
+        }
+
+        public override string Title => this.dateContext.BeginDate.ToString("dddd dd MMMM yyyy");
+
+        public override async Task InitializeAsync()
+        {
+            var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate);
+            this.JsonData = LocalJsonSerializer.Serialize(data.Select(d=>new RainDayData(d)));
         }
     }
 }

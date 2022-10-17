@@ -1,36 +1,39 @@
-﻿using WeatherApp.Services;
+﻿using System.Globalization;
+using WeatherApp.Extensions;
+using WeatherApp.JsonConverters;
+using WeatherApp.Models;
+using WeatherApp.Services;
 using WeatherApp.ViewModels.DateContexts;
 
 namespace WeatherApp.ViewModels.RainViewModels
 {
-    internal class RainWeekWeatherDataViewModel : IWeatherDataViewModel
+    internal class RainWeekWeatherDataViewModel : WeatherDataViewModelBase
     {
-        public RainWeekWeatherDataViewModel(DateContext dateContext, ControllerActionContext controllerContext, IWeatherService weatherService)
-        {
+        private readonly DateContext dateContext;
+        private readonly IWeatherService weatherService;
 
+        public RainWeekWeatherDataViewModel(ControllerActionContext controllerContext, DateContext dateContext, IWeatherService weatherService)
+            : base(controllerContext, dateContext, weatherService)
+        {
+            this.dateContext = dateContext;
+            this.weatherService = weatherService;
         }
 
-        public string Title => throw new NotImplementedException();
+        public override string Title => $"{this.dateContext.BeginDate.ToShortDateString()} - {this.dateContext.EndDate.ToShortDateString()}";
 
-        public DateTime BeginDate { get; }
+        public override async Task InitializeAsync()
+        {      
+            var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate, this.dateContext.EndDate);
 
-        public DateTime? PreviousDate => throw new NotImplementedException();
+            var filteredData = data.GroupBy(d => d.Date.Date)
+                                    .Select(d => new WeatherData
+                                    {
+                                        Date = d.Key,
+                                        Rain = d.Sum(v => v.Rain)
+                                    })
+                                    .Select(d => new RainData(d, d.Date.ToString("dd/mm/yyyy")));
 
-        public DateTime? NextDate => throw new NotImplementedException();
-
-        public Period Period => throw new NotImplementedException();
-
-        public string PeriodeLabel => throw new NotImplementedException();
-
-        public string Controller => throw new NotImplementedException();
-
-        public string Action => throw new NotImplementedException();
-
-        public string JsonData => throw new NotImplementedException();
-
-        public Task InitializeAsync()
-        {
-            throw new NotImplementedException();
+            this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }
     }
 }

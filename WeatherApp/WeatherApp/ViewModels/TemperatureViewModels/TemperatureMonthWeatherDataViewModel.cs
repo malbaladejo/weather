@@ -21,7 +21,11 @@ namespace WeatherApp.ViewModels.Temperature
         public override async Task InitializeAsync()
         {
             var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate, this.dateContext.EndDate);
-            this.JsonData = LocalJsonSerializer.Serialize(data);
+            var filteredData = data.Select((d, i) => new { Index = i, Data = d })
+                            .Where(d => d.Index % 12 == 0)
+                            .Select(d => new TemperatureData(d.Data));
+
+            this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }
     }
 }

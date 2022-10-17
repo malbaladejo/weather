@@ -1,6 +1,7 @@
 ﻿using WeatherApp.JsonConverters;
 using WeatherApp.Services;
 using WeatherApp.ViewModels.DateContexts;
+using WeatherApp.ViewModels.Temperature;
 
 namespace WeatherApp.ViewModels.TemperatureViewModels
 {
@@ -21,7 +22,12 @@ namespace WeatherApp.ViewModels.TemperatureViewModels
         public override async Task InitializeAsync()
         {
             var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate, this.dateContext.EndDate);
-            this.JsonData = LocalJsonSerializer.Serialize(data);
+         
+            var filteredData = data.Select((d, i) => new { Index = i, Data = d })
+                                       .Where(d => d.Index % 60 == 0)
+                                       .Select(d => new TemperatureData(d.Data));
+
+            this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }
     }
 }
