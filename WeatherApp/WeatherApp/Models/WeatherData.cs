@@ -1,7 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Diagnostics;
+using System.Text.Json.Serialization;
 
 namespace WeatherApp.Models
 {
+    [DebuggerDisplay("{Date} - In: {InTemperature} - Out: {OutTemperature}")]
     public class WeatherData
     {
         public DateTime Date { get; set; }

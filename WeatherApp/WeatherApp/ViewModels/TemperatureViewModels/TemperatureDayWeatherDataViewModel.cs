@@ -16,12 +16,16 @@ namespace WeatherApp.ViewModels.Temperature
             this.weatherService = weatherService;
         }
 
-        public override string Title => this.dateContext.BeginDate.ToString("dddd dd MMMM yyyy");
+        public override string Title => this.dateContext.Label;
 
         public override async Task InitializeAsync()
         {
             var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate);
-            this.JsonData = LocalJsonSerializer.Serialize(data.Select(d => new TemperatureDayData(d)));
+            var filteredData = data
+                .Where(d => d.InTemperature.HasValue)
+                .Where(d => d.OutTemperature.HasValue)
+                .Select(d => new TemperatureDayData(d));
+            this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }
     }
 }

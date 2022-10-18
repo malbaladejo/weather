@@ -56,7 +56,7 @@ namespace WeatherApp.Services
                 return valueInt;
             }
 
-            return 0;
+            return null;
         }
 
         private static decimal? ParseDecimal(string value)
@@ -72,7 +72,7 @@ namespace WeatherApp.Services
                 return valueInt;
             }
 
-            return 0;
+            return null;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace WeatherApp.ViewModels
             if (this.selectedDate < maxDate)
                 nextDate = new DateTime(beginDate.Year + 1, 1, 1);
 
-            return new DateContext(beginDate, endDate, previousDate, nextDate, Period.Day);
+            return new DateContext(beginDate, endDate, previousDate, nextDate, Period.Year);
         }
     }
 }

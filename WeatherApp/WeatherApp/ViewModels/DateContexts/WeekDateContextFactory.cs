@@ -37,7 +37,7 @@ namespace WeatherApp.ViewModels
             if (this.selectedDate < maxDate)
                 nextDate = beginDate.AddDays(7);
 
-            return new DateContext(beginDate, beginDate.LastDayOfWeek(), previousDate, nextDate, Period.Day);
+            return new DateContext(beginDate, beginDate.LastDayOfWeek(), previousDate, nextDate, Period.Week);
         }
     }
 }

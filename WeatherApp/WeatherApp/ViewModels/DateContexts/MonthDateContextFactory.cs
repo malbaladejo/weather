@@ -37,7 +37,7 @@ namespace WeatherApp.ViewModels
             if (this.selectedDate < maxDate)
                 nextDate = beginDate.AddMonths(1);
 
-            return new DateContext(beginDate, beginDate.LastDayOfMonth(), previousDate, nextDate, Period.Day);
+            return new DateContext(beginDate, beginDate.LastDayOfMonth(), previousDate, nextDate, Period.Month);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace WeatherApp.ViewModels.RainViewModels
             this.weatherService = weatherService;
         }
 
-        public override string Title => $"{this.dateContext.BeginDate.ToShortDateString()} - {this.dateContext.EndDate.ToShortDateString()}";
+        public override string Title => this.dateContext.Label;
 
         public override async Task InitializeAsync()
         {      

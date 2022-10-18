@@ -1,4 +1,6 @@
-﻿using WeatherApp.JsonConverters;
+﻿using System.Globalization;
+using WeatherApp.JsonConverters;
+using WeatherApp.Models;
 using WeatherApp.Services;
 using WeatherApp.ViewModels.DateContexts;
 
@@ -16,16 +18,48 @@ namespace WeatherApp.ViewModels.Temperature
             this.weatherService = weatherService;
         }
 
-        public override string Title => this.dateContext.BeginDate.ToString("MMMM yyyy");
+        public override string Title => this.dateContext.Label;
 
         public override async Task InitializeAsync()
         {
             var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate, this.dateContext.EndDate);
-            var filteredData = data.Select((d, i) => new { Index = i, Data = d })
-                            .Where(d => d.Index % 12 == 0)
-                            .Select(d => new TemperatureData(d.Data));
+            var filteredData = GetData(data)
+                    .OrderBy(d => d.Date)
+                    .Select(d => new TemperatureData(d));
 
             this.JsonData = LocalJsonSerializer.Serialize(filteredData);
+        }
+
+        private IEnumerable<WeatherData> GetData(IReadOnlyCollection<WeatherData> data)
+        {
+            var culture = new CultureInfo("en-US");
+            var calendar = culture.Calendar;
+
+            // Gets the DTFI properties required by GetWeekOfYear.
+            var calendarRule = culture.DateTimeFormat.CalendarWeekRule;
+            var firstDayOfWeek = culture.DateTimeFormat.FirstDayOfWeek;
+
+            foreach (var day in data.Where(d => d.InTemperature.HasValue)
+                            .Where(d => d.OutTemperature.HasValue)
+                            .GroupBy(d => calendar.GetWeekOfYear(d.Date, calendarRule, firstDayOfWeek)))
+            {
+                var min = day.FirstOrDefault(d1 => d1.OutTemperature == day.Min(d2 => d2.OutTemperature));
+                var max = day.FirstOrDefault(d1 => d1.OutTemperature == day.Max(d2 => d2.OutTemperature));
+
+                yield return min;
+                yield return max;
+
+                var sampleData = day.Select((d, i) => new { Index = i, Data = d })
+                 .Where(d => d.Index % 80 == 0)
+                 .Where(d => d.Data != min)
+                 .Where(d => d.Data != max)
+                 .Select(d => d.Data);
+
+                foreach (var dayData in sampleData)
+                {
+                    yield return dayData;
+                }
+            }
         }
     }
 }

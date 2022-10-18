@@ -16,7 +16,7 @@ namespace WeatherApp.ViewModels.RainViewModels
             this.weatherService = weatherService;
         }
 
-        public override string Title => this.dateContext.BeginDate.ToString("dddd dd MMMM yyyy");
+        public override string Title => this.dateContext.Label;
 
         public override async Task InitializeAsync()
         {
