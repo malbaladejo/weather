@@ -5,39 +5,39 @@ using WeatherApp.ViewModels;
 
 namespace WeatherApp.Controllers
 {
-    public class HomeController : Controller
+    public class WindController : Controller
     {
         private readonly IWeatherDataViewModelFactory weatherDataViewModelFactory;
 
-        public HomeController(IWeatherDataViewModelFactory weatherDataViewModelFactory)
+        public WindController(IWeatherDataViewModelFactory weatherDataViewModelFactory)
         {
             this.weatherDataViewModelFactory = weatherDataViewModelFactory;
         }
 
         public async Task<IActionResult> Index(DateTime? date)
         {
-            var controllerContext = new ControllerActionContext(ControllerNames.Temperature, ActionNames.Day);
+            var controllerContext = new ControllerActionContext(ControllerNames.Wind, ActionNames.Day);
             var viewModel = await weatherDataViewModelFactory.CreateAsync(controllerContext, date, Period.Day);
             return View(viewModel);
         }
 
         public async Task<IActionResult> Week(DateTime? date)
         {
-            var controllerContext = new ControllerActionContext(ControllerNames.Temperature, ActionNames.Week);
+            var controllerContext = new ControllerActionContext(ControllerNames.Wind, ActionNames.Week);
             var viewModel = await weatherDataViewModelFactory.CreateAsync(controllerContext, date, Period.Week);
             return View("Index", viewModel);
         }
 
         public async Task<IActionResult> Month(DateTime? date)
         {
-            var controllerContext = new ControllerActionContext(ControllerNames.Temperature, ActionNames.Month);
+            var controllerContext = new ControllerActionContext(ControllerNames.Wind, ActionNames.Month);
             var viewModel = await weatherDataViewModelFactory.CreateAsync(controllerContext, date, Period.Month);
             return View("Index", viewModel);
         }
 
         public async Task<IActionResult> Year(DateTime? date)
         {
-            var controllerContext = new ControllerActionContext(ControllerNames.Temperature, ActionNames.Year);
+            var controllerContext = new ControllerActionContext(ControllerNames.Wind, ActionNames.Year);
             var viewModel = await weatherDataViewModelFactory.CreateAsync(controllerContext, date, Period.Year);
             return View("Index", viewModel);
         }

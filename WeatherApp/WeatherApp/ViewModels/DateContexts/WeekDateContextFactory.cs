@@ -30,14 +30,15 @@ namespace WeatherApp.ViewModels
                 beginDate = maxDate.BeginOfDay();
 
             beginDate = beginDate.FirstDayOfWeek();
+            var endDate = beginDate.LastDayOfWeek();
 
-            if (this.selectedDate > minDate)
+            if (beginDate > minDate)
                 previousDate = beginDate.AddDays(-7);
 
-            if (this.selectedDate < maxDate)
+            if (endDate < maxDate)
                 nextDate = beginDate.AddDays(7);
 
-            return new DateContext(beginDate, beginDate.LastDayOfWeek(), previousDate, nextDate, Period.Week);
+            return new DateContext(beginDate, endDate, previousDate, nextDate, Period.Week);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace WeatherApp.ViewModels.RainViewModels
         public RainData(WeatherData data, string label)
         {
             this.data = data;
-            Label = label;
+            this.Label = label;
         }
 
         public DateTime Date => this.data.Date;

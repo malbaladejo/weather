@@ -39,17 +39,17 @@ namespace WeatherApp.ViewModels.Temperature
             var calendarRule = culture.DateTimeFormat.CalendarWeekRule;
             var firstDayOfWeek = culture.DateTimeFormat.FirstDayOfWeek;
 
-            foreach (var day in data.Where(d => d.InTemperature.HasValue)
+            foreach (var week in data.Where(d => d.InTemperature.HasValue)
                             .Where(d => d.OutTemperature.HasValue)
                             .GroupBy(d => calendar.GetWeekOfYear(d.Date, calendarRule, firstDayOfWeek)))
             {
-                var min = day.FirstOrDefault(d1 => d1.OutTemperature == day.Min(d2 => d2.OutTemperature));
-                var max = day.FirstOrDefault(d1 => d1.OutTemperature == day.Max(d2 => d2.OutTemperature));
+                var min = week.FirstOrDefault(d1 => d1.OutTemperature == week.Min(d2 => d2.OutTemperature));
+                var max = week.FirstOrDefault(d1 => d1.OutTemperature == week.Max(d2 => d2.OutTemperature));
 
                 yield return min;
                 yield return max;
 
-                var sampleData = day.Select((d, i) => new { Index = i, Data = d })
+                var sampleData = week.Select((d, i) => new { Index = i, Data = d })
                  .Where(d => d.Index % 80 == 0)
                  .Where(d => d.Data != min)
                  .Where(d => d.Data != max)

@@ -10,14 +10,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="@("nav-link " + (@ViewData["View"]=="rain"  ? "active" : ""))" 
-                asp-controller="rain" asp-action="index">
+                <a class="@("nav-link " + (@ViewData["View"]=="rain"  ? "active" : ""))"
+                   asp-controller="rain" asp-action="index">
                     <span data-feather="file" class="align-text-bottom"></span>
                     <i class="bi bi-cloud-rain"></i> Rain
                 </a>
             </li>
             <li class="nav-item">
-                <a class="@("nav-link " + (@ViewData["View"]=="wind"  ? "active" : ""))">
+                <a class="@("nav-link " + (@ViewData["View"]=="wind"  ? "active" : ""))"
+                   asp-controller="wind" asp-action="index">
                     <i class="bi bi-tornado"></i>
                     Wind
                 </a>

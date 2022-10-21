@@ -32,10 +32,10 @@ namespace WeatherApp.ViewModels
             beginDate = new DateTime(beginDate.Year, 1, 1);
             var endDate = new DateTime(beginDate.Year, 12, 31).EndOfDay();
 
-            if (this.selectedDate > minDate)
+            if (beginDate > minDate)
                 previousDate = new DateTime(beginDate.Year - 1, 1, 1);
 
-            if (this.selectedDate < maxDate)
+            if (endDate < maxDate)
                 nextDate = new DateTime(beginDate.Year + 1, 1, 1);
 
             return new DateContext(beginDate, endDate, previousDate, nextDate, Period.Year);

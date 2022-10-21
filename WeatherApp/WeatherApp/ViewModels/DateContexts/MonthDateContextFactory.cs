@@ -30,14 +30,15 @@ namespace WeatherApp.ViewModels
                 beginDate = maxDate.BeginOfDay();
 
             beginDate = new DateTime(beginDate.Year, beginDate.Month, 1);
+            var endDate = beginDate.LastDayOfMonth();
 
-            if (this.selectedDate > minDate)
+            if (beginDate > minDate)
                 previousDate = beginDate.AddMonths(-1);
 
-            if (this.selectedDate < maxDate)
+            if (endDate < maxDate)
                 nextDate = beginDate.AddMonths(1);
 
-            return new DateContext(beginDate, beginDate.LastDayOfMonth(), previousDate, nextDate, Period.Month);
+            return new DateContext(beginDate, endDate, previousDate, nextDate, Period.Month);
         }
     }
 }

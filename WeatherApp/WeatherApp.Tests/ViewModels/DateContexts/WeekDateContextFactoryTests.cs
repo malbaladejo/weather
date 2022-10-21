@@ -61,5 +61,24 @@ namespace WeatherApp.ViewModels.Tests
             Assert.AreEqual(new DateTime(2022, 7, 25), dateContext.PreviousDate);
             Assert.IsNull(dateContext.NextDate);
         }
+
+        [TestMethod()]
+        public void WeekDateContextFactory_Selected_Date_In_LastWeek_Test()
+        {
+            // Arrange
+            var selectedDate = new DateTime(2022,8,4);
+            var minDate = new DateTime(2022, 6, 1);
+            var maxDate = new DateTime(2022, 8, 5);
+            var factory = new WeekDateContextFactory(selectedDate.AddHours(5), minDate, maxDate);
+
+            // Act
+            var dateContext = factory.Create();
+
+            // Assert
+            Assert.AreEqual(new DateTime(2022, 8, 1), dateContext.BeginDate);
+            Assert.AreEqual(new DateTime(2022, 8, 7).EndOfDay(), dateContext.EndDate);
+            Assert.AreEqual(new DateTime(2022, 7, 25), dateContext.PreviousDate);
+            Assert.IsNull(dateContext.NextDate);
+        }
     }
 }

@@ -6,9 +6,7 @@ namespace WeatherApp.ViewModels
     {
         public const string Temperature = "home";
         public const string Rain = "rain";
-        public const string Wind = "windirection";
-        public const string Windirection = "windirection";
-    }
-
-    
+        public const string Wind = "wind";
+        public const string WinDirection = "windDirection";
+    }    
 }

@@ -1,17 +1,17 @@
-﻿using WeatherApp.JsonConverters;
+﻿using System.Globalization;
+using WeatherApp.JsonConverters;
 using WeatherApp.Models;
 using WeatherApp.Services;
 using WeatherApp.ViewModels.DateContexts;
-using WeatherApp.ViewModels.Temperature;
 
-namespace WeatherApp.ViewModels.TemperatureViewModels
+namespace WeatherApp.ViewModels.Wind
 {
-    internal class TemperatureYearWeatherDataViewModel : WeatherDataViewModelBase
+    internal class WindMonthWeatherDataViewModel : WeatherDataViewModelBase
     {
         private readonly DateContext dateContext;
         private readonly IWeatherService weatherService;
 
-        public TemperatureYearWeatherDataViewModel(ControllerActionContext controllerContext, DateContext dateContext, IWeatherService weatherService)
+        public WindMonthWeatherDataViewModel(ControllerActionContext controllerContext, DateContext dateContext, IWeatherService weatherService)
             : base(controllerContext, dateContext, weatherService)
         {
             this.dateContext = dateContext;
@@ -25,25 +25,31 @@ namespace WeatherApp.ViewModels.TemperatureViewModels
             var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate, this.dateContext.EndDate);
             var filteredData = GetData(data)
                     .OrderBy(d => d.Date)
-                    .Select(d => new TemperatureData(d));
+                    .Select(d => new WindData(d));
 
             this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }
 
         private IEnumerable<WeatherData> GetData(IReadOnlyCollection<WeatherData> data)
         {
-            foreach (var month in data.Where(d => d.InTemperature.HasValue)
-                            .Where(d => d.OutTemperature.HasValue)
-                            .GroupBy(d => d.Date.Month))
+            var culture = new CultureInfo("en-US");
+            var calendar = culture.Calendar;
+
+            // Gets the DTFI properties required by GetWeekOfYear.
+            var calendarRule = culture.DateTimeFormat.CalendarWeekRule;
+            var firstDayOfWeek = culture.DateTimeFormat.FirstDayOfWeek;
+
+            foreach (var day in data.Where(d => d.Wind.HasValue)
+                            .GroupBy(d => calendar.GetWeekOfYear(d.Date, calendarRule, firstDayOfWeek)))
             {
-                var min = month.FirstOrDefault(d1 => d1.OutTemperature == month.Min(d2 => d2.OutTemperature));
-                var max = month.FirstOrDefault(d1 => d1.OutTemperature == month.Max(d2 => d2.OutTemperature));
+                var min = day.FirstOrDefault(d1 => d1.Wind == day.Min(d2 => d2.Wind));
+                var max = day.FirstOrDefault(d1 => d1.Wind == day.Max(d2 => d2.Wind));
 
                 yield return min;
                 yield return max;
 
-                var sampleData = month.Select((d, i) => new { Index = i, Data = d })
-                 .Where(d => d.Index % 200 == 0)
+                var sampleData = day.Select((d, i) => new { Index = i, Data = d })
+                 .Where(d => d.Index % 80 == 0)
                  .Where(d => d.Data != min)
                  .Where(d => d.Data != max)
                  .Select(d => d.Data);

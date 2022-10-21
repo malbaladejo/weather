@@ -18,11 +18,6 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\WindDirection\" />
-    <Folder Include="ViewModels\Wind\" />
-  </ItemGroup>
-
 <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>$(AssemblyName).Tests</_Parameter1>

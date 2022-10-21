@@ -41,16 +41,5 @@ namespace WeatherApp.Controllers
             var viewModel = await weatherDataViewModelFactory.CreateAsync(controllerContext, date, Period.Year);
             return View("Index", viewModel);
         }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

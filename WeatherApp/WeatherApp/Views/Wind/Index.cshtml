@@ -1,8 +1,8 @@
 ﻿@using WeatherApp.Controllers
 @model WeatherApp.ViewModels.IWeatherDataViewModel
 @{
-    ViewData["Title"] = "Temperature";
-    ViewData["View"] = "temperature";
+    ViewData["Title"] = "Wind";
+    ViewData["View"] = "wind";
 }
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -34,12 +34,12 @@
     </table>
 </div>
 
-<script src="~/js/temperature.js" asp-append-version="true"></script>
+<script src="~/js/wind.js" asp-append-version="true"></script>
 
 <script>
     const data = @Html.Raw(Model.JsonData);
 
     window.onload = (event) => {
-        buildTemperatureChart(data);
+        buildWindChart(data);
     };
 </script>
