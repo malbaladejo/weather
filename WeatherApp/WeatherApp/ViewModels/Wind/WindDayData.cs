@@ -11,7 +11,9 @@ namespace WeatherApp.ViewModels.Wind
             this.data = data;
         }
 
-        public TimeSpan Date => this.data.Date.TimeOfDay;
+        private TimeSpan Date => this.data.Date.TimeOfDay;
+
+        public string Label => this.data.Date.ToString("HH:mm");
 
         public decimal? Wind => this.data.Wind;
     }

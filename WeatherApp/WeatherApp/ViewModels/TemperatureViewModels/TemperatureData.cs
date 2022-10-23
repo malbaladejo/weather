@@ -8,15 +8,18 @@ namespace WeatherApp.ViewModels.Temperature
     {
         private readonly WeatherData data;
 
-        public TemperatureData(WeatherData data)
+        public TemperatureData(WeatherData data, string label)
         {
             this.data = data;
+            this.Label = label;
         }
 
-        public DateTime Date => this.data.Date;
+        private DateTime Date => this.data.Date;
 
         public decimal? OutTemperature => this.data.OutTemperature;
 
         public decimal? InTemperature => this.data.InTemperature;
+
+        public string Label { get; }
     }
 }

@@ -40,5 +40,21 @@
                     throw new ArgumentOutOfRangeException($"{period} not supported");
             }
         }
+        public string GetLabel(DateTime date)
+        {
+            switch (this.Period)
+            {
+                case Period.Day:
+                    return date.TimeOfDay.ToString();
+                case Period.Week:
+                    return date.ToString("dd/MM HH:mm");
+                case Period.Month:
+                    return date.ToString("dd/MM HH:mm");
+                case Period.Year:
+                    return date.ToString("dd MMMM");
+                default:
+                    throw new ArgumentOutOfRangeException($"{this.Period} not supported");
+            }
+        }
     }
 }

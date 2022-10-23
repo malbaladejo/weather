@@ -25,7 +25,7 @@ namespace WeatherApp.ViewModels.Wind
             var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate, this.dateContext.EndDate);
             var filteredData = GetData(data)
                     .OrderBy(d => d.Date)
-                    .Select(d => new WindData(d));
+                    .Select(d => new WindData(d, this.dateContext.GetLabel(d.Date)));
 
             this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }

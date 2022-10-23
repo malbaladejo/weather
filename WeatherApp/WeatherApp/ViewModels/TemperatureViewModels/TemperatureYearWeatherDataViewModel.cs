@@ -25,7 +25,7 @@ namespace WeatherApp.ViewModels.TemperatureViewModels
             var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate, this.dateContext.EndDate);
             var filteredData = GetData(data)
                     .OrderBy(d => d.Date)
-                    .Select(d => new TemperatureData(d));
+                    .Select(d => new TemperatureData(d, this.dateContext.GetLabel(d.Date)));
 
             this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }

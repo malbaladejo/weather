@@ -3,7 +3,7 @@
 
     const chart = new Chart(chartCtx, {
         data: {
-            labels: data.map(x => x.date),
+            labels: data.map(x => x.label),
             datasets: buildWindChartDatasets(data)
         },
         options: {

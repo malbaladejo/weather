@@ -11,9 +11,9 @@ namespace WeatherApp.ViewModels.RainViewModels
             this.data = data;
         }
 
-        public TimeSpan Date => this.data.Date.TimeOfDay;
+        private TimeSpan Date => this.data.Date.TimeOfDay;
 
-        public string Label => this.Date.ToString();
+        public string Label => this.data.Date.ToString("HH:mm");
 
         public decimal? Rain => this.data.Rain;
     }

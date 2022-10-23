@@ -12,7 +12,7 @@ namespace WeatherApp.ViewModels.RainViewModels
             this.Label = label;
         }
 
-        public DateTime Date => this.data.Date;
+        private DateTime Date => this.data.Date;
 
         public decimal? Rain => this.data.Rain;
 

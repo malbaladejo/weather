@@ -31,7 +31,7 @@ namespace WeatherApp.ViewModels.RainViewModels
                                         Date = d.Key,
                                         Rain = d.Sum(v => v.Rain)
                                     })
-                                    .Select(d => new RainData(d, d.Date.ToString("dd/MM/yyyy")));
+                                    .Select(d => new RainData(d, d.Date.ToString("dd MMMM")));
 
             this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }

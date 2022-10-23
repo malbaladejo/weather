@@ -8,13 +8,16 @@ namespace WeatherApp.ViewModels.Wind
     {
         private readonly WeatherData data;
 
-        public WindData(WeatherData data)
+        public WindData(WeatherData data, string label)
         {
             this.data = data;
+            this.Label = label;
         }
 
-        public DateTime Date => this.data.Date;
+        private DateTime Date => this.data.Date;
 
         public decimal? Wind => this.data.Wind;
+
+        public string Label { get; }
     }
 }

@@ -30,7 +30,7 @@ namespace WeatherApp.ViewModels.RainViewModels
                                         Date = d.First().Date.FirstDayOfMonth(),
                                         Rain = d.Sum(v => v.Rain)
                                     })
-                                    .Select(d => new RainData(d, d.Date.ToString("MMMM yyyy")));
+                                    .Select(d => new RainData(d, d.Date.ToString("MMMM")));
 
             this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }
