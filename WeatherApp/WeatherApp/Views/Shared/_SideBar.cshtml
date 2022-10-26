@@ -7,28 +7,28 @@
             <li class="nav-item">
 
                 <a class="@("nav-link " + (@ViewData["View"]=="temperature"  ? "active" : "")) aria-current="page"
-                   asp-controller="home" asp-action="@Model.Action" asp-route-date=" @Model.BeginDate.ToString("yyyy-MM-dd")">
+                   asp-controller="home" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
                     <span data-feather="home" class="align-text-bottom"></span>
                     <i class="bi bi-thermometer-half"></i> Temperature
                 </a>
             </li>
             <li class="nav-item">
                 <a class="@("nav-link " + (@ViewData["View"]=="rain"  ? "active" : ""))"
-                   asp-controller="rain" asp-action="@Model.Action" asp-route-date=" @Model.BeginDate.ToString("yyyy-MM-dd")">
+                   asp-controller="rain" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
                     <span data-feather="file" class="align-text-bottom"></span>
                     <i class="bi bi-cloud-rain"></i> Rain
                 </a>
             </li>
             <li class="nav-item">
                 <a class="@("nav-link " + (@ViewData["View"]=="wind"  ? "active" : ""))"
-                   asp-controller="wind" asp-action="@Model.Action" asp-route-date=" @Model.BeginDate.ToString("yyyy-MM-dd")">
+                   asp-controller="wind" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
                     <i class="bi bi-tornado"></i>
                     Wind
                 </a>
             </li>
             <li class="nav-item">
                 <a class="@("nav-link " + (@ViewData["View"]=="wind-direction"  ? "active" : ""))"
-                   asp-controller="windDirection" asp-action="@Model.Action" asp-route-date=" @Model.BeginDate.ToString("yyyy-MM-dd")">
+                   asp-controller="windDirection" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
                     <i class="bi bi-compass"></i>
                     Wind direction
                 </a>

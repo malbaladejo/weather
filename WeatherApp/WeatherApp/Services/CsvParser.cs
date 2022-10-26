@@ -34,7 +34,7 @@ namespace WeatherApp.Services
 
             return new WeatherData
             {
-                Date = DateTime.Parse(lineData[CsvColumns.Time]),
+                Date = ParseDate(lineData[CsvColumns.Time]),
                 OutHumidity = ParseInt(lineData[CsvColumns.Humi]),
                 InHumidity = ParseInt(lineData[CsvColumns.InHumi]),
                 OutTemperature = ParseDecimal(lineData[CsvColumns.Temp]),
@@ -45,13 +45,18 @@ namespace WeatherApp.Services
             };
         }
 
+        private static DateTime ParseDate(string value)
+        {
+            var cultureinfo = new CultureInfo("fr-FR");
+            return DateTime.Parse(value, cultureinfo);
+        }
+
         private static int? ParseInt(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
                 return null;
 
-            int valueInt = 0;
-            if (int.TryParse(value, out valueInt))
+            if (int.TryParse(value, out int valueInt))
             {
                 return valueInt;
             }
@@ -64,10 +69,7 @@ namespace WeatherApp.Services
             if (string.IsNullOrWhiteSpace(value))
                 return null;
 
-            value = value.Replace(".", ",");
-
-            decimal valueInt = 0;
-            if (decimal.TryParse(value, out valueInt))
+            if (decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal valueInt))
             {
                 return valueInt;
             }

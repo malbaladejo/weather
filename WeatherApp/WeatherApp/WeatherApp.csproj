@@ -6,22 +6,29 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="Data\weather-2022-07.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\weather-2022-08.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\weather-2022-09.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
 <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>$(AssemblyName).Tests</_Parameter1>
     </AssemblyAttribute>
+</ItemGroup>
+
+<ItemGroup>
+  <None Include="wwwroot\Data\weather-2022-07.csv" />
+  <None Include="wwwroot\Data\weather-2022-08.csv" />
+  <None Include="wwwroot\Data\weather-2022-09.csv" />
+  <None Include="wwwroot\Data\weather-2022-10.csv" />
+</ItemGroup>
+
+<ItemGroup>
+  <Content Update="wwwroot\Data\weather-2022-07.csv">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+  <Content Update="wwwroot\Data\weather-2022-08.csv">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+  <Content Update="wwwroot\Data\weather-2022-09.csv">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
 </ItemGroup>
 
 </Project>

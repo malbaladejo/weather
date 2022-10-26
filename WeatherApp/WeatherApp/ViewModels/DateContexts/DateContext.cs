@@ -31,7 +31,7 @@
                 case Period.Day:
                     return beginDate.ToString("dddd dd MMMM yyyy");
                 case Period.Week:
-                    return $"{beginDate.ToShortDateString()} - {endDate.ToShortDateString()}";
+                    return $"{beginDate.ToString("dd MMMM yyyy")} - {endDate.ToString("dd MMMM yyyy")}";
                 case Period.Month:
                     return beginDate.ToString("MMMM yyyy");
                 case Period.Year:
@@ -40,6 +40,7 @@
                     throw new ArgumentOutOfRangeException($"{period} not supported");
             }
         }
+
         public string GetLabel(DateTime date)
         {
             switch (this.Period)
