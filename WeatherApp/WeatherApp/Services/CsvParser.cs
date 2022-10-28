@@ -68,8 +68,9 @@ namespace WeatherApp.Services
         {
             if (string.IsNullOrWhiteSpace(value))
                 return null;
+            var culture = new CultureInfo("en-US");
 
-            if (decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal valueInt))
+            if (decimal.TryParse(value, NumberStyles.Any, culture, out decimal valueInt))
             {
                 return valueInt;
             }
