@@ -9,10 +9,12 @@
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2"> @Model.Title</h1>
-    <partial name="_HomeToolbar"/>
+    <partial name="_HomeToolbar" />
 </div>
 
-<canvas id="chart" ></canvas>
+<div class="chart-container">
+    <canvas id="chart"></canvas>
+</div>
 
 <script src="~/js/temperature.js" asp-append-version="true"></script>
 

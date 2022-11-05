@@ -51,11 +51,14 @@ namespace WeatherApp.Services
             this.data = new List<WeatherData>();
             var parser = new CsvParser();
 
-            var dataPath = Path.Combine(this.environment.WebRootPath, "Data");
+            var dataPath = Path.Combine(this.environment.WebRootPath, "data");
 
             foreach (var filePath in Directory.GetFiles(dataPath, "*.csv"))
             {
+                this.logger.LogInformation($"Parse file :{filePath}.");
                 this.data.AddRange(parser.Parse(filePath));
+                this.logger.LogInformation($"Parse file :{filePath} OK.");
+
             }
         }
     }

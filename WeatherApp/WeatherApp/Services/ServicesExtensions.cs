@@ -6,7 +6,7 @@ namespace WeatherApp.Services
     {
         public static void AddServices(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped<IWeatherService, CsvWeatherService>();
+            serviceCollection.AddSingleton<IWeatherService, CsvWeatherService>();
         }
     }
 }

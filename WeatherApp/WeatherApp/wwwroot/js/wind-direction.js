@@ -18,7 +18,7 @@
             }]
         },
         options: {
-            responsive: true,
+            maintainAspectRatio: false,
             elements: {
                 line: {
                     borderWidth: 3

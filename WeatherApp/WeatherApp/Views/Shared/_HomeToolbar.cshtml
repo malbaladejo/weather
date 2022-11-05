@@ -29,31 +29,41 @@
         }
     </div>
 
-    <div class="dropdown">
-        <a class="btn btn-sm btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-calendar2"></i>
-            @switch (Model.Period)
-            {
-                case Period.Day:
-                    <span>Day</span>
-                    break;
-                case Period.Week:
-                    <span> Week</span>
-                    break;
-                case Period.Month:
-                    <span>Month</span>
-                    break;
-                case Period.Year:
-                    <span>Year</span>
-                    break;
-            }
-        </a>
+    <div class="tb-period">
 
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="index" asp-route-date=" @Model.BeginDate.ToString("yyyy-MM-dd")">Day</a></li>
-            <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="week" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">Week</a></li>
-            <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="month" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">Month</a></li>
-            <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="year" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">Year</a></li>
-        </ul>
+        <div class="btn-group tb-large">
+            <a class="@("btn btn-sm btn-outline-secondary " + (@Model.Action=="index"  ? "active" : ""))" asp-controller="@Model.Controller" asp-action="index" asp-route-date=" @Model.BeginDate.ToString("yyyy-MM-dd")">Day</a>
+            <a class="@("btn btn-sm btn-outline-secondary " + (@Model.Action=="week"  ? "active" : ""))" asp-controller="@Model.Controller" asp-action="week" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">Week</a>
+            <a class="@("btn btn-sm btn-outline-secondary " + (@Model.Action=="month"  ? "active" : ""))" asp-controller="@Model.Controller" asp-action="month" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">Month</a>
+            <a class="@("btn btn-sm btn-outline-secondary " + (@Model.Action=="year"  ? "active" : ""))" asp-controller="@Model.Controller" asp-action="year" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">Year</a>
+        </div>
+
+        <div class="dropdown tb-small">
+            <a class="btn btn-sm btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-calendar2"></i>
+                @switch (Model.Period)
+                {
+                    case Period.Day:
+                        <span>Day</span>
+                        break;
+                    case Period.Week:
+                        <span> Week</span>
+                        break;
+                    case Period.Month:
+                        <span>Month</span>
+                        break;
+                    case Period.Year:
+                        <span>Year</span>
+                        break;
+                }
+            </a>
+
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="index" asp-route-date=" @Model.BeginDate.ToString("yyyy-MM-dd")">Day</a></li>
+                <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="week" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">Week</a></li>
+                <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="month" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">Month</a></li>
+                <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="year" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">Year</a></li>
+            </ul>
+        </div>
     </div>
 </div>

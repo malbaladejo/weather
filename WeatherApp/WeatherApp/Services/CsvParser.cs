@@ -8,8 +8,6 @@ namespace WeatherApp.Services
     {
         public IEnumerable<WeatherData> Parse(string inputFile)
         {
-            Console.WriteLine($"Parse {inputFile}.");
-
             using (var sr = new StreamReader(inputFile))
             {
                 var line = string.Empty;

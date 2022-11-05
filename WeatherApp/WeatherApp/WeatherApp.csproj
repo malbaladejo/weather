@@ -4,6 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Authors>m.albaladejo</Authors>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
 <ItemGroup>
@@ -13,20 +15,20 @@
 </ItemGroup>
 
 <ItemGroup>
-  <None Include="wwwroot\Data\weather-2022-07.csv" />
-  <None Include="wwwroot\Data\weather-2022-08.csv" />
-  <None Include="wwwroot\Data\weather-2022-09.csv" />
-  <None Include="wwwroot\Data\weather-2022-10.csv" />
+  <None Include="wwwroot\data\weather-2022-07.csv" />
+  <None Include="wwwroot\data\weather-2022-08.csv" />
+  <None Include="wwwroot\data\weather-2022-09.csv" />
+  <None Include="wwwroot\data\weather-2022-10.csv" />
 </ItemGroup>
 
 <ItemGroup>
-  <Content Update="wwwroot\Data\weather-2022-07.csv">
+  <Content Update="wwwroot\data\weather-2022-07.csv">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>
-  <Content Update="wwwroot\Data\weather-2022-08.csv">
+  <Content Update="wwwroot\data\weather-2022-08.csv">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>
-  <Content Update="wwwroot\Data\weather-2022-09.csv">
+  <Content Update="wwwroot\data\weather-2022-09.csv">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>
 </ItemGroup>
