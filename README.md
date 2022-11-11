@@ -2,9 +2,17 @@
 * ChartJS : mieux utiliser l'espace
 * Utiliser les CDN pour Bootstrap et JQuery
 
+# V1.2.0
+* Dans la vue Rain/Month les données sont groupées par semaine.
+* Text des boutons Next et Previous masqués sur les petits écrans.
+
+
 # TODO
 * Calendrier pour le choix de date
 * Traduction
 * Log
 * Himidity Controller
+* Pression Controller
 * About page
+* Favicon
+* Clic sur le graph Rain pour naviguer vers les autres periodes (année->mois, mois->semaine, ...)

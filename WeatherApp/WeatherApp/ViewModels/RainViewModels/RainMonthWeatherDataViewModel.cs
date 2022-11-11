@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using WeatherApp.Extensions;
 using WeatherApp.JsonConverters;
 using WeatherApp.Models;
 using WeatherApp.Services;
@@ -23,15 +24,17 @@ namespace WeatherApp.ViewModels.RainViewModels
 
         public override async Task InitializeAsync()
         {
-            var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate, this.dateContext.EndDate);
+            var data = await this.weatherService.GetWeatherDataAsync(
+                this.dateContext.BeginDate.FirstDayOfWeek(), 
+                this.dateContext.EndDate.LastDayOfWeek());
 
-            var filteredData = data.GroupBy(d => d.Date.Date)
-                                    .Select(d => new WeatherData
-                                    {
-                                        Date = d.Key,
-                                        Rain = d.Sum(v => v.Rain)
-                                    })
-                                    .Select(d => new RainData(d, d.Date.ToString("dd MMMM")));
+            var filteredData = data.GroupByWeek()
+                                .Select(d => new WeatherData
+                                {
+                                    Date = d.Min(i=>i.Date.Date),
+                                    Rain = d.Sum(v => v.Rain)
+                                })
+                                .Select(d => new RainData(d, d.Date.ToString("dd MMMM")));
 
             this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }

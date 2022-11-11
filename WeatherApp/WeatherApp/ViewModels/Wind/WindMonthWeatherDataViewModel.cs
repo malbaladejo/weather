@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using WeatherApp.Extensions;
 using WeatherApp.JsonConverters;
 using WeatherApp.Models;
 using WeatherApp.Services;
@@ -32,15 +33,8 @@ namespace WeatherApp.ViewModels.Wind
 
         private IEnumerable<WeatherData> GetData(IReadOnlyCollection<WeatherData> data)
         {
-            var culture = new CultureInfo("en-US");
-            var calendar = culture.Calendar;
-
-            // Gets the DTFI properties required by GetWeekOfYear.
-            var calendarRule = culture.DateTimeFormat.CalendarWeekRule;
-            var firstDayOfWeek = culture.DateTimeFormat.FirstDayOfWeek;
-
             foreach (var day in data.Where(d => d.Wind.HasValue)
-                            .GroupBy(d => calendar.GetWeekOfYear(d.Date, calendarRule, firstDayOfWeek)))
+                            .GroupByWeek())
             {
                 var min = day.FirstOrDefault(d1 => d1.Wind == day.Min(d2 => d2.Wind));
                 var max = day.FirstOrDefault(d1 => d1.Wind == day.Max(d2 => d2.Wind));

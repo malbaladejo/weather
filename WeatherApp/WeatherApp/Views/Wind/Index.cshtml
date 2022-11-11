@@ -18,8 +18,7 @@
 
 <script>
     const data = @Html.Raw(Model.JsonData);
-
-    window.onload = (event) => {
+    window.addEventListener('load', (event) => {
         buildWindChart(data);
-    };
+    });
 </script>

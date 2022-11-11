@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using WeatherApp.Models;
 
 namespace WeatherApp.Extensions
 {
@@ -30,5 +31,17 @@ namespace WeatherApp.Extensions
 
         public static DateTime LastDayOfMonth(this DateTime date)=>
             new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month)).EndOfDay();
+
+        public static IEnumerable<IGrouping<int, WeatherData>> GroupByWeek(this IEnumerable<WeatherData> data)
+        {
+            var culture = CultureInfo.CurrentUICulture;
+            var calendar = culture.Calendar;
+
+            // Gets the DTFI properties required by GetWeekOfYear.
+            var calendarRule = culture.DateTimeFormat.CalendarWeekRule;
+            var firstDayOfWeek = culture.DateTimeFormat.FirstDayOfWeek;
+
+            return data.GroupBy(d => calendar.GetWeekOfYear(d.Date, calendarRule, firstDayOfWeek));
+        }
     }
 }

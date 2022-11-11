@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using WeatherApp.Extensions;
 using WeatherApp.JsonConverters;
 using WeatherApp.Models;
 using WeatherApp.Services;
@@ -31,17 +32,10 @@ namespace WeatherApp.ViewModels.Temperature
         }
 
         private IEnumerable<WeatherData> GetData(IReadOnlyCollection<WeatherData> data)
-        {
-            var culture = new CultureInfo("en-US");
-            var calendar = culture.Calendar;
-
-            // Gets the DTFI properties required by GetWeekOfYear.
-            var calendarRule = culture.DateTimeFormat.CalendarWeekRule;
-            var firstDayOfWeek = culture.DateTimeFormat.FirstDayOfWeek;
-
+        {          
             foreach (var week in data.Where(d => d.InTemperature.HasValue)
                             .Where(d => d.OutTemperature.HasValue)
-                            .GroupBy(d => calendar.GetWeekOfYear(d.Date, calendarRule, firstDayOfWeek)))
+                            .GroupByWeek())
             {
                 var min = week.FirstOrDefault(d1 => d1.OutTemperature == week.Min(d2 => d2.OutTemperature));
                 var max = week.FirstOrDefault(d1 => d1.OutTemperature == week.Max(d2 => d2.OutTemperature));
