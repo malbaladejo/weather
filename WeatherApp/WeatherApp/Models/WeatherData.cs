@@ -20,6 +20,10 @@ namespace WeatherApp.Models
 
         public decimal? Wind { get; set; }
 
+        public decimal? RelativePressure { get; set; }
+
+        public decimal? AbsolutePressure { get; set; }
+
         public string? WindDirection { get; set; }
     }
 }

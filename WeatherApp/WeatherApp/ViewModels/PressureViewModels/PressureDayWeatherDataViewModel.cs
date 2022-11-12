@@ -4,12 +4,12 @@ using WeatherApp.ViewModels.DateContexts;
 
 namespace WeatherApp.ViewModels
 {
-    internal class TemperatureDayWeatherDataViewModel : WeatherDataViewModelBase
+    internal class PressureDayWeatherDataViewModel : WeatherDataViewModelBase
     {
         private readonly DateContext dateContext;
         private readonly IWeatherService weatherService;
 
-        public TemperatureDayWeatherDataViewModel(ControllerActionContext controllerContext, DateContext dateContext, IWeatherService weatherService)
+        public PressureDayWeatherDataViewModel(ControllerActionContext controllerContext, DateContext dateContext, IWeatherService weatherService)
             : base(controllerContext, dateContext, weatherService)
         {
             this.dateContext = dateContext;
@@ -22,9 +22,9 @@ namespace WeatherApp.ViewModels
         {
             var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate);
             var filteredData = data
-                .Where(d => d.InTemperature.HasValue)
-                .Where(d => d.OutTemperature.HasValue)
-                .Select(d => new TemperatureDayData(d));
+                .Where(d => d.RelativePressure.HasValue)
+                .Where(d => d.AbsolutePressure.HasValue)
+                .Select(d => new PressureDayData(d));
             this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }
     }

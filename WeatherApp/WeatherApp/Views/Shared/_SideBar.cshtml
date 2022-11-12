@@ -22,7 +22,7 @@
             <li class="nav-item">
                 <a class="@("nav-link " + (@ViewData["View"]=="wind"  ? "active" : ""))"
                    asp-controller="wind" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
-                    <i class="bi bi-tornado"></i>
+                    <i class="bi bi-wind"></i>
                     Wind
                 </a>
             </li>
@@ -31,6 +31,20 @@
                    asp-controller="windDirection" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
                     <i class="bi bi-compass"></i>
                     Wind direction
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="@("nav-link " + (@ViewData["View"]=="humidity"  ? "active" : ""))"
+                   asp-controller="humidity" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
+                    <i class="bi bi-droplet"></i>
+                    Humidity
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="@("nav-link " + (@ViewData["View"]=="pressure"  ? "active" : ""))"
+                   asp-controller="pressure" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
+                    <i class="bi bi-speedometer2"></i>
+                    Pressure
                 </a>
             </li>
         </ul>

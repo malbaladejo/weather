@@ -1,6 +1,6 @@
 ﻿using WeatherApp.Models;
 
-namespace WeatherApp.ViewModels.Temperature
+namespace WeatherApp.ViewModels
 {
     public class TemperatureDayData
     {

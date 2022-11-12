@@ -1,12 +1,10 @@
-﻿using System.Globalization;
-using WeatherApp.Extensions;
+﻿using WeatherApp.Extensions;
 using WeatherApp.JsonConverters;
 using WeatherApp.Models;
 using WeatherApp.Services;
 using WeatherApp.ViewModels.DateContexts;
-using WeatherApp.ViewModels.Temperature;
 
-namespace WeatherApp.ViewModels.RainViewModels
+namespace WeatherApp.ViewModels
 {
     internal class RainMonthWeatherDataViewModel : WeatherDataViewModelBase
     {

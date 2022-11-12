@@ -1,0 +1,28 @@
+﻿@using WeatherApp.Controllers
+@model WeatherApp.ViewModels.IWeatherDataViewModel
+@{
+    ViewData["Title"] = "Humidity";
+    ViewData["View"] = "humidity";
+}
+
+<partial name="_Header" />
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2"> @Model.Title</h1>
+    <partial name="_HomeToolbar" />
+</div>
+
+<div class="chart-container">
+    <canvas id="chart"></canvas>
+</div>
+
+<script src="~/js/humidity.js" asp-append-version="true"></script>
+
+<script>
+    const data = @Html.Raw(Model.JsonData);
+
+    window.addEventListener('load', (event) => {
+        buildHumidityChart(data);
+    });
+
+</script>

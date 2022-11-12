@@ -2,7 +2,7 @@
 using WeatherApp.Services;
 using WeatherApp.ViewModels.DateContexts;
 
-namespace WeatherApp.ViewModels.Wind
+namespace WeatherApp.ViewModels
 {
     internal class WindDayWeatherDataViewModel : WeatherDataViewModelBase
     {

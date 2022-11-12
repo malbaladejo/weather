@@ -2,11 +2,11 @@
 
 namespace WeatherApp.ViewModels
 {
-    public class RainData
+    public class HumidityData
     {
         private readonly WeatherData data;
 
-        public RainData(WeatherData data, string label)
+        public HumidityData(WeatherData data, string label)
         {
             this.data = data;
             this.Label = label;
@@ -14,7 +14,9 @@ namespace WeatherApp.ViewModels
 
         private DateTime Date => this.data.Date;
 
-        public decimal? Rain => this.data.Rain;
+        public decimal? InHumidity => this.data.InHumidity;
+
+        public decimal? OutHumidity => this.data.OutHumidity;
 
         public string Label { get; }
     }

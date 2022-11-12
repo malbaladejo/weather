@@ -1,6 +1,6 @@
 ﻿using WeatherApp.Models;
 
-namespace WeatherApp.ViewModels.Wind
+namespace WeatherApp.ViewModels
 {
     public class WindDayData
     {

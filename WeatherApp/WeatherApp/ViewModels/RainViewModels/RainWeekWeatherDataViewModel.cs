@@ -5,7 +5,7 @@ using WeatherApp.Models;
 using WeatherApp.Services;
 using WeatherApp.ViewModels.DateContexts;
 
-namespace WeatherApp.ViewModels.RainViewModels
+namespace WeatherApp.ViewModels
 {
     internal class RainWeekWeatherDataViewModel : WeatherDataViewModelBase
     {

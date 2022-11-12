@@ -2,11 +2,11 @@
 
 namespace WeatherApp.ViewModels
 {
-    public class RainData
+    public class PressureData
     {
         private readonly WeatherData data;
 
-        public RainData(WeatherData data, string label)
+        public PressureData(WeatherData data, string label)
         {
             this.data = data;
             this.Label = label;
@@ -14,7 +14,9 @@ namespace WeatherApp.ViewModels
 
         private DateTime Date => this.data.Date;
 
-        public decimal? Rain => this.data.Rain;
+        public decimal? RelativePressure => this.data.RelativePressure;
+
+        public decimal? AbsolutePressure => this.data.AbsolutePressure;
 
         public string Label { get; }
     }

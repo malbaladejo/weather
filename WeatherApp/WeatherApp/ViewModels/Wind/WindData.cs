@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using WeatherApp.Models;
 
-namespace WeatherApp.ViewModels.Wind
+namespace WeatherApp.ViewModels
 {
     [DebuggerDisplay("{Date} - Wind: {Wind}")]
     public class WindData

@@ -2,9 +2,8 @@
 using WeatherApp.Models;
 using WeatherApp.Services;
 using WeatherApp.ViewModels.DateContexts;
-using WeatherApp.ViewModels.Temperature;
 
-namespace WeatherApp.ViewModels.TemperatureViewModels
+namespace WeatherApp.ViewModels
 {
     internal class TemperatureYearWeatherDataViewModel : WeatherDataViewModelBase
     {

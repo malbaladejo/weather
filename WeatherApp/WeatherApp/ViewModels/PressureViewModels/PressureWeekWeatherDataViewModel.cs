@@ -6,12 +6,12 @@ using WeatherApp.ViewModels.DateContexts;
 
 namespace WeatherApp.ViewModels
 {
-    internal class TemperatureWeekWeatherDataViewModel : WeatherDataViewModelBase
+    internal class PressureWeekWeatherDataViewModel : WeatherDataViewModelBase
     {
         private readonly DateContext dateContext;
         private readonly IWeatherService weatherService;
 
-        public TemperatureWeekWeatherDataViewModel(ControllerActionContext controllerContext, DateContext dateContext, IWeatherService weatherService)
+        public PressureWeekWeatherDataViewModel(ControllerActionContext controllerContext, DateContext dateContext, IWeatherService weatherService)
             : base(controllerContext, dateContext, weatherService)
         {
             this.dateContext = dateContext;
@@ -25,19 +25,19 @@ namespace WeatherApp.ViewModels
             var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate, this.dateContext.EndDate);
             var filteredData = GetData(data)
                     .OrderBy(d => d.Date)
-                    .Select(d => new TemperatureData(d, this.dateContext.GetLabel(d.Date)));
+                    .Select(d => new PressureData(d, this.dateContext.GetLabel(d.Date)));
 
             this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }
 
         private IEnumerable<WeatherData> GetData(IReadOnlyCollection<WeatherData> data)
         {
-            foreach (var day in data.Where(d => d.InTemperature.HasValue)
-                            .Where(d => d.OutTemperature.HasValue)
+            foreach (var day in data.Where(d => d.RelativePressure.HasValue)
+                            .Where(d => d.AbsolutePressure.HasValue)
                             .GroupBy(d => d.Date.Date))
             {
-                var min = day.FirstOrDefault(d1 => d1.OutTemperature == day.Min(d2 => d2.OutTemperature));
-                var max = day.FirstOrDefault(d1 => d1.OutTemperature == day.Max(d2 => d2.OutTemperature));
+                var min = day.FirstOrDefault(d1 => d1.AbsolutePressure == day.Min(d2 => d2.AbsolutePressure));
+                var max = day.FirstOrDefault(d1 => d1.AbsolutePressure == day.Max(d2 => d2.AbsolutePressure));
 
                 yield return min;
                 yield return max;

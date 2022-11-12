@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using WeatherApp.Models;
 
-namespace WeatherApp.ViewModels.Temperature
+namespace WeatherApp.ViewModels
 {
     [DebuggerDisplay("{Date} - In: {InTemperature} - Out: {OutTemperature}")]
     public class TemperatureData

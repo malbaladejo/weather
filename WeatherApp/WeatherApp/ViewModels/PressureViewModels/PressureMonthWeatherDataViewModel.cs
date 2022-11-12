@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Globalization;
+using WeatherApp.Extensions;
 using WeatherApp.JsonConverters;
 using WeatherApp.Models;
 using WeatherApp.Services;
@@ -6,12 +7,12 @@ using WeatherApp.ViewModels.DateContexts;
 
 namespace WeatherApp.ViewModels
 {
-    internal class TemperatureWeekWeatherDataViewModel : WeatherDataViewModelBase
+    internal class PressureMonthWeatherDataViewModel : WeatherDataViewModelBase
     {
         private readonly DateContext dateContext;
         private readonly IWeatherService weatherService;
 
-        public TemperatureWeekWeatherDataViewModel(ControllerActionContext controllerContext, DateContext dateContext, IWeatherService weatherService)
+        public PressureMonthWeatherDataViewModel(ControllerActionContext controllerContext, DateContext dateContext, IWeatherService weatherService)
             : base(controllerContext, dateContext, weatherService)
         {
             this.dateContext = dateContext;
@@ -24,26 +25,27 @@ namespace WeatherApp.ViewModels
         {
             var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate, this.dateContext.EndDate);
             var filteredData = GetData(data)
+                    .Where(d => d != null)
                     .OrderBy(d => d.Date)
-                    .Select(d => new TemperatureData(d, this.dateContext.GetLabel(d.Date)));
+                    .Select(d => new PressureData(d, this.dateContext.GetLabel(d.Date)));
 
             this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }
 
         private IEnumerable<WeatherData> GetData(IReadOnlyCollection<WeatherData> data)
         {
-            foreach (var day in data.Where(d => d.InTemperature.HasValue)
-                            .Where(d => d.OutTemperature.HasValue)
-                            .GroupBy(d => d.Date.Date))
+            foreach (var week in data.Where(d => d.RelativePressure.HasValue)
+                            .Where(d => d.AbsolutePressure.HasValue)
+                            .GroupByWeek())
             {
-                var min = day.FirstOrDefault(d1 => d1.OutTemperature == day.Min(d2 => d2.OutTemperature));
-                var max = day.FirstOrDefault(d1 => d1.OutTemperature == day.Max(d2 => d2.OutTemperature));
+                var min = week.FirstOrDefault(d1 => d1.AbsolutePressure == week.Min(d2 => d2.AbsolutePressure));
+                var max = week.FirstOrDefault(d1 => d1.AbsolutePressure == week.Max(d2 => d2.AbsolutePressure));
 
                 yield return min;
                 yield return max;
 
-                var sampleData = day.Select((d, i) => new { Index = i, Data = d })
-                 .Where(d => d.Index % 7 == 0)
+                var sampleData = week.Select((d, i) => new { Index = i, Data = d })
+                 .Where(d => d.Index % 80 == 0)
                  .Where(d => d.Data != min)
                  .Where(d => d.Data != max)
                  .Select(d => d.Data);

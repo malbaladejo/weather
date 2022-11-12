@@ -8,5 +8,7 @@ namespace WeatherApp.ViewModels
         public const string Rain = "rain";
         public const string Wind = "wind";
         public const string WinDirection = "windDirection";
-    }    
+        public const string Humidity = "humidity";
+        public const string Pressure = "pressure";
+    }
 }

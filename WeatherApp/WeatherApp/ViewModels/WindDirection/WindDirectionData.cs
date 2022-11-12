@@ -1,4 +1,4 @@
-﻿namespace WeatherApp.ViewModels.RainViewModels
+﻿namespace WeatherApp.ViewModels
 {
     public class WindDirectionData
     {

@@ -1,9 +1,5 @@
 ﻿using WeatherApp.Services;
 using WeatherApp.ViewModels.DateContexts;
-using WeatherApp.ViewModels.RainViewModels;
-using WeatherApp.ViewModels.Temperature;
-using WeatherApp.ViewModels.TemperatureViewModels;
-using WeatherApp.ViewModels.Wind;
 
 namespace WeatherApp.ViewModels
 {
@@ -42,10 +38,32 @@ namespace WeatherApp.ViewModels
                     return CreateWindDirectionViewModel(controllerContext, dateContext);
                 case ControllerNames.Wind:
                     return CreateWindViewModel(controllerContext, dateContext);
+                case ControllerNames.Humidity:
+                    return CreateHumidityViewModel(controllerContext, dateContext);
+                case ControllerNames.Pressure:
+                    return CreatePressureViewModel(controllerContext, dateContext);
                 default:
                     throw new ArgumentOutOfRangeException($"Controller {controllerContext.Controller} not supported.");
             }
         }
+
+        private IWeatherDataViewModel CreatePressureViewModel(ControllerActionContext controllerContext, DateContext dateContext)
+        {
+            switch (controllerContext.Action)
+            {
+                case ActionNames.Day:
+                    return new PressureDayWeatherDataViewModel(controllerContext, dateContext, this.weatherService);
+                case ActionNames.Week:
+                    return new PressureWeekWeatherDataViewModel(controllerContext, dateContext, this.weatherService);
+                case ActionNames.Month:
+                    return new PressureMonthWeatherDataViewModel(controllerContext, dateContext, this.weatherService);
+                case ActionNames.Year:
+                    return new PressureYearWeatherDataViewModel(controllerContext, dateContext, this.weatherService);
+                default:
+                    throw new ArgumentOutOfRangeException($"Action {controllerContext.Controller}.{controllerContext.Action} not supported.");
+            }
+        }
+
 
         private IWeatherDataViewModel CreateTemperatureViewModel(ControllerActionContext controllerContext, DateContext dateContext)
         {
@@ -59,6 +77,23 @@ namespace WeatherApp.ViewModels
                     return new TemperatureMonthWeatherDataViewModel(controllerContext, dateContext, this.weatherService);
                 case ActionNames.Year:
                     return new TemperatureYearWeatherDataViewModel(controllerContext, dateContext, this.weatherService);
+                default:
+                    throw new ArgumentOutOfRangeException($"Action {controllerContext.Controller}.{controllerContext.Action} not supported.");
+            }
+        }
+
+        private IWeatherDataViewModel CreateHumidityViewModel(ControllerActionContext controllerContext, DateContext dateContext)
+        {
+            switch (controllerContext.Action)
+            {
+                case ActionNames.Day:
+                    return new HumidityDayWeatherDataViewModel(controllerContext, dateContext, this.weatherService);
+                case ActionNames.Week:
+                    return new HumidityWeekWeatherDataViewModel(controllerContext, dateContext, this.weatherService);
+                case ActionNames.Month:
+                    return new HumidityMonthWeatherDataViewModel(controllerContext, dateContext, this.weatherService);
+                case ActionNames.Year:
+                    return new HumidityYearWeatherDataViewModel(controllerContext, dateContext, this.weatherService);
                 default:
                     throw new ArgumentOutOfRangeException($"Action {controllerContext.Controller}.{controllerContext.Action} not supported.");
             }
