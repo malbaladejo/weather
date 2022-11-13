@@ -1,4 +1,8 @@
-﻿function buildPressureChart(data) {
+﻿window.addEventListener('load', () => {
+    buildPressureChart(data);
+});
+
+function buildPressureChart(data) {
     const chartCtx = document.getElementById('chart').getContext('2d');
 
     const chart = new Chart(chartCtx, {

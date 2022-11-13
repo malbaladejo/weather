@@ -1,7 +1,11 @@
-﻿function buildTemperatureChart(data) {
+﻿window.addEventListener('load', () => {
+    buildTemperatureChart(data);
+});
+
+function buildTemperatureChart(data) {
     const chartCtx = document.getElementById('chart').getContext('2d');
 
-    const chart = new Chart(chartCtx, {
+    new Chart(chartCtx, {
         data: {
             labels: data.map(x => x.label),
             datasets: buildTemperatureDatasets(data)

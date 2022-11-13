@@ -1,4 +1,8 @@
-﻿function buildWinDirectionChart(data) {
+﻿window.addEventListener('load', () => {
+    buildWinDirectionChart(data);
+});
+
+function buildWinDirectionChart(data) {
     const chartCtx = document.getElementById('chart').getContext('2d');
 
     const chart = new Chart(chartCtx, {

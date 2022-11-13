@@ -1,4 +1,8 @@
-﻿function buildHumidityChart(data) {
+﻿window.addEventListener('load', () => {
+    buildHumidityChart(data);
+});
+
+function buildHumidityChart(data) {
     const chartCtx = document.getElementById('chart').getContext('2d');
 
     const chart = new Chart(chartCtx, {

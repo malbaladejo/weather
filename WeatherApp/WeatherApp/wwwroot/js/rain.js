@@ -1,4 +1,8 @@
-﻿function buildRainChart(data) {
+﻿window.addEventListener('load', () => {
+    buildRainChart(data);
+});
+
+function buildRainChart(data) {
     const chartCtx = document.getElementById('chart').getContext('2d');
 
     const chart = new Chart(chartCtx, {

@@ -29,7 +29,7 @@
         }
     </div>
 
-    @*<div class="dropdown me-2">
+    <div class="dropdown me-2">
         <a class="btn btn-sm btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-calendar3"></i>
         </a>
@@ -39,13 +39,10 @@
         </div>
 
     </div>
+    <script src="~/js/date-picker.js" asp-append-version="true"></script>
     <script>
-        window.addEventListener('load', (event) => {
-            $(function () {
-                $("#datepicker").datepicker();
-            });
-        });
-    </script>*@
+        buildDatePicker('@Model.Controller', '@Model.Action', '@Model.BeginDate.ToString("MM/dd/yyyy")');
+    </script>
 
     <div class="tb-period">
 

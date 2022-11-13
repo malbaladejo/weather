@@ -9,9 +9,10 @@
 # V1.3.0
 * Affichage de l'himidité
 * Affichage de la pression atmospherique
+* Calendrier pour le choix de date
 
 # TODO
-* Calendrier pour le choix de date
+* Calendrier pour le choix de date : min et max date
 * Traduction
 * Log
 * About page

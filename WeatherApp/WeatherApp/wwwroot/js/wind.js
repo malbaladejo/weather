@@ -1,4 +1,8 @@
-﻿function buildWindChart(data) {
+﻿window.addEventListener('load', () => {
+    buildWindChart(data);
+});
+
+function buildWindChart(data) {
     const chartCtx = document.getElementById('chart').getContext('2d');
 
     const chart = new Chart(chartCtx, {
