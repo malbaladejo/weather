@@ -133,8 +133,6 @@ body {
 .navbar-brand {
     padding-top: .75rem;
     padding-bottom: .75rem;
-    /* background-color: #23A3FF;
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);*/
 }
 
 .navbar .navbar-toggler {
@@ -162,4 +160,8 @@ body {
     margin: auto;
     height: 65vh;
     width: 80vw;
+}
+
+#sidebarMenu{
+    margin-top:20px;
 }

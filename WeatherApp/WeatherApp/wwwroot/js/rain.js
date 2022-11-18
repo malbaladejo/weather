@@ -10,7 +10,7 @@ function buildRainChart(data) {
         data: {
             labels: data.map(x => x.label),
             datasets: [{
-                label: 'mm rain',
+                label: rainLabel,
                 data: data.map(x => x.rain),
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.2)'

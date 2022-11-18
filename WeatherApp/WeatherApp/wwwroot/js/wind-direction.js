@@ -8,9 +8,9 @@ function buildWinDirectionChart(data) {
     const chart = new Chart(chartCtx, {
         type: 'radar',
         data: {
-            labels: data.map(x => x.direction),
+            labels: data.map(x => directions[x.direction]),
             datasets: [{
-                label: 'wind directions',
+                label: windDirectionLabel,
                 data: data.map(x => x.value),
                 fill: true,
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',

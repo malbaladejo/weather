@@ -1,4 +1,6 @@
 ﻿@using WeatherApp.Controllers
+@using WeatherApp.Translations
+@inject ITranslationService translationService
 @model WeatherApp.ViewModels.IWeatherDataViewModel
 @{
     ViewData["Title"] = "Wind direction";
@@ -18,4 +20,16 @@
 
 <script>
     const data = @Html.Raw(Model.JsonData);
+
+    const directions = [];
+    directions["N"] = '@Html.Raw(translationService.Translate(TranslationKeys.Wind_Direction_N))';
+    directions["NE"] = '@Html.Raw(translationService.Translate(TranslationKeys.Wind_Direction_NE))';
+    directions["E"] = '@Html.Raw(translationService.Translate(TranslationKeys.Wind_Direction_E))';
+    directions["SE"] = '@Html.Raw(translationService.Translate(TranslationKeys.Wind_Direction_SE))';
+    directions["S"] = '@Html.Raw(translationService.Translate(TranslationKeys.Wind_Direction_S))';
+    directions["SW"] = '@Html.Raw(translationService.Translate(TranslationKeys.Wind_Direction_SW))';
+    directions["W"] = '@Html.Raw(translationService.Translate(TranslationKeys.Wind_Direction_W))';
+    directions["NW"] = '@Html.Raw(translationService.Translate(TranslationKeys.Wind_Direction_NW))';
+
+    const windDirectionLabel = '@Html.Raw(translationService.Translate(TranslationKeys.Wind_Direction))';
 </script>

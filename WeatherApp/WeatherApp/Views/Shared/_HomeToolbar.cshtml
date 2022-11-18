@@ -1,30 +1,32 @@
 ﻿@using WeatherApp.ViewModels
+@using WeatherApp.Translations
+@inject ITranslationService translationService
 @model WeatherApp.ViewModels.IWeatherDataViewModel
 
 <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group me-2">
         @if (Model.PreviousDate.HasValue)
         {
-            <a class="btn btn-sm btn-outline-secondary btn-prev-next-width" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-date="@Model.PreviousDate.Value.ToString("yyyy-MM-dd")">
-                <i class="bi bi-rewind"></i>  <span class="tb-large">Previous</span>
+            <a class="btn btn-sm btn-outline-secondary btn-prev-next-width" culture asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-date="@Model.PreviousDate.Value.ToString("yyyy-MM-dd")">
+                <i class="bi bi-rewind"></i>  <span class="tb-large">@translationService.Translate(TranslationKeys.Previous)</span>
             </a>
         }
         else
         {
             <button class="btn btn-sm btn-outline-secondary btn-prev-next-width" disabled>
-                <i class="bi bi-rewind"></i> <span class="tb-large">Previous</span>
+                <i class="bi bi-rewind"></i> <span class="tb-large">@translationService.Translate(TranslationKeys.Previous)</span>
             </button>
         }
         @if (Model.NextDate.HasValue)
         {
             <a class="btn btn-sm btn-outline-secondary btn-prev-next-width" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-date="@Model.NextDate.Value.ToString("yyyy-MM-dd")">
-                <i class="bi bi-fast-forward"></i> <span class="tb-large">Next</span>
+                <i class="bi bi-fast-forward"></i> <span class="tb-large">@translationService.Translate(TranslationKeys.Next)</span>
             </a>
         }
         else
         {
             <button class="btn btn-sm btn-outline-secondary btn-prev-next-width" disabled>
-                <i class="bi bi-fast-forward"></i> <span class="tb-large">Next</span>
+                <i class="bi bi-fast-forward"></i> <span class="tb-large">@translationService.Translate(TranslationKeys.Next)</span>
             </button>
         }
     </div>
@@ -47,10 +49,10 @@
     <div class="tb-period">
 
         <div class="btn-group tb-large">
-            <a class="@("btn btn-sm btn-outline-secondary " + (@Model.Action=="index"  ? "active" : ""))" asp-controller="@Model.Controller" asp-action="index" asp-route-date=" @Model.BeginDate.ToString("yyyy-MM-dd")">Day</a>
-            <a class="@("btn btn-sm btn-outline-secondary " + (@Model.Action=="week"  ? "active" : ""))" asp-controller="@Model.Controller" asp-action="week" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">Week</a>
-            <a class="@("btn btn-sm btn-outline-secondary " + (@Model.Action=="month"  ? "active" : ""))" asp-controller="@Model.Controller" asp-action="month" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">Month</a>
-            <a class="@("btn btn-sm btn-outline-secondary " + (@Model.Action=="year"  ? "active" : ""))" asp-controller="@Model.Controller" asp-action="year" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">Year</a>
+            <a class="@("btn btn-sm btn-outline-secondary " + (@Model.Action=="index"  ? "active" : ""))" asp-controller="@Model.Controller" asp-action="index" asp-route-date=" @Model.BeginDate.ToString("yyyy-MM-dd")">@translationService.Translate(TranslationKeys.Day)</a>
+            <a class="@("btn btn-sm btn-outline-secondary " + (@Model.Action=="week"  ? "active" : ""))" asp-controller="@Model.Controller" asp-action="week" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">@translationService.Translate(TranslationKeys.Week)</a>
+            <a class="@("btn btn-sm btn-outline-secondary " + (@Model.Action=="month"  ? "active" : ""))" asp-controller="@Model.Controller" asp-action="month" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">@translationService.Translate(TranslationKeys.Month)</a>
+            <a class="@("btn btn-sm btn-outline-secondary " + (@Model.Action=="year"  ? "active" : ""))" asp-controller="@Model.Controller" asp-action="year" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">@translationService.Translate(TranslationKeys.Year)</a>
         </div>
 
         <div class="dropdown tb-small">
@@ -59,25 +61,25 @@
                 @switch (Model.Period)
                 {
                     case Period.Day:
-                        <span>Day</span>
+                        <span>@translationService.Translate(TranslationKeys.Day)</span>
                         break;
                     case Period.Week:
-                        <span> Week</span>
+                        <span>@translationService.Translate(TranslationKeys.Week)</span>
                         break;
                     case Period.Month:
-                        <span>Month</span>
+                        <span>@translationService.Translate(TranslationKeys.Month)</span>
                         break;
                     case Period.Year:
-                        <span>Year</span>
+                        <span>@translationService.Translate(TranslationKeys.Year)</span>
                         break;
                 }
             </a>
 
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="index" asp-route-date=" @Model.BeginDate.ToString("yyyy-MM-dd")">Day</a></li>
-                <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="week" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">Week</a></li>
-                <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="month" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">Month</a></li>
-                <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="year" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">Year</a></li>
+                <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="index" asp-route-date=" @Model.BeginDate.ToString("yyyy-MM-dd")">@translationService.Translate(TranslationKeys.Day)</a></li>
+                <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="week" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">@translationService.Translate(TranslationKeys.Week)</a></li>
+                <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="month" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">@translationService.Translate(TranslationKeys.Month)</a></li>
+                <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="year" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">@translationService.Translate(TranslationKeys.Year)</a></li>
             </ul>
         </div>
     </div>

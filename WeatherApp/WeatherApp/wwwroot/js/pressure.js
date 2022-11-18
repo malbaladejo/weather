@@ -25,7 +25,7 @@ function buildPressureChartDatasets(data) {
 
     return [{
         type: 'line',
-        label: 'pressure',
+        label: pressureLabel,
         data: data.map(x => x.relativePressure),
         backgroundColor: [
             'rgba(255, 99, 132, 0.2)'
@@ -34,17 +34,5 @@ function buildPressureChartDatasets(data) {
             'rgba(255, 99, 132, 1)'
         ],
         borderWidth: 1
-    }/*,
-    {
-        type: 'line',
-        label: '% hum out',
-        data: data.map(x => x.outHumidity),
-        backgroundColor: [
-            'rgba(255, 206, 86, 0.2)'
-        ],
-        borderColor: [
-            'rgba(255, 206, 86, 1)'
-        ],
-        borderWidth: 1
-    }*/];
+    }];
 }

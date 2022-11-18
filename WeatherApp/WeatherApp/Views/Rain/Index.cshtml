@@ -1,4 +1,6 @@
 ﻿@using WeatherApp.Controllers
+@using WeatherApp.Translations
+@inject ITranslationService translationService
 @model WeatherApp.ViewModels.IWeatherDataViewModel
 @{
     ViewData["Title"] = "Rain";
@@ -18,4 +20,5 @@
 
 <script>
     const data = @Html.Raw(Model.JsonData);
+    const rainLabel = '@Html.Raw(translationService.Translate(TranslationKeys.Rain_Graph_Rain))';
 </script>

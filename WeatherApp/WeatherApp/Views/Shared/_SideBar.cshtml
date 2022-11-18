@@ -1,4 +1,6 @@
 ﻿@using WeatherApp.ViewModels
+@using WeatherApp.Translations
+@inject ITranslationService translationService
 @model WeatherApp.ViewModels.IWeatherDataViewModel
 
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
@@ -9,44 +11,42 @@
                 <a class="@("nav-link " + (@ViewData["View"]=="temperature"  ? "active" : "")) aria-current="page"
                    asp-controller="home" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
                     <span data-feather="home" class="align-text-bottom"></span>
-                    <i class="bi bi-thermometer-half"></i> Temperature
+                    <i class="bi bi-thermometer-half"></i> @translationService.Translate(TranslationKeys.Temperature)
                 </a>
             </li>
             <li class="nav-item">
                 <a class="@("nav-link " + (@ViewData["View"]=="rain"  ? "active" : ""))"
                    asp-controller="rain" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
                     <span data-feather="file" class="align-text-bottom"></span>
-                    <i class="bi bi-cloud-rain"></i> Rain
+                    <i class="bi bi-cloud-rain"></i> @translationService.Translate(TranslationKeys.Precipitation)
                 </a>
             </li>
             <li class="nav-item">
                 <a class="@("nav-link " + (@ViewData["View"]=="wind"  ? "active" : ""))"
                    asp-controller="wind" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
-                    <i class="bi bi-wind"></i>
-                    Wind
+                    <i class="bi bi-wind"></i> @translationService.Translate(TranslationKeys.Wind)
                 </a>
             </li>
             <li class="nav-item">
                 <a class="@("nav-link " + (@ViewData["View"]=="wind-direction"  ? "active" : ""))"
                    asp-controller="windDirection" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
-                    <i class="bi bi-compass"></i>
-                    Wind direction
+                    <i class="bi bi-compass"></i> @translationService.Translate(TranslationKeys.Wind_Direction)
                 </a>
             </li>
             <li class="nav-item">
                 <a class="@("nav-link " + (@ViewData["View"]=="humidity"  ? "active" : ""))"
                    asp-controller="humidity" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
-                    <i class="bi bi-droplet"></i>
-                    Humidity
+                    <i class="bi bi-droplet"></i> @translationService.Translate(TranslationKeys.Humidity)
                 </a>
             </li>
             <li class="nav-item">
                 <a class="@("nav-link " + (@ViewData["View"]=="pressure"  ? "active" : ""))"
                    asp-controller="pressure" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
-                    <i class="bi bi-speedometer2"></i>
-                    Pressure
+                    <i class="bi bi-speedometer2"></i> @translationService.Translate(TranslationKeys.Pressure)
                 </a>
             </li>
         </ul>
+        <hr />
+        <span class="nav-link px-3">v1.4.0</span>
     </div>
 </nav>

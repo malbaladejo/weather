@@ -25,7 +25,7 @@ function buildHumidityChartDatasets(data) {
 
     return [{
         type: 'line',
-        label: '% hum in ',
+        label: inLabel,
         data: data.map(x => x.inHumidity),
         backgroundColor: [
             'rgba(255, 99, 132, 0.2)'
@@ -37,7 +37,7 @@ function buildHumidityChartDatasets(data) {
     },
     {
         type: 'line',
-        label: '% hum out',
+        label: outLabel,
         data: data.map(x => x.outHumidity),
         backgroundColor: [
             'rgba(255, 206, 86, 0.2)'

@@ -28,11 +28,27 @@ function buildDatePickerUrl(controler, action, date) {
     const year = 2;
     const month = 0;
     const day = 1;
-    return '/' + controler + '/' + action + '/?date=' + dateArray[year] + '-' + dateArray[month] + '-' + dateArray[day];
+    const culture = getParameterByName('culture');
+    let url = '/' + controler + '/' + action + '/?date=' + dateArray[year] + '-' + dateArray[month] + '-' + dateArray[day];
+
+    if (culture) {
+        url = url + "&culture=" + culture;
+    }
+
+    return url;
 }
 
 function stopClickPropagationOnDatePicker() {
     $(".ui-datepicker").on("click", function (e) { 
         e.stopPropagation();
     });
+}
+
+function getParameterByName(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }

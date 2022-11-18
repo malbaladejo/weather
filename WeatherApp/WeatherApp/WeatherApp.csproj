@@ -15,22 +15,11 @@
 </ItemGroup>
 
 <ItemGroup>
-  <None Include="wwwroot\data\weather-2022-07.csv" />
-  <None Include="wwwroot\data\weather-2022-08.csv" />
-  <None Include="wwwroot\data\weather-2022-09.csv" />
   <None Include="wwwroot\data\weather-2022-10.csv" />
 </ItemGroup>
 
 <ItemGroup>
-  <Content Update="wwwroot\data\weather-2022-07.csv">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </Content>
-  <Content Update="wwwroot\data\weather-2022-08.csv">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </Content>
-  <Content Update="wwwroot\data\weather-2022-09.csv">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </Content>
+  <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
 </ItemGroup>
 
 </Project>

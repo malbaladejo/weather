@@ -25,7 +25,7 @@ function buildTemperatureDatasets(data) {
 
     return [{
         type: 'line',
-        label: 'temp in',
+        label: inLabel,
         data: data.map(x => x.inTemperature),
         backgroundColor: [
             'rgba(255, 99, 132, 0.2)'
@@ -37,7 +37,7 @@ function buildTemperatureDatasets(data) {
     },
     {
         type: 'line',
-        label: 'temp out',
+        label: outLabel,
         data: data.map(x => x.outTemperature),
         backgroundColor: [
             'rgba(255, 206, 86, 0.2)'

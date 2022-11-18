@@ -11,10 +11,13 @@
 * Affichage de la pression atmospherique
 * Calendrier pour le choix de date
 
+# V1.4.0
+* Traduction
+
 # TODO
 * Calendrier pour le choix de date : min et max date
-* Traduction
 * Log
 * About page
 * Favicon
 * Clic sur le graph Rain pour naviguer vers les autres periodes (année->mois, mois->semaine, ...)
+* Optimisation du chargement de données (chargement par page, cache, ...)
