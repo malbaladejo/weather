@@ -14,10 +14,12 @@
 # V1.4.0
 * Traduction
 
+# V1.5.0
+* Optimisation du chargement de données (chargement par page, cache, ...)
+
 # TODO
 * Calendrier pour le choix de date : min et max date
 * Log
 * About page
 * Favicon
 * Clic sur le graph Rain pour naviguer vers les autres periodes (année->mois, mois->semaine, ...)
-* Optimisation du chargement de données (chargement par page, cache, ...)
