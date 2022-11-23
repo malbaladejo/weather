@@ -23,3 +23,7 @@
 * About page
 * Favicon
 * Clic sur le graph Rain pour naviguer vers les autres periodes (année->mois, mois->semaine, ...)
+* ChartJs : Legende en bas
+* JQuery UI DatePicker : localisation fr
+* HammerJS : swipe pour changer de date, pinch pour changer de période.
+
