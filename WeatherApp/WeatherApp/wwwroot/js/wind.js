@@ -12,6 +12,11 @@ function buildWindChart(data) {
         },
         options: {
             maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            },
             scales: {
                 y: {
                     beginAtZero: true

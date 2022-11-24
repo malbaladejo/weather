@@ -23,6 +23,11 @@ function buildWinDirectionChart(data) {
         },
         options: {
             maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            },
             elements: {
                 line: {
                     borderWidth: 3
