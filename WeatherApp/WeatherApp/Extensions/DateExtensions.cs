@@ -43,5 +43,9 @@ namespace WeatherApp.Extensions
 
             return data.GroupBy(d => calendar.GetWeekOfYear(d.Date, calendarRule, firstDayOfWeek));
         }
+
+        public static string GetDayName(this DateTime date) => date.ToString("dddd").FirstLetterUppercase();
+
+        public static string GetMonthName(this DateTime date) => date.ToString("MMMM").FirstLetterUppercase();
     }
 }

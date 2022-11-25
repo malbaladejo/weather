@@ -4,8 +4,8 @@ namespace WeatherApp.Services
 {
     public interface IWeatherService
     {
-        Task<DateTime> GetMinDateRecordAsync();
-        Task<DateTime> GetMaxDateRecordAsync();
+        //Task<DateTime> GetMinDateRecordAsync();
+        //Task<DateTime> GetMaxDateRecordAsync();
 
         Task<IReadOnlyCollection<WeatherData>> GetWeatherDataAsync(DateTime date);
 

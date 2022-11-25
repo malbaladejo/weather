@@ -13,20 +13,20 @@ namespace WeatherApp.ViewModels
 
         public async Task<IDateContextFactory> GetFactoryAsync(Period period, DateTime? selectedDate)
         {
-            var minDate = await this.weatherService.GetMinDateRecordAsync();
-            var maxDate = await this.weatherService.GetMaxDateRecordAsync();
-            var date = selectedDate.HasValue ? selectedDate.Value : maxDate;
+            //var minDate = await this.weatherService.GetMinDateRecordAsync();
+            //var maxDate = await this.weatherService.GetMaxDateRecordAsync();
+            var date = selectedDate.HasValue ? selectedDate.Value : DateTime.Today;
 
             switch (period)
             {
                 case Period.Day:
-                    return new DayDateContextFactory(date, minDate, maxDate);
+                    return new DayDateContextFactory(date);//, minDate, maxDate);
                 case Period.Week:
-                    return new WeekDateContextFactory(date, minDate, maxDate);
+                    return new WeekDateContextFactory(date);//, minDate, maxDate);
                 case Period.Month:
-                    return new MonthDateContextFactory(date, minDate, maxDate);
+                    return new MonthDateContextFactory(date);//, minDate, maxDate);
                 case Period.Year:
-                    return new YearDateContextFactory(date, minDate, maxDate);
+                    return new YearDateContextFactory(date);//, minDate, maxDate);
                 default:
                     throw new IndexOutOfRangeException($"{period} is not supported.");
             }

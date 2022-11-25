@@ -1,15 +1,17 @@
-﻿namespace WeatherApp.ViewModels.DateContexts
+﻿using WeatherApp.Extensions;
+
+namespace WeatherApp.ViewModels.DateContexts
 {
     public class DateContext
     {
-        public DateContext(DateTime beginDate, DateTime endDate, DateTime? previousDate, DateTime? nextDate, Period period)
+        public DateContext(DateTime beginDate, DateTime endDate, DateTime previousDate, DateTime nextDate, Period period)
         {
             BeginDate = beginDate;
             EndDate = endDate;
             PreviousDate = previousDate;
             NextDate = nextDate;
             Period = period;
-            Label = GetLabel(beginDate, endDate, period);
+            Label = GetPeriodLabel(beginDate, endDate, period);
         }
 
         public string Label { get; }
@@ -18,24 +20,24 @@
 
         public DateTime EndDate { get; }
 
-        public DateTime? PreviousDate { get; }
+        public DateTime PreviousDate { get; }
 
-        public DateTime? NextDate { get; }
+        public DateTime NextDate { get; }
 
         public Period Period { get; }
 
-        private static string GetLabel(DateTime beginDate, DateTime endDate, Period period)
+        private static string GetPeriodLabel(DateTime beginDate, DateTime endDate, Period period)
         {
             switch (period)
             {
                 case Period.Day:
-                    return beginDate.ToString("dddd dd MMMM yyyy");
+                    return LongDate(beginDate);
                 case Period.Week:
-                    return $"{beginDate.ToString("dd MMMM yyyy")} - {endDate.ToString("dd MMMM yyyy")}";
+                    return $"{ShortDate(beginDate)} - {ShortDate(endDate)}";
                 case Period.Month:
-                    return beginDate.ToString("MMMM yyyy");
+                    return $"{beginDate.GetMonthName()} {beginDate.ToString("yyyy")}";
                 case Period.Year:
-                   return beginDate.ToString("yyyy");
+                    return beginDate.ToString("yyyy");
                 default:
                     throw new ArgumentOutOfRangeException($"{period} not supported");
             }
@@ -48,13 +50,30 @@
                 case Period.Day:
                     return date.TimeOfDay.ToString();
                 case Period.Week:
-                    return date.ToString("dd/MM HH:mm");
+                    return date.ToString(WeekLabel());
                 case Period.Month:
-                    return date.ToString("dd/MM HH:mm");
+                    return date.ToString("dd HH:mm");
                 case Period.Year:
-                    return date.ToString("dd MMMM");
+                    return $"{date.ToString("dd")} {date.GetMonthName()}";
                 default:
                     throw new ArgumentOutOfRangeException($"{this.Period} not supported");
+            }
+        }
+
+        private static string ShortDate(DateTime date)
+            => $"{date.ToString("dd")} {date.GetMonthName()} {date.ToString("yyyy")}";
+
+        private static string LongDate(DateTime date)
+            => $"{date.GetDayName()} {date.ToString("dd")} {date.GetMonthName()} {date.ToString("yyyy")}";
+
+        private static string WeekLabel()
+        {
+            switch (Thread.CurrentThread.CurrentUICulture.NativeName)
+            {
+                case "en":
+                    return "MM/dd HH:mm";
+                default:
+                    return "dd/MM HH:mm";
             }
         }
     }

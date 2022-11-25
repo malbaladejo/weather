@@ -15,7 +15,9 @@
 * Traduction
 
 # V1.5.0
+* 1ere lettre des mois et jour en majsucule
 * Optimisation du chargement de données (chargement par page, cache, ...)
+* ChartJs : Legende en bas
 
 # TODO
 * Calendrier pour le choix de date : min et max date
@@ -23,7 +25,6 @@
 * About page
 * Favicon
 * Clic sur le graph Rain pour naviguer vers les autres periodes (année->mois, mois->semaine, ...)
-* ChartJs : Legende en bas
 * JQuery UI DatePicker : localisation fr
 * HammerJS : swipe pour changer de date, pinch pour changer de période.
 

@@ -1,13 +1,26 @@
 ﻿using System.Globalization;
-using WeatherApp.Extensions;
 using WeatherApp.Models;
 
 namespace WeatherApp.Services
 {
-    internal class CsvParser
+    internal class CsvParser : ICsvParser
     {
+        private readonly ILogger<CsvWeatherService> logger;
+
+        public CsvParser(ILogger<CsvWeatherService> logger)
+        {
+            this.logger = logger;
+        }
+
         public IEnumerable<WeatherData> Parse(string inputFile)
         {
+            if (!File.Exists(inputFile))
+            {
+                this.logger.LogInformation($"The file {inputFile} does not exist.");
+                yield break;
+            }
+
+            this.logger.LogInformation($"Load file {inputFile}.");
             using (var sr = new StreamReader(inputFile))
             {
                 var line = string.Empty;
@@ -24,6 +37,8 @@ namespace WeatherApp.Services
                     yield return dayData;
                 }
             }
+
+            this.logger.LogInformation($"File {inputFile} loaded.");
         }
 
         private static WeatherData ConvertLineToDto(string line)
