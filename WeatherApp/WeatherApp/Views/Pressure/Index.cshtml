@@ -14,7 +14,7 @@
     <partial name="_HomeToolbar" />
 </div>
 
-<div class="chart-container">
+<div class="chart-container" id="chart_container">
     <canvas id="chart"></canvas>
 </div>
 
@@ -23,4 +23,12 @@
 <script>
     const data = @Html.Raw(Model.JsonData);
     const pressureLabel = '@Html.Raw(translationService.Translate(TranslationKeys.Pressure_Graph_Presssure))';
+</script>
+
+<script src="~/js/gesture.js" asp-append-version="true"></script>
+<script>
+    window.addEventListener('load', () => {
+        var container = document.getElementById('chart_container')
+        initializeGesture(container, '@Model.Controller', '@Model.Action', '@Model.PreviousDate.Value.ToString("yyyy-MM-dd")', '@Model.NextDate.Value.ToString("yyyy-MM-dd")');
+    });
 </script>

@@ -8,6 +8,14 @@
     <Version>1.5.0</Version>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\js\gesture.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\gesture.js" />
+  </ItemGroup>
+
 <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>$(AssemblyName).Tests</_Parameter1>
@@ -15,11 +23,29 @@
 </ItemGroup>
 
 <ItemGroup>
-  <None Include="wwwroot\data\weather-2022-10.csv" />
+  <None Include="wwwroot\js\gesture.js" />
 </ItemGroup>
 
 <ItemGroup>
   <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
+</ItemGroup>
+
+<ItemGroup>
+  <Content Update="wwwroot\data\weather-2022-07.csv">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+  <Content Update="wwwroot\data\weather-2022-08.csv">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+  <Content Update="wwwroot\data\weather-2022-09.csv">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+  <Content Update="wwwroot\data\weather-2022-10.csv">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+  <Content Update="wwwroot\data\weather-2022-11.csv">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
 </ItemGroup>
 
 </Project>
