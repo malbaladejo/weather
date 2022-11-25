@@ -16,15 +16,18 @@
 
 # V1.5.0
 * 1ere lettre des mois et jour en majsucule
-* Optimisation du chargement de données (chargement par page, cache, ...)
 * ChartJs : Legende en bas
+* HammerJS : swipe pour changer de date, pinch pour changer de période.
+
+# V1.6.0
 
 # TODO
+* Optimisation du chargement de données (chargement par page, cache, ...)
 * Calendrier pour le choix de date : min et max date
 * Log
 * About page
 * Favicon
 * Clic sur le graph Rain pour naviguer vers les autres periodes (année->mois, mois->semaine, ...)
 * JQuery UI DatePicker : localisation fr
-* HammerJS : swipe pour changer de date, pinch pour changer de période.
+
 
