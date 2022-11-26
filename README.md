@@ -22,6 +22,7 @@
 # V1.6.0
 
 # TODO
+* Récupérer la version dans l'assembly info
 * Optimisation du chargement de données (chargement par page, cache, ...)
 * Calendrier pour le choix de date : min et max date
 * Log
