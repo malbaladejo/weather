@@ -20,10 +20,12 @@
 * HammerJS : swipe pour changer de date, pinch pour changer de période.
 
 # V1.6.0
-
-# TODO
 * Récupérer la version dans l'assembly info
 * Optimisation du chargement de données (chargement par page, cache, ...)
+
+# TODO
+
+
 * Calendrier pour le choix de date : min et max date
 * Log
 * About page

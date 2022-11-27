@@ -6,7 +6,7 @@
         {
 
             serviceCollection.AddSingleton<ICsvParser, CsvParser>();
-            serviceCollection.AddSingleton<IWeatherService, CsvWeatherService>();
+            serviceCollection.AddSingleton<IWeatherService, PaginedCsvWeatherService>();
         }
     }
 }

@@ -5,16 +5,15 @@ namespace WeatherApp.Services
 {
     internal class PaginedCsvWeatherService : IWeatherService
     {
-        private readonly List<WeatherData> data = new List<WeatherData>();
-        private readonly List<DateTime> loadedMonthes = new List<DateTime>();
+        private readonly Dictionary<DateTime, IReadOnlyCollection<WeatherData>> data = new Dictionary<DateTime, IReadOnlyCollection<WeatherData>>();
         private readonly ILogger<CsvWeatherService> logger;
-        private readonly IWebHostEnvironment environment;
         private readonly ICsvParser csvParser;
+        private readonly string dataPath;
 
         public PaginedCsvWeatherService(ILogger<CsvWeatherService> logger, IWebHostEnvironment environment, ICsvParser csvParser)
         {
+            this.dataPath = Path.Combine(environment.WebRootPath, "data");
             this.logger = logger;
-            this.environment = environment;
             this.csvParser = csvParser;
         }
 
@@ -23,25 +22,32 @@ namespace WeatherApp.Services
 
         public Task<IReadOnlyCollection<WeatherData>> GetWeatherDataAsync(DateTime startDate, DateTime endDate)
         {
-            this.EnsureData(startDate, endDate);
-            return Task.FromResult((IReadOnlyCollection<WeatherData>)this.data.Where(d => d.Date >= startDate && d.Date <= endDate).ToArray());
+            var availableData = this.EnsureData(startDate, endDate);
+            return Task.FromResult((IReadOnlyCollection<WeatherData>)availableData.Where(d => d.Date >= startDate && d.Date <= endDate).ToArray());
         }
 
-        private void EnsureData(DateTime startDate, DateTime endDate)
+        private IEnumerable<WeatherData> EnsureData(DateTime startDate, DateTime endDate)
         {
             var datesInPeriod = this.GetDatesInPeriod(startDate, endDate);
-            var datesToLoad = this.GetDatesToLoad(datesInPeriod);
 
-            foreach (var date in datesToLoad)
+            foreach (var date in datesInPeriod)
             {
-                this.LoadFile(date);
+                this.logger.LogInformation($"Required data {date}.");
+
+                if (!this.data.ContainsKey(date))
+                    this.LoadFile(date);
+                else
+                    this.logger.LogInformation($"{date} in cache.");
+
+                foreach (var item in this.data[date])
+                    yield return item;
             }
         }
 
         private IEnumerable<DateTime> GetDatesInPeriod(DateTime startDate, DateTime endDate)
         {
-            var date = new DateTime(startDate.Year, startDate.Month, 1).AddMonths(-1);
-            var stopDate = new DateTime(endDate.Year, endDate.Month, 10).AddMonths(1);
+            var date = new DateTime(startDate.Year, startDate.Month, 1);
+            var stopDate = new DateTime(endDate.Year, endDate.Month, 1).AddMonths(1);
 
             while (date < stopDate)
             {
@@ -50,28 +56,12 @@ namespace WeatherApp.Services
             }
         }
 
-        private IEnumerable<DateTime> GetDatesToLoad(IEnumerable<DateTime> dates)
-        {
-            foreach (var date in dates)
-            {
-                if (this.loadedMonthes.Contains(date))
-                    continue;
-
-                yield return date;
-            }
-        }
-
         private void LoadFile(DateTime date)
         {
-            var dataPath = Path.Combine(this.environment.WebRootPath, "data");
             var fileName = $"weather-{date.Year}-{date.Month.ToString().PadLeft(2, '0')}.csv";
             var filePath = Path.Combine(dataPath, fileName);
 
-            var newData = this.data.Concat(this.csvParser.Parse(filePath));
-            this.data.Clear();
-            this.data.AddRange(newData.OrderBy(d => d.Date));
-            this.loadedMonthes.Add(date);
-
+            this.data[date] = this.csvParser.Parse(filePath).ToArray();
         }
     }
 }

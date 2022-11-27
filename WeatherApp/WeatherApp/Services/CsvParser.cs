@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics;
+using System.Globalization;
 using WeatherApp.Models;
 
 namespace WeatherApp.Services
@@ -21,6 +22,8 @@ namespace WeatherApp.Services
             }
 
             this.logger.LogInformation($"Load file {inputFile}.");
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
             using (var sr = new StreamReader(inputFile))
             {
                 var line = string.Empty;
@@ -37,11 +40,11 @@ namespace WeatherApp.Services
                     yield return dayData;
                 }
             }
-
-            this.logger.LogInformation($"File {inputFile} loaded.");
+            stopwatch.Stop();
+            this.logger.LogInformation($"File {inputFile} loaded in {stopwatch.ElapsedMilliseconds}ms.");
         }
 
-        private static WeatherData ConvertLineToDto(string line)
+        private WeatherData ConvertLineToDto(string line)
         {
             var lineData = line.Split("\t");
 
