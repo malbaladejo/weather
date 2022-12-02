@@ -7,6 +7,8 @@ namespace WeatherApp.Services
     internal class CsvParser : ICsvParser
     {
         private readonly ILogger<CsvWeatherService> logger;
+        private static readonly CultureInfo dateCultureInfo = new CultureInfo("fr-FR");
+        private static readonly CultureInfo decimalCultureInfo = new CultureInfo("en-US");
 
         public CsvParser(ILogger<CsvWeatherService> logger)
         {
@@ -65,8 +67,7 @@ namespace WeatherApp.Services
 
         private static DateTime ParseDate(string value)
         {
-            var cultureinfo = new CultureInfo("fr-FR");
-            return DateTime.Parse(value, cultureinfo);
+            return DateTime.Parse(value, dateCultureInfo);
         }
 
         private static int? ParseInt(string value)
@@ -86,9 +87,8 @@ namespace WeatherApp.Services
         {
             if (string.IsNullOrWhiteSpace(value))
                 return null;
-            var culture = new CultureInfo("en-US");
 
-            if (decimal.TryParse(value, NumberStyles.Any, culture, out decimal valueInt))
+            if (decimal.TryParse(value, NumberStyles.Any, decimalCultureInfo, out decimal valueInt))
             {
                 return valueInt;
             }

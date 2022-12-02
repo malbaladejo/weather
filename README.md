@@ -21,13 +21,11 @@
 
 # V1.6.0
 * Récupérer la version dans l'assembly info
-* Optimisation du chargement de données (chargement par page, cache, ...)
+* Optimisation du chargement de données (chargement par page, cache, performance CsvParser)
+* Log
 
 # TODO
-
-
 * Calendrier pour le choix de date : min et max date
-* Log
 * About page
 * Favicon
 * Clic sur le graph Rain pour naviguer vers les autres periodes (année->mois, mois->semaine, ...)

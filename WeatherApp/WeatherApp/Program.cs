@@ -1,4 +1,3 @@
-using System.Globalization;
 using WeatherApp;
 using WeatherApp.Translations;
 
@@ -8,9 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews()
                 .AddMvcLocalizations();
 
+builder.Logging.AddLog4Net();
+
 builder.Services.AddServicesLocalizations();
 
 builder.Services.AddWeatherApp();
+
 
 var app = builder.Build();
 
@@ -21,6 +23,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 
 app.AddWepApplicationLocalizations("fr-FR", "en-US");
 

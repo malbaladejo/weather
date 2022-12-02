@@ -28,6 +28,7 @@
 
 <ItemGroup>
   <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
+  <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.1.0" />
 </ItemGroup>
 
 <ItemGroup>
