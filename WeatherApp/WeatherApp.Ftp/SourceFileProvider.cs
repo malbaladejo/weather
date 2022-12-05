@@ -8,8 +8,8 @@
 
             foreach (var fileInfo in directoryInfo.GetFiles("*.csv"))
             {
-                Console.WriteLine($"{fileInfo.Name}: {fileInfo.LastAccessTime}.");
-                if (fileInfo.LastAccessTime > DateTime.Now.Date)
+                Console.WriteLine($"{fileInfo.Name}: {fileInfo.LastWriteTime}.");
+                if (fileInfo.LastWriteTime > DateTime.Now.Date)
                 {
                     Console.WriteLine($"{fileInfo.Name} must be upload.");
 
