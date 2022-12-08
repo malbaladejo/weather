@@ -24,11 +24,17 @@
 * Optimisation du chargement de données (chargement par page, cache, performance CsvParser)
 * Log
 
+# V1.6.2
+* Correction du chemin de logs en prod
+
+# V1.7.0
+* JQuery UI DatePicker : localisation fr
+
 # TODO
 * Calendrier pour le choix de date : min et max date
 * About page
 * Favicon
 * Clic sur le graph Rain pour naviguer vers les autres periodes (année->mois, mois->semaine, ...)
-* JQuery UI DatePicker : localisation fr
+
 
 

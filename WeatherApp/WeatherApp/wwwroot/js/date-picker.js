@@ -20,7 +20,11 @@ function initializeDatePicker(controler, action, beginDate) {
             }
         });
 
-    $("#datepicker").datepicker('setDate', beginDate);
+    $("#datepicker").datepicker('setDate', Date.parse(beginDate));
+
+    if (getCulture()) {
+        $("#datepicker").datepicker('option', $.datepicker.regional[getCulture()]);
+    }
 }
 
 function buildDatePickerUrl(controler, action, date) {
@@ -39,16 +43,16 @@ function buildDatePickerUrl(controler, action, date) {
 }
 
 function stopClickPropagationOnDatePicker() {
-    $(".ui-datepicker").on("click", function (e) { 
+    $(".ui-datepicker").on("click", function (e) {
         e.stopPropagation();
     });
 }
 
-function getParameterByName(name, url = window.location.href) {
-    name = name.replace(/[\[\]]/g, '\\$&');
-    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+function getCulture() {
+    const culture = getParameterByName('culture');
+    if (!culture) {
+        return 'fr';
+    }
+
+    return null;
 }
