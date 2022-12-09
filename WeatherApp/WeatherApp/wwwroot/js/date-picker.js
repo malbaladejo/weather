@@ -27,19 +27,33 @@ function initializeDatePicker(controler, action, beginDate) {
     }
 }
 
-function buildDatePickerUrl(controler, action, date) {
-    const dateArray = date.split('/');
+function buildDatePickerUrl(controler, action, dateAsStringInCurrentCultureFormat) {
+    const dateArray = dateAsStringInCurrentCultureFormat.split('/');
     const year = 2;
-    const month = 0;
-    const day = 1;
     const culture = getParameterByName('culture');
-    let url = '/' + controler + '/' + action + '/?date=' + dateArray[year] + '-' + dateArray[month] + '-' + dateArray[day];
+    let url = '/' + controler + '/' + action + '/?date=' + dateArray[year] + '-' + dateArray[getMonthIndex()] + '-' + dateArray[getDayIndex()];
 
     if (culture) {
         url = url + "&culture=" + culture;
     }
 
     return url;
+}
+
+function getMonthIndex() {
+    if (getCulture() === 'fr') {
+        return 1;
+    }
+
+    return 0;
+}
+
+function getDayIndex() {
+    if (getCulture() === 'fr') {
+        return 0;
+    }
+
+    return 1;
 }
 
 function stopClickPropagationOnDatePicker() {
