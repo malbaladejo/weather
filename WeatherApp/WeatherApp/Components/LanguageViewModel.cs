@@ -1,4 +1,6 @@
-﻿namespace WeatherApp.Components
+﻿using Microsoft.Extensions.Primitives;
+
+namespace WeatherApp.Components
 {
     public class LanguageViewModel
     {
@@ -13,11 +15,14 @@
             var queryWithoutCulture = query.Where(q => q.Key != "culture");
 
             if (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName != "fr")
-                return queryWithoutCulture.Select(q => q.Value.First());
+                return GetQueryWithoutCulture(queryWithoutCulture);
 
-            return queryWithoutCulture.Select(q => $"{q.Key}={q.Value.First()}")
+            return GetQueryWithoutCulture(queryWithoutCulture)
                 .Concat(new[] { "culture=en-US" });
         }
+
+        private static IEnumerable<string> GetQueryWithoutCulture(IEnumerable<KeyValuePair<string, StringValues>> query)
+            => query.Select(q => $"{q.Key}={q.Value.First()}");
 
         public string CurrentLanguage { get; }
 

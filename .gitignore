@@ -6,3 +6,4 @@ dist/
 output/
 *.csv
 */WeatherApp.Ftp/*Program.cs
+*.user
