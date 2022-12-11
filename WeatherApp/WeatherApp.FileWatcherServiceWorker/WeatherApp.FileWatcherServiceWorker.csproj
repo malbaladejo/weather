@@ -1,22 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-WeatherApp.FileWatcherServiceWorker-3AB1D05A-06F3-450D-8113-4534B23A6479</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Log4Net.config" />
+    <Content Remove="config.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Log4Net.config">
+    <None Include="config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -27,11 +25,4 @@
   <ItemGroup>
     <ProjectReference Include="..\WeatherApp.DataService\WeatherApp.DataService.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="config.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

@@ -37,6 +37,6 @@
 * Calendrier pour le choix de date : min et max date
 * About page
 * Clic sur le graph Rain pour naviguer vers les autres periodes (année->mois, mois->semaine, ...)
-
+* Afficher les min et max sur chaque période
 
 

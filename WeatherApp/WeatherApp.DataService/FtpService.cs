@@ -1,15 +1,23 @@
-﻿using System.Net;
+﻿using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace WeatherApp.Ftp
 {
-    internal class FtpService
+    public class FtpService
     {
-        public static async Task UploadFileAsync(string localUrl, string user, string password, string remoteFolder)
+        private readonly ILogger<FtpService> logger;
+
+        public FtpService(ILogger<FtpService> logger)
+        {
+            this.logger = logger;
+        }
+
+        public async Task UploadFileAsync(string localUrl, string user, string password, string remoteFolder)
         {
             var remoteUrl = $"{remoteFolder}/{Path.GetFileName(localUrl)}";
 
-            Console.WriteLine($"Local file: {localUrl}.");
-            Console.WriteLine($"Remote url: {remoteUrl}.");
+            this.logger.LogInformation($"Local file: {localUrl}.");
+            this.logger.LogInformation($"Remote url: {remoteUrl}.");
 
             try
             {
@@ -23,17 +31,17 @@ namespace WeatherApp.Ftp
                 // Copy the contents of the file to the request stream.
                 await using FileStream fileStream = File.Open(localUrl, FileMode.Open, FileAccess.Read);
 
-                Console.WriteLine($"Openning ftp connection.");
+                this.logger.LogInformation($"Openning ftp connection.");
                 await using Stream requestStream = request.GetRequestStream();
 
-                Console.WriteLine($"Uploading file.");
+                this.logger.LogInformation($"Uploading file.");
                 await fileStream.CopyToAsync(requestStream);
 
-                Console.WriteLine($"Upload File Complete.");
+                this.logger.LogInformation($"Upload File Complete.");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                this.logger.LogInformation(e.Message);
             }
         }
     }
