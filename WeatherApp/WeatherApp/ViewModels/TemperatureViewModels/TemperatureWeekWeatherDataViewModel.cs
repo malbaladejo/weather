@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using WeatherApp.JsonConverters;
+﻿using WeatherApp.JsonConverters;
 using WeatherApp.Models;
 using WeatherApp.Services;
 using WeatherApp.ViewModels.DateContexts;
@@ -23,10 +22,10 @@ namespace WeatherApp.ViewModels
         public override async Task InitializeAsync()
         {
             var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate, this.dateContext.EndDate);
-            var filteredData = GetData(data)
-                    .OrderBy(d => d.Date)
-                    .Select(d => new TemperatureData(d, this.dateContext.GetLabel(d.Date)));
-
+            var filteredData = data
+                .Where(d => d.InTemperature.HasValue)
+                .Where(d => d.OutTemperature.HasValue)
+                .Select(d => new TemperatureData(d, this.dateContext.GetLabel(d.Date)));
             this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }
 

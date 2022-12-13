@@ -32,6 +32,7 @@
 
 # V1.8.0
 * Favicon
+* Echantillon elargi pour les temperatures Semaine, Mois et Année
 
 # TODO
 * Calendrier pour le choix de date : min et max date
