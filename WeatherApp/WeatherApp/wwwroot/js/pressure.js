@@ -32,6 +32,11 @@ function buildPressureChartDatasets(data) {
         type: 'line',
         label: pressureLabel,
         data: data.map(x => x.relativePressure),
+        elements: {
+            point: {
+                radius: 0
+            }
+        },
         backgroundColor: [
             'rgba(255, 99, 132, 0.2)'
         ],

@@ -21,9 +21,7 @@ namespace WeatherApp.ViewModels
         public override async Task InitializeAsync()
         {
             var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate);
-            var filteredData = data
-                .Where(d => d.InHumidity.HasValue)
-                .Where(d => d.OutHumidity.HasValue)
+            var filteredData = data.Filter(d => d.FilterHumidity())
                 .Select(d => new HumidityDayData(d));
             this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }

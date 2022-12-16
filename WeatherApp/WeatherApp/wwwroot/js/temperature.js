@@ -32,6 +32,11 @@ function buildTemperatureDatasets(data) {
         type: 'line',
         label: inLabel,
         data: data.map(x => x.inTemperature),
+        elements: {
+            point: {
+                radius: 0
+            }
+        },
         backgroundColor: [
             'rgba(255, 99, 132, 0.2)'
         ],
@@ -44,6 +49,11 @@ function buildTemperatureDatasets(data) {
         type: 'line',
         label: outLabel,
         data: data.map(x => x.outTemperature),
+        elements: {
+            point: {
+                radius: 0
+            }
+        },
         backgroundColor: [
             'rgba(255, 206, 86, 0.2)'
         ],

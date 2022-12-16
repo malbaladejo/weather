@@ -22,9 +22,7 @@ namespace WeatherApp.ViewModels
         public override async Task InitializeAsync()
         {
             var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate, this.dateContext.EndDate);
-            var filteredData = data
-                .Where(d => d.InTemperature.HasValue)
-                .Where(d => d.OutTemperature.HasValue)
+            var filteredData = data.Filter(d => d.FilterTemperature())
                 .Select(d => new TemperatureData(d, this.dateContext.GetLabel(d.Date)));
             this.JsonData = LocalJsonSerializer.Serialize(filteredData);
         }

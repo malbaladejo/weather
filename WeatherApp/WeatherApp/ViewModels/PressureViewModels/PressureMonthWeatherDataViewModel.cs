@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using WeatherApp.Extensions;
+﻿using WeatherApp.Extensions;
 using WeatherApp.JsonConverters;
 using WeatherApp.Models;
 using WeatherApp.Services;
@@ -24,9 +23,7 @@ namespace WeatherApp.ViewModels
         public override async Task InitializeAsync()
         {
             var data = await this.weatherService.GetWeatherDataAsync(this.dateContext.BeginDate, this.dateContext.EndDate);
-            var filteredData = GetData(data)
-                    .Where(d => d != null)
-                    .OrderBy(d => d.Date)
+            var filteredData = data.Filter(d => d.FilterPressure())
                     .Select(d => new PressureData(d, this.dateContext.GetLabel(d.Date)));
 
             this.JsonData = LocalJsonSerializer.Serialize(filteredData);

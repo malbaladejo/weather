@@ -32,6 +32,11 @@ function buildWindChartDatasets(data) {
         type: 'line',
         label: windLabel,
         data: data.map(x => x.wind),
+        elements: {
+            point: {
+                radius: 0
+            }
+        },
         backgroundColor: [
             'rgba(255, 99, 132, 0.2)'
         ],
