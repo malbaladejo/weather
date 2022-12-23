@@ -9,7 +9,7 @@
             <li class="nav-item">
 
                 <a class="@("nav-link " + (@ViewData["View"]=="temperature"  ? "active" : "")) aria-current="page"
-                   asp-controller="home" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
+                   asp-controller="temperature" asp-action="@(Model?.Action ?? "index")" asp-route-date="@Model?.BeginDate.ToString("yyyy-MM-dd")">
                     <span data-feather="home" class="align-text-bottom"></span>
                     <i class="bi bi-thermometer-half"></i> @translationService.Translate(TranslationKeys.Temperature)
                 </a>

@@ -9,7 +9,7 @@
 
 .btn-toolbar .tb-large {
     display: none;
-}   
+}
 
 .btn-toolbar .tb-small {
 }
@@ -161,3 +161,36 @@ body {
     height: 65vh;
     width: 80vw;
 }
+
+
+@media (max-width: 766px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto;
+        padding: 10px;
+    }
+
+    .grid-two-column {
+        grid-column: 1 / span 1;
+    }
+}
+
+@media (min-width: 766px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        padding: 10px;
+    }
+
+    .grid-two-column {
+        grid-column: 1 / span 2;
+    }
+}
+
+.grid-item {
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+}
+
+

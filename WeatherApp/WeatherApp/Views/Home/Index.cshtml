@@ -3,33 +3,49 @@
 @inject ITranslationService translationService
 @model WeatherApp.ViewModels.IWeatherDataViewModel
 @{
-    ViewData["Title"] = "Temperature";
-    ViewData["View"] = "temperature";
+    ViewData["Title"] = "Accueil";
+    ViewData["View"] = "Accueil";
 }
 
-<partial name="_Header" />
+<div class="grid-container">
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2"> @Model.Title</h1>
-    <partial name="_HomeToolbar" />
+    <div class="grid-item grid-two-column">
+        <div class="card">
+            <div class="card-body">
+                Temperature
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-item">
+        <div class="card">
+            <div class="card-body">
+                Pluie
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-item  grid-two-column">
+        <div class="card">
+            <div class="card-body">
+                Vent
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-item">
+        <div class="card">
+            <div class="card-body">
+                Humidité
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-item">
+        <div class="card">
+            <div class="card-body">
+                Pression
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="chart-container" id="chart_container">
-    <canvas id="chart"></canvas>
-</div>
-
-<script src="~/js/temperature.js" asp-append-version="true"></script>
-
-<script>
-    const data = @Html.Raw(Model.JsonData);
-    const inLabel = '@Html.Raw(translationService.Translate(TranslationKeys.Temperature_Graph_Temp_In))';
-    const outLabel = '@Html.Raw(translationService.Translate(TranslationKeys.Temperature_Graph_Temp_In))';
-</script>
-
-<script src="~/js/gesture.js" asp-append-version="true"></script>
-<script>
-    window.addEventListener('load', () => {
-        var container = document.getElementById('chart_container')
-        initializeGesture(container, '@Model.Controller', '@Model.Action', '@Model.PreviousDate.Value.ToString("yyyy-MM-dd")', '@Model.NextDate.Value.ToString("yyyy-MM-dd")');
-    });
-</script>
