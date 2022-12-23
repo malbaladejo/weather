@@ -37,6 +37,7 @@
 # V1.9.0
 * ChartJS : maasquer les points sur les line chart
 * Week, Month : afficher toutes les données
+* Reset cache
 
 # TODO
 * Dashboard sur la home page

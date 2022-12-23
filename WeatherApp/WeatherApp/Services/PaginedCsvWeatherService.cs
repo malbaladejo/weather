@@ -5,16 +5,23 @@ namespace WeatherApp.Services
 {
     internal class PaginedCsvWeatherService : IWeatherService
     {
-        private readonly Dictionary<DateTime, IReadOnlyCollection<WeatherData>> data = new Dictionary<DateTime, IReadOnlyCollection<WeatherData>>();
+        private readonly Dictionary<DateTime, IReadOnlyCollection<WeatherData>> data;
         private readonly ILogger<CsvWeatherService> logger;
         private readonly ICsvParser csvParser;
         private readonly string dataPath;
 
         public PaginedCsvWeatherService(ILogger<CsvWeatherService> logger, IWebHostEnvironment environment, ICsvParser csvParser)
         {
+            this.data = new Dictionary<DateTime, IReadOnlyCollection<WeatherData>>();
             this.dataPath = Path.Combine(environment.WebRootPath, "data");
             this.logger = logger;
             this.csvParser = csvParser;
+        }
+
+        public async Task ResetCacheAsync()
+        {
+            this.logger.LogInformation($"Reset cache.");
+            this.data.Clear();
         }
 
         public Task<IReadOnlyCollection<WeatherData>> GetWeatherDataAsync(DateTime date)

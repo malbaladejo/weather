@@ -14,7 +14,7 @@ namespace WeatherApp.Controllers
             this.weatherDataViewModelFactory = weatherDataViewModelFactory;
         }
 
-        public async Task<IActionResult> Index(DateTime? date)
+        public virtual async Task<IActionResult> Index(DateTime? date, bool? resetCache)
         {
             var controllerContext = new ControllerActionContext(this.controllerName, ActionNames.Day);
             var viewModel = await weatherDataViewModelFactory.CreateAsync(controllerContext, date, Period.Day);

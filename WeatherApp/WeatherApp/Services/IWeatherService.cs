@@ -7,5 +7,7 @@ namespace WeatherApp.Services
         Task<IReadOnlyCollection<WeatherData>> GetWeatherDataAsync(DateTime date);
 
         Task<IReadOnlyCollection<WeatherData>> GetWeatherDataAsync(DateTime startDate, DateTime endDate);
+
+        Task ResetCacheAsync();
     }
 }

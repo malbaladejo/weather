@@ -20,6 +20,12 @@ namespace WeatherApp.Services
             this.csvParser = csvParser;
         }
 
+        public async Task ResetCacheAsync()
+        {
+            this.logger.LogInformation($"Reset cache.");
+            this.data.Clear();
+        }
+
         public Task<IReadOnlyCollection<WeatherData>> GetWeatherDataAsync(DateTime date)
             => this.GetWeatherDataAsync(date.BeginOfDay(), date.EndOfDay());
 
