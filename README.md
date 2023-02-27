@@ -35,15 +35,22 @@
 * Echantillon elargi pour les temperatures Semaine, Mois et Année
 
 # V1.9.0
-* ChartJS : maasquer les points sur les line chart
+* ChartJS : masquer les points sur les line chart
 * Week, Month : afficher toutes les données
 * Reset cache
 
 # TODO
+* Must
+** Ajouter les rafales sur la vue Vent
+** Calendrier pour le choix de date : min et max date
+** Température mois, afficher tous les points 
+** Records
+*** Page d'admin pour lancer la génération des récords
+*** Afficher les reccords
+* Could
 * Dashboard sur la home page
-* Calendrier pour le choix de date : min et max date
 * About page
 * Clic sur le graph Rain pour naviguer vers les autres periodes (année->mois, mois->semaine, ...)
-* Afficher les min et max sur chaque période
+
 
 
