@@ -4,22 +4,28 @@ using WeatherApp.ViewModels;
 
 namespace WeatherApp.Controllers
 {
-    public class HomeController : ControllerBase
+    public class HomeController : Controller
     {
         private readonly IWeatherService weatherService;
 
-        public HomeController(IWeatherDataViewModelFactory weatherDataViewModelFactory, IWeatherService weatherService)
-            : base(ControllerNames.Temperature, weatherDataViewModelFactory)
+        public HomeController(IWeatherService weatherService)
         {
             this.weatherService = weatherService;
         }
 
-        public async override Task<IActionResult> Index(DateTime? date, bool? resetCache)
+        public async Task<IActionResult> Index(bool? resetCache)
         {
             if (resetCache == true)
                 await this.weatherService.ResetCacheAsync();
 
-            return await base.Index(date, resetCache);
+            return View(CreateViewModelAsync());
+        }
+
+        private async Task<HomeViewModel> CreateViewModelAsync()
+        {
+            await Task.Delay(0);
+
+            return new HomeViewModel();
         }
     }
 }
