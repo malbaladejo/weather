@@ -123,6 +123,9 @@
   <data name="Day" xml:space="preserve">
     <value>Jour</value>
   </data>
+  <data name="Gust_Graph" xml:space="preserve">
+    <value>Rafale en km/h</value>
+  </data>
   <data name="Humidity" xml:space="preserve">
     <value>Humidité</value>
   </data>
@@ -196,7 +199,7 @@
     <value>Ouest</value>
   </data>
   <data name="Wind_Graph" xml:space="preserve">
-    <value>Vent en m/s</value>
+    <value>Vent en km/h</value>
   </data>
   <data name="Year" xml:space="preserve">
     <value>Année</value>

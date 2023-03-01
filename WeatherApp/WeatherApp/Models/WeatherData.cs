@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Text.Json.Serialization;
 
 namespace WeatherApp.Models
 {
@@ -19,6 +18,8 @@ namespace WeatherApp.Models
         public decimal? Rain { get; set; }
 
         public decimal? Wind { get; set; }
+
+        public decimal? Gust { get; set; }
 
         public decimal? RelativePressure { get; set; }
 

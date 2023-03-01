@@ -21,6 +21,7 @@
 <script>
     const data = @Html.Raw(Model.JsonData);
     const windLabel = '@Html.Raw(translationService.Translate(TranslationKeys.Wind_Graph))';
+    const gustLabel = '@Html.Raw(translationService.Translate(TranslationKeys.Gust_Graph))';
 </script>
 
 <script src="~/js/gesture.js" asp-append-version="true"></script>

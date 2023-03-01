@@ -59,6 +59,7 @@ namespace WeatherApp.Services
                 InTemperature = ParseDecimal(lineData[CsvColumns.InTemp]),
                 Rain = ParseDecimal(lineData[CsvColumns.RainHour]),
                 Wind = ParseDecimal(lineData[CsvColumns.Wind]),
+                Gust = ParseDecimal(lineData[CsvColumns.Gust]),
                 WindDirection = lineData[CsvColumns.WindDirection],
                 AbsolutePressure = ParseDecimal(lineData[CsvColumns.ABSPressure]),
                 RelativePressure = ParseDecimal(lineData[CsvColumns.RELPressure])

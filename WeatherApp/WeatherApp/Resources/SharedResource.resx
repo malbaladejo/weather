@@ -123,6 +123,9 @@
   <data name="Day" xml:space="preserve">
     <value>Day</value>
   </data>
+  <data name="Gust_Graph" xml:space="preserve">
+    <value>Gust in km/h</value>
+  </data>
   <data name="Humidity" xml:space="preserve">
     <value>Humidity</value>
   </data>
@@ -196,7 +199,7 @@
     <value>West</value>
   </data>
   <data name="Wind_Graph" xml:space="preserve">
-    <value>Wind in m/s</value>
+    <value>Wind in km/h</value>
   </data>
   <data name="Year" xml:space="preserve">
     <value>Year</value>

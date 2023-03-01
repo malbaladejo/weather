@@ -30,6 +30,7 @@
 
         public static readonly string Rain_Graph_Rain = Prefix + "Rain_Graph_Rain";
         public static readonly string Wind_Graph = Prefix + "Wind_Graph";
+        public static readonly string Gust_Graph = Prefix + "Gust_Graph";
         public static readonly string Wind_Direction_N = Prefix + "Wind_Direction_N";
         public static readonly string Wind_Direction_NE = Prefix + "Wind_Direction_NE";
         public static readonly string Wind_Direction_E = Prefix + "Wind_Direction_E";
