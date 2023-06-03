@@ -160,7 +160,7 @@
     <value>Température intérieur en °</value>
   </data>
   <data name="Temperature_Graph_Temp_Out" xml:space="preserve">
-    <value>Température exteérieur en °</value>
+    <value>Température extérieur en °</value>
   </data>
   <data name="Week" xml:space="preserve">
     <value>Semaine</value>
