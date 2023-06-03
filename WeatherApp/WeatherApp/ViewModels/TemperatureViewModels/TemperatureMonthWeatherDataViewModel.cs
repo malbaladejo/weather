@@ -41,7 +41,7 @@ namespace WeatherApp.ViewModels
                 yield return max;
 
                 var sampleData = week.Select((d, i) => new { Index = i, Data = d })
-                 .Where(d => d.Index % 40 == 0)
+                 //.Where(d => d.Index % 40 == 0)
                  .Where(d => d.Data != min)
                  .Where(d => d.Data != max)
                  .Select(d => d.Data);
