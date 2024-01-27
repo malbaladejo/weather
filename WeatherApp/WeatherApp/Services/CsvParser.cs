@@ -39,7 +39,8 @@ namespace WeatherApp.Services
                     }
 
                     var dayData = ConvertLineToDto(line);
-                    yield return dayData;
+                    if (dayData != null)
+                        yield return dayData;
                 }
             }
             stopwatch.Stop();
@@ -50,19 +51,38 @@ namespace WeatherApp.Services
         {
             var lineData = line.Split("\t");
 
-            return new WeatherData
+            try
             {
-                Date = ParseDate(lineData[CsvColumns.Time]),
-                OutHumidity = ParseInt(lineData[CsvColumns.Humi]),
-                InHumidity = ParseInt(lineData[CsvColumns.InHumi]),
-                OutTemperature = ParseDecimal(lineData[CsvColumns.Temp]),
-                InTemperature = ParseDecimal(lineData[CsvColumns.InTemp]),
-                Rain = ParseDecimal(lineData[CsvColumns.RainHour]),
-                Wind = ParseDecimal(lineData[CsvColumns.Wind]),
-                WindDirection = lineData[CsvColumns.WindDirection],
-                AbsolutePressure = ParseDecimal(lineData[CsvColumns.ABSPressure]),
-                RelativePressure = ParseDecimal(lineData[CsvColumns.RELPressure])
-            };
+                return new WeatherData
+                {
+                    Date = ParseDate(GetData(lineData, CsvColumns.Time)),
+                    OutHumidity = ParseInt(GetData(lineData, CsvColumns.Humi)),
+                    InHumidity = ParseInt(GetData(lineData, CsvColumns.InHumi)),
+                    OutTemperature = ParseDecimal(GetData(lineData, CsvColumns.Temp)),
+                    InTemperature = ParseDecimal(GetData(lineData, CsvColumns.InTemp)),
+                    Rain = ParseDecimal(GetData(lineData, CsvColumns.RainHour)),
+                    Wind = ParseDecimal(GetData(lineData, CsvColumns.Wind)),
+                    WindDirection = GetData(lineData, CsvColumns.WindDirection),
+                    AbsolutePressure = ParseDecimal(GetData(lineData, CsvColumns.ABSPressure)),
+                    RelativePressure = ParseDecimal(GetData(lineData, CsvColumns.RELPressure))
+                };
+            }
+            catch (Exception e)
+            {
+                this.logger.LogError(e, $"{string.Join(',', lineData)}");
+                return null;
+            }
+        }
+
+        private string GetData(string[] lineData, int columnIndex)
+        {
+            if (lineData.Length <= columnIndex)
+            {
+                this.logger.LogWarning($"{string.Join(',', lineData)} - length:{lineData.Length}, required column:{columnIndex}");
+                return null;
+            }
+
+            return lineData[columnIndex];
         }
 
         private static DateTime ParseDate(string value)
