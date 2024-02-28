@@ -8,12 +8,12 @@ namespace WeatherApp.Services
         private List<WeatherData>? data;
         private readonly ILogger<CsvWeatherService> logger;
         private readonly IWebHostEnvironment environment;
-        private readonly ICsvParser csvParser;
+        private readonly IWeatherFileReader csvParser;
 
         public CsvWeatherService(
             ILogger<CsvWeatherService> logger,
             IWebHostEnvironment environment,
-            ICsvParser csvParser)
+            IWeatherFileReader csvParser)
         {
             this.logger = logger;
             this.environment = environment;

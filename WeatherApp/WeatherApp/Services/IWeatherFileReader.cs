@@ -2,7 +2,7 @@
 
 namespace WeatherApp.Services
 {
-    internal interface ICsvParser
+    internal interface IWeatherFileReader
     {
         IEnumerable<WeatherData> Parse(string inputFile);
     }

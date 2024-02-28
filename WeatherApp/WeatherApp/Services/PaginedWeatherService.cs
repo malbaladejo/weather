@@ -3,19 +3,19 @@ using WeatherApp.Models;
 
 namespace WeatherApp.Services
 {
-    internal class PaginedCsvWeatherService : IWeatherService
+    internal class PaginedWeatherService : IWeatherService
     {
         private readonly Dictionary<DateTime, IReadOnlyCollection<WeatherData>> data;
         private readonly ILogger<CsvWeatherService> logger;
-        private readonly ICsvParser csvParser;
+        private readonly IWeatherFileReader parser;
         private readonly string dataPath;
 
-        public PaginedCsvWeatherService(ILogger<CsvWeatherService> logger, IWebHostEnvironment environment, ICsvParser csvParser)
+        public PaginedWeatherService(ILogger<CsvWeatherService> logger, IWebHostEnvironment environment, IWeatherFileReader parser)
         {
             this.data = new Dictionary<DateTime, IReadOnlyCollection<WeatherData>>();
             this.dataPath = Path.Combine(environment.WebRootPath, "data");
             this.logger = logger;
-            this.csvParser = csvParser;
+            this.parser = parser;
         }
 
         public async Task ResetCacheAsync()
@@ -68,7 +68,7 @@ namespace WeatherApp.Services
             var fileName = $"weather-{date.Year}-{date.Month.ToString().PadLeft(2, '0')}.csv";
             var filePath = Path.Combine(dataPath, fileName);
 
-            this.data[date] = this.csvParser.Parse(filePath).ToArray();
+            this.data[date] = this.parser.Parse(filePath).ToArray();
         }
     }
 }

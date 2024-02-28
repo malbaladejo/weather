@@ -4,13 +4,14 @@ using WeatherApp.Models;
 
 namespace WeatherApp.Services
 {
-    internal class CsvParser : ICsvParser
+    internal class InFactoryFileReader : IWeatherFileReader
     {
         private readonly ILogger<CsvWeatherService> logger;
         private static readonly CultureInfo dateCultureInfo = new CultureInfo("fr-FR");
         private static readonly CultureInfo decimalCultureInfo = new CultureInfo("en-US");
+        private const string csvSeparator = "\t";
 
-        public CsvParser(ILogger<CsvWeatherService> logger)
+        public InFactoryFileReader(ILogger<CsvWeatherService> logger)
         {
             this.logger = logger;
         }
@@ -29,16 +30,16 @@ namespace WeatherApp.Services
             using (var sr = new StreamReader(inputFile))
             {
                 var line = string.Empty;
-                var first = true;
+                Dictionary<string, int> headers = null;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (first)
+                    if (headers == null)
                     {
-                        first = false;
+                        headers = GetCsvHeader(line);
                         continue;
                     }
 
-                    var dayData = ConvertLineToDto(line);
+                    var dayData = ConvertLineToDto(line, headers);
                     if (dayData != null)
                         yield return dayData;
                 }
@@ -47,24 +48,47 @@ namespace WeatherApp.Services
             this.logger.LogInformation($"File {inputFile} loaded in {stopwatch.ElapsedMilliseconds}ms.");
         }
 
-        private WeatherData ConvertLineToDto(string line)
+        private void CheckFile(string[] headerData)
         {
-            var lineData = line.Split("\t");
+            var missingColumns = CsvColumns.ColumnsToRead.Where(c1 => !headerData.Contains(c1));
+
+            foreach (var columnName in missingColumns)
+            {
+                this.logger.LogWarning($"column {columnName} not found.");
+            }
+        }
+
+        private Dictionary<string, int> GetCsvHeader(string csvHeaderLine)
+        {
+            var headerData = csvHeaderLine.Split(csvSeparator);
+            this.CheckFile(headerData);
+
+            var headers = new Dictionary<string, int>();
+
+            for (int i = 0; i < headerData.Length; i++)
+                headers[headerData[i]] = i;
+
+            return headers;
+        }
+
+        private WeatherData ConvertLineToDto(string line, Dictionary<string, int> headers)
+        {
+            var lineData = line.Split(csvSeparator);
 
             try
             {
                 return new WeatherData
                 {
-                    Date = ParseDate(GetData(lineData, CsvColumns.Time)),
-                    OutHumidity = ParseInt(GetData(lineData, CsvColumns.Humi)),
-                    InHumidity = ParseInt(GetData(lineData, CsvColumns.InHumi)),
-                    OutTemperature = ParseDecimal(GetData(lineData, CsvColumns.Temp)),
-                    InTemperature = ParseDecimal(GetData(lineData, CsvColumns.InTemp)),
-                    Rain = ParseDecimal(GetData(lineData, CsvColumns.RainHour)),
-                    Wind = ParseDecimal(GetData(lineData, CsvColumns.Wind)),
-                    WindDirection = GetData(lineData, CsvColumns.WindDirection),
-                    AbsolutePressure = ParseDecimal(GetData(lineData, CsvColumns.ABSPressure)),
-                    RelativePressure = ParseDecimal(GetData(lineData, CsvColumns.RELPressure))
+                    Date = ParseDate(GetData(lineData, CsvColumns.Time, headers)),
+                    OutHumidity = ParseInt(GetData(lineData, CsvColumns.Humi, headers)),
+                    InHumidity = ParseInt(GetData(lineData, CsvColumns.InHumi, headers)),
+                    OutTemperature = ParseDecimal(GetData(lineData, CsvColumns.Temp, headers)),
+                    InTemperature = ParseDecimal(GetData(lineData, CsvColumns.InTemp, headers)),
+                    Rain = ParseDecimal(GetData(lineData, CsvColumns.RainHour, headers)),
+                    Wind = ParseDecimal(GetData(lineData, CsvColumns.Wind, headers)),
+                    WindDirection = GetData(lineData, CsvColumns.WindDirection, headers),
+                    AbsolutePressure = ParseDecimal(GetData(lineData, CsvColumns.ABSPressure, headers)),
+                    RelativePressure = ParseDecimal(GetData(lineData, CsvColumns.RELPressure, headers))
                 };
             }
             catch (Exception e)
@@ -74,13 +98,14 @@ namespace WeatherApp.Services
             }
         }
 
-        private string GetData(string[] lineData, int columnIndex)
+        private string GetData(string[] lineData, string columnName, Dictionary<string, int> headers)
         {
-            if (lineData.Length <= columnIndex)
+            if (!headers.ContainsKey(columnName))
             {
-                this.logger.LogWarning($"{string.Join(',', lineData)} - length:{lineData.Length}, required column:{columnIndex}");
                 return null;
             }
+
+            var columnIndex = headers[columnName];
 
             return lineData[columnIndex];
         }

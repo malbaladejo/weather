@@ -5,8 +5,8 @@
         public static void AddServices(this IServiceCollection serviceCollection)
         {
 
-            serviceCollection.AddSingleton<ICsvParser, CsvParser>();
-            serviceCollection.AddSingleton<IWeatherService, PaginedCsvWeatherService>();
+            serviceCollection.AddSingleton<IWeatherFileReader, InFactoryFileReader>();
+            serviceCollection.AddSingleton<IWeatherService, PaginedWeatherService>();
         }
     }
 }
