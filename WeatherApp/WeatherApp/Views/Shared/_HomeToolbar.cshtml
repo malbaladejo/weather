@@ -59,7 +59,7 @@
             </a>
 
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="index" asp-route-date=" @Model.BeginDate.ToString("yyyy-MM-dd")">@translationService.Translate(TranslationKeys.Day)</a></li>
+                <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="index" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">@translationService.Translate(TranslationKeys.Day)</a></li>
                 <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="week" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">@translationService.Translate(TranslationKeys.Week)</a></li>
                 <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="month" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">@translationService.Translate(TranslationKeys.Month)</a></li>
                 <li><a class="dropdown-item" asp-controller="@Model.Controller" asp-action="year" asp-route-date="@Model.BeginDate.ToString("yyyy-MM-dd")">@translationService.Translate(TranslationKeys.Year)</a></li>

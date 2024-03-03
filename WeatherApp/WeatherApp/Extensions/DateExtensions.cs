@@ -27,10 +27,12 @@ namespace WeatherApp.Extensions
             return date.EndOfDay();
         }
 
-        public static DateTime FirstDayOfMonth(this DateTime date)=> new DateTime(date.Year, date.Month, 1);
+        public static DateTime FirstDayOfMonth(this DateTime date) => new DateTime(date.Year, date.Month, 1);
 
-        public static DateTime LastDayOfMonth(this DateTime date)=>
-            new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month)).EndOfDay();
+        public static DateTime LastDayOfMonth(this DateTime date)
+            => new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month)).EndOfDay();
+
+        public static DateTime LastDayOfYear(this DateTime date) => new DateTime(date.Year, 12, 31).EndOfDay();
 
         public static IEnumerable<IGrouping<int, WeatherData>> GroupByWeek(this IEnumerable<WeatherData> data)
         {

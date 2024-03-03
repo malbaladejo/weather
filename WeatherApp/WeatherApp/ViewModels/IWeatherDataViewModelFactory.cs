@@ -2,6 +2,6 @@
 {
     public interface IWeatherDataViewModelFactory
     {
-        Task<IWeatherDataViewModel> CreateAsync(ControllerActionContext controllerContext, DateTime? selectedDate, Period period);
+        Task<IWeatherDataViewModel> CreateAsync(ControllerActionContext controllerContext, Period period, DateTime? selectedDate, DateTime? endDate = null);
     }
 }

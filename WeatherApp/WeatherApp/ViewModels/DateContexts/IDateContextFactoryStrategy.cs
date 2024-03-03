@@ -1,7 +1,7 @@
 ﻿namespace WeatherApp.ViewModels
-{   
+{
     public interface IDateContextFactoryStrategy
     {
-        Task<IDateContextFactory> GetFactoryAsync(Period period, DateTime? selectedDate);
+        Task<IDateContextFactory> GetFactoryAsync(Period period, DateTime? selectedDate, DateTime? endDate);
     }
 }

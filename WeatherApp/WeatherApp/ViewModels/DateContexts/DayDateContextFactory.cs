@@ -6,36 +6,22 @@ namespace WeatherApp.ViewModels
     internal class DayDateContextFactory : IDateContextFactory
     {
         private readonly DateTime selectedDate;
-        //private readonly DateTime minDate;
-        //private readonly DateTime maxDate;
+        private readonly DateTime? endDate;
 
-        public DayDateContextFactory(DateTime selectedDate/*, DateTime minDate, DateTime maxDate*/)
+        public DayDateContextFactory(DateTime selectedDate, DateTime? endDate)
         {
             this.selectedDate = selectedDate.BeginOfDay();
-            //this.minDate = minDate.BeginOfDay();
-            //this.maxDate = maxDate.EndOfDay();
+            this.endDate = endDate;
         }
 
         public DateContext Create()
         {
-            //DateTime? previousDate = null;
-            //DateTime? nextDate = null;
-
             var beginDate = this.selectedDate;
+            var endDate = this.endDate?.EndOfDay() ?? beginDate.EndOfDay();
+            var previousDate = beginDate.AddDays(-1);
+            var nextDate = endDate.BeginOfDay().AddDays(1);
 
-            //if (this.selectedDate < minDate)
-            //    beginDate = minDate;
-
-            //if (this.selectedDate > maxDate)
-            //    beginDate = maxDate.BeginOfDay();
-
-            //if (this.selectedDate > minDate)
-                DateTime previousDate = beginDate.AddDays(-1);
-
-            //  if (this.selectedDate < maxDate)
-            DateTime nextDate = beginDate.AddDays(1);
-
-            return new DateContext(beginDate, beginDate.EndOfDay(), previousDate, nextDate, Period.Day);
+            return new DateContext(beginDate, endDate, previousDate, nextDate, Period.Day);
         }
     }
 }

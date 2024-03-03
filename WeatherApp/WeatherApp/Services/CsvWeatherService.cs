@@ -26,12 +26,14 @@ namespace WeatherApp.Services
             this.data.Clear();
         }
 
-        public Task<IReadOnlyCollection<WeatherData>> GetWeatherDataAsync(DateTime date)
-            => this.GetWeatherDataAsync(date.BeginOfDay(), date.EndOfDay());
+        //public Task<IReadOnlyCollection<WeatherData>> GetWeatherDataAsync(DateTime date)
+        //    => this.GetWeatherDataAsync(date.BeginOfDay(), date.EndOfDay());
 
         public Task<IReadOnlyCollection<WeatherData>> GetWeatherDataAsync(DateTime startDate, DateTime endDate)
         {
             this.EnsureData();
+            startDate = startDate.BeginOfDay();
+            endDate = endDate.EndOfDay();
             return Task.FromResult((IReadOnlyCollection<WeatherData>)this.data.Where(d => d.Date >= startDate && d.Date <= endDate).ToArray());
         }
 

@@ -6,37 +6,24 @@ namespace WeatherApp.ViewModels
     internal class WeekDateContextFactory : IDateContextFactory
     {
         private readonly DateTime selectedDate;
-        //private readonly DateTime minDate;
-        //private readonly DateTime maxDate;
+        private readonly DateTime? endDate;
 
-        public WeekDateContextFactory(DateTime selectedDate)
+        public WeekDateContextFactory(DateTime selectedDate, DateTime? endDate)
         {
             this.selectedDate = selectedDate;
-            //this.minDate = minDate;
-            //this.maxDate = maxDate;
+            this.endDate = endDate;
         }
 
         public DateContext Create()
         {
-            //DateTime? previousDate = null;
-            //DateTime? nextDate = null;
-
             var beginDate = this.selectedDate;
 
-            //if (this.selectedDate < minDate)
-            //    beginDate = minDate;
-
-            //if (this.selectedDate > maxDate)
-            //    beginDate = maxDate.BeginOfDay();
-
             beginDate = beginDate.FirstDayOfWeek();
-            var endDate = beginDate.LastDayOfWeek();
+            var endDate = this.endDate?.EndOfDay() ?? beginDate.LastDayOfWeek();
 
-            //if (beginDate > minDate)
-            DateTime previousDate = beginDate.AddDays(-7);
+            var previousDate = beginDate.AddDays(-7);
 
-            //if (endDate < maxDate)
-            DateTime nextDate = beginDate.AddDays(7);
+            var nextDate = endDate.AddDays(1).BeginOfDay();
 
             return new DateContext(beginDate, endDate, previousDate, nextDate, Period.Week);
         }

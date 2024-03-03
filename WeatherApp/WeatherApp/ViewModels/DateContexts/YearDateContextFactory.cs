@@ -6,37 +6,23 @@ namespace WeatherApp.ViewModels
     internal class YearDateContextFactory : IDateContextFactory
     {
         private readonly DateTime selectedDate;
-        //private readonly DateTime minDate;
-        //private readonly DateTime maxDate;
+        private readonly DateTime? endDate;
 
-        public YearDateContextFactory(DateTime selectedDate/*, DateTime minDate, DateTime maxDate*/)
+        public YearDateContextFactory(DateTime selectedDate, DateTime? endDate)
         {
             this.selectedDate = selectedDate;
-            //this.minDate = minDate;
-            //this.maxDate = maxDate;
+            this.endDate = endDate;
         }
 
         public DateContext Create()
         {
-            //DateTime? previousDate = null;
-            //DateTime? nextDate = null;
-
             var beginDate = this.selectedDate;
 
-            //if (this.selectedDate < minDate)
-            //    beginDate = minDate;
-
-            //if (this.selectedDate > maxDate)
-            //    beginDate = maxDate.BeginOfDay();
-
             beginDate = new DateTime(beginDate.Year, 1, 1);
-            var endDate = new DateTime(beginDate.Year, 12, 31).EndOfDay();
+            var endDate = this.endDate?.EndOfDay() ?? beginDate.LastDayOfYear();
 
-           // if (beginDate > minDate)
-                DateTime previousDate = new DateTime(beginDate.Year - 1, 1, 1);
-
-           // if (endDate < maxDate)
-                DateTime nextDate = new DateTime(beginDate.Year + 1, 1, 1);
+            var previousDate = new DateTime(beginDate.Year - 1, 1, 1);
+            var nextDate = endDate.AddDays(1).BeginOfDay();
 
             return new DateContext(beginDate, endDate, previousDate, nextDate, Period.Year);
         }

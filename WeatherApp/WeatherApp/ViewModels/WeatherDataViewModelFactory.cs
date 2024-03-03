@@ -14,9 +14,9 @@ namespace WeatherApp.ViewModels
             this.dateContextFactoryStrategy = dateContextFactoryStrategy;
         }
 
-        public async Task<IWeatherDataViewModel> CreateAsync(ControllerActionContext controllerContext, DateTime? selectedDate, Period period)
+        public async Task<IWeatherDataViewModel> CreateAsync(ControllerActionContext controllerContext, Period period, DateTime? selectedDate, DateTime? endDate = null)
         {
-            var dateContextFactory = await this.dateContextFactoryStrategy.GetFactoryAsync(period, selectedDate);
+            var dateContextFactory = await this.dateContextFactoryStrategy.GetFactoryAsync(period, selectedDate, endDate);
             var dateContext = dateContextFactory.Create();
 
             var viewModel = CreateViewModel(controllerContext, dateContext);

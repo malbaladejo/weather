@@ -6,37 +6,23 @@ namespace WeatherApp.ViewModels
     internal class MonthDateContextFactory : IDateContextFactory
     {
         private readonly DateTime selectedDate;
-        //private readonly DateTime minDate;
-        //private readonly DateTime maxDate;
+        private readonly DateTime? endDate;
 
-        public MonthDateContextFactory(DateTime selectedDate/*, DateTime minDate, DateTime maxDate*/)
+        public MonthDateContextFactory(DateTime selectedDate, DateTime? endDate)
         {
             this.selectedDate = selectedDate;
-            //this.minDate = minDate;
-            //this.maxDate = maxDate;
+            this.endDate = endDate;
         }
 
         public DateContext Create()
         {
-            //DateTime? previousDate = null;
-            //DateTime? nextDate = null;
-
             var beginDate = this.selectedDate;
 
-            //if (this.selectedDate < minDate)
-            //    beginDate = minDate;
-
-            //if (this.selectedDate > maxDate)
-            //    beginDate = maxDate.BeginOfDay();
-
             beginDate = new DateTime(beginDate.Year, beginDate.Month, 1);
-            var endDate = beginDate.LastDayOfMonth();
+            var endDate = this.endDate?.EndOfDay() ?? beginDate.LastDayOfMonth();
 
-            //if (beginDate > minDate)
-            DateTime previousDate = beginDate.AddMonths(-1);
-
-            // if (endDate < maxDate)
-            DateTime nextDate = beginDate.AddMonths(1);
+            var previousDate = beginDate.AddMonths(-1);
+            var nextDate = endDate.AddDays(1).BeginOfDay();
 
             return new DateContext(beginDate, endDate, previousDate, nextDate, Period.Month);
         }

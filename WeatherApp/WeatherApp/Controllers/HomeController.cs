@@ -14,12 +14,12 @@ namespace WeatherApp.Controllers
             this.weatherService = weatherService;
         }
 
-        public async override Task<IActionResult> Index(DateTime? date, bool? resetCache)
+        public async override Task<IActionResult> Index(DateTime? date, DateTime? endDate, bool? resetCache)
         {
             if (resetCache == true)
                 await this.weatherService.ResetCacheAsync();
 
-            return await base.Index(date, resetCache);
+            return await base.Index(date, endDate, resetCache);
         }
     }
 }
