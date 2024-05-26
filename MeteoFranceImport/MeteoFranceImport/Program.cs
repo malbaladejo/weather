@@ -1,5 +1,4 @@
 ﻿using MeteoFranceImport.Services;
-using System.Diagnostics;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -9,7 +8,7 @@ internal class Program
 
 	private async static Task Main(string[] args)
 	{
-		//var service = new MeteoFranceCacheService(new MeteoFranceService());
+		var service = new MeteoFranceCacheService(new MeteoFranceService());
 		//await LoadDataAsync(service, "74051002", 2023);
 		//await LoadStationsDataAsync(service);
 
@@ -17,7 +16,7 @@ internal class Program
 		//await service.GetStationHourDataAsync("74051002", new DateTime(2023, 11, 1), new DateTime(2023, 11, 30, 23, 59, 59));
 		//await service.GetStationHourDataAsync("74051002", new DateTime(2023, 12, 1), new DateTime(2023, 12, 31, 23, 59, 59));
 		//await service.GetStationHourDataAsync("74051002", new DateTime(2024, 1, 1), new DateTime(2024, 1, 31, 23, 59, 59));
-		//await service.GetStationHourDataAsync("74051002", new DateTime(2024, 2, 1), new DateTime(2024, 2, 27, 23, 59, 59));
+		await service.GetStationHourDataAsync("74051002", new DateTime(2024, 3, 1), new DateTime(2024, 3, 31, 23, 59, 59));
 
 		FixInFactoryFilesBasedOnMeteoFranceFiles();
 	}
@@ -139,44 +138,44 @@ internal class Program
 		await service.GetStationDailyDataAsync(stationId, new DateTime(year, 1, 1), new DateTime(year, 12, 31, 23, 59, 59));
 	}
 
-	private static async Task LoadStationsDataAsync(IMeteoFranceService service)
-	{
-		var globalStopwatch = new Stopwatch();
-		var stopwatch = new Stopwatch();
+	//private static async Task LoadStationsDataAsync(IMeteoFranceService service)
+	//{
+	//	var globalStopwatch = new Stopwatch();
+	//	var stopwatch = new Stopwatch();
 
-		globalStopwatch.Start();
-		for (int i = 1; i <= 95; i++)
-		{
-			stopwatch.Start();
-			Console.WriteLine($"Loading {i}");
-			var stations = await service.GetStationsAsync(i);
-			await LoadDataAsync(service, stations.First(s => s.PosteOuvert).Id, 2023);
-			Console.WriteLine($"{stations.Count} stations loded in {stopwatch.ElapsedMilliseconds}ms");
-			stopwatch.Stop();
-			stopwatch.Reset();
-		}
+	//	globalStopwatch.Start();
+	//	for (int i = 1; i <= 95; i++)
+	//	{
+	//		stopwatch.Start();
+	//		Console.WriteLine($"Loading {i}");
+	//		var stations = await service.GetStationsAsync(i);
+	//		await LoadDataAsync(service, stations.First(s => s.PosteOuvert).Id, 2023);
+	//		Console.WriteLine($"{stations.Count} stations loded in {stopwatch.ElapsedMilliseconds}ms");
+	//		stopwatch.Stop();
+	//		stopwatch.Reset();
+	//	}
 
-		Console.WriteLine($"All stations loaded in {globalStopwatch.Elapsed}ms");
-		globalStopwatch.Stop();
-	}
+	//	Console.WriteLine($"All stations loaded in {globalStopwatch.Elapsed}ms");
+	//	globalStopwatch.Stop();
+	//}
 
-	private static async Task LoadAllStationsAsync(IMeteoFranceService service)
-	{
-		var globalStopwatch = new Stopwatch();
-		var stopwatch = new Stopwatch();
+	//private static async Task LoadAllStationsAsync(IMeteoFranceService service)
+	//{
+	//	var globalStopwatch = new Stopwatch();
+	//	var stopwatch = new Stopwatch();
 
-		globalStopwatch.Start();
-		for (int i = 1; i <= 95; i++)
-		{
-			stopwatch.Start();
-			Console.WriteLine($"Loading {i}");
-			var stations = await service.GetStationsAsync(i);
-			Console.WriteLine($"{stations.Count} stations loded in {stopwatch.ElapsedMilliseconds}ms");
-			stopwatch.Stop();
-			stopwatch.Reset();
-		}
+	//	globalStopwatch.Start();
+	//	for (int i = 1; i <= 95; i++)
+	//	{
+	//		stopwatch.Start();
+	//		Console.WriteLine($"Loading {i}");
+	//		var stations = await service.GetStationsAsync(i);
+	//		Console.WriteLine($"{stations.Count} stations loded in {stopwatch.ElapsedMilliseconds}ms");
+	//		stopwatch.Stop();
+	//		stopwatch.Reset();
+	//	}
 
-		Console.WriteLine($"All stations loaded in {globalStopwatch.Elapsed}ms");
-		globalStopwatch.Stop();
-	}
+	//	Console.WriteLine($"All stations loaded in {globalStopwatch.Elapsed}ms");
+	//	globalStopwatch.Stop();
+	//}
 }

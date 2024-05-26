@@ -23,13 +23,13 @@ namespace WeatherApp.ViewModels
         public override async Task InitializeAsync()
         {
             var data = await this.weatherService.GetWeatherDataAsync(
-                this.dateContext.BeginDate.FirstDayOfWeek(), 
+                this.dateContext.BeginDate.FirstDayOfWeek(),
                 this.dateContext.EndDate.LastDayOfWeek());
 
             var filteredData = data.GroupByWeek()
                                 .Select(d => new WeatherData
                                 {
-                                    Date = d.Min(i=>i.Date.Date),
+                                    Date = d.Min(i => i.Date.Date),
                                     Rain = d.Sum(v => v.Rain)
                                 })
                                 .Select(d => new RainData(d, d.Date.ToString("dd MMMM")));

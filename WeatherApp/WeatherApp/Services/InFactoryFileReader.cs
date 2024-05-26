@@ -6,18 +6,21 @@ namespace WeatherApp.Services
 {
     internal class InFactoryFileReader : IWeatherFileReader
     {
-        private readonly ILogger<CsvWeatherService> logger;
+        private readonly ILogger<InFactoryFileReader> logger;
+        private readonly string dataPath;
         private static readonly CultureInfo dateCultureInfo = new CultureInfo("fr-FR");
         private static readonly CultureInfo decimalCultureInfo = new CultureInfo("en-US");
         private const string csvSeparator = "\t";
 
-        public InFactoryFileReader(ILogger<CsvWeatherService> logger)
+        public InFactoryFileReader(IWebHostEnvironment environment, ILogger<InFactoryFileReader> logger)
         {
+            this.dataPath = Path.Combine(environment.WebRootPath, "data");
             this.logger = logger;
         }
 
-        public IEnumerable<WeatherData> Parse(string inputFile)
+        public IEnumerable<WeatherData> Parse(int year, int month)
         {
+            var inputFile = Path.Combine(this.dataPath, $"weather-{year}-{month.ToString().PadLeft(2, '0')}.csv");
             if (!File.Exists(inputFile))
             {
                 this.logger.LogInformation($"The file {inputFile} does not exist.");

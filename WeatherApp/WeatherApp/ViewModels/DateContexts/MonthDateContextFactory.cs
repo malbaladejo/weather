@@ -29,7 +29,7 @@ namespace WeatherApp.ViewModels
             //if (this.selectedDate > maxDate)
             //    beginDate = maxDate.BeginOfDay();
 
-            beginDate = new DateTime(beginDate.Year, beginDate.Month, 1);
+            beginDate = beginDate.FirstDayOfMonth();
             var endDate = beginDate.LastDayOfMonth();
 
             //if (beginDate > minDate)

@@ -4,9 +4,15 @@
     {
         public static void AddServices(this IServiceCollection serviceCollection)
         {
+            serviceCollection.AddSingleton<IAggreagatedWeatherService, AggreagatedWeatherService>();
+            serviceCollection.AddSingleton<IWeatherService, CahcedWeatherService>();
 
             serviceCollection.AddSingleton<IWeatherFileReader, InFactoryFileReader>();
-            serviceCollection.AddSingleton<IWeatherService, PaginedWeatherService>();
+
+            serviceCollection.AddSingleton<IWeatherFileReader, MeteoFranceFileReader>();
+            serviceCollection.AddSingleton<IMeteoFranceFileReader, MeteoFranceFileReader>();
+            serviceCollection.AddSingleton<IMeteoFranceLiveService, MeteoFranceLiveService>();
+            serviceCollection.AddSingleton<IMeteoFranceImportDataService, MeteoFranceImportDataService>();
         }
     }
 }

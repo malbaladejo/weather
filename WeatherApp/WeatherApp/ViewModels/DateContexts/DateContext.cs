@@ -52,7 +52,7 @@ namespace WeatherApp.ViewModels.DateContexts
                 case Period.Week:
                     return date.ToString(WeekLabel());
                 case Period.Month:
-                    return date.ToString("dd HH:mm");
+                    return date.ToString("ddd dd HH:mm");
                 case Period.Year:
                     return $"{date.ToString("dd")} {date.GetMonthName()}";
                 default:
@@ -71,9 +71,9 @@ namespace WeatherApp.ViewModels.DateContexts
             switch (Thread.CurrentThread.CurrentUICulture.NativeName)
             {
                 case "en":
-                    return "MM/dd HH:mm";
+                    return "ddd MM/dd HH:mm";
                 default:
-                    return "dd/MM HH:mm";
+                    return "ddd dd/MM HH:mm";
             }
         }
     }

@@ -5,14 +5,16 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Authors>m.albaladejo</Authors>
-    <Version>1.10.0</Version>
+    <Version>1.11.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Index.cshtml" />
     <Content Remove="wwwroot\js\gesture.js" />
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Index.cshtml" />
     <_ContentIncludedByDefault Remove="wwwroot\js\gesture.js" />
   </ItemGroup>
 
@@ -23,6 +25,7 @@
 </ItemGroup>
 
 <ItemGroup>
+  <None Include="Views\MeteoFranceImport\Index.cshtml" />
   <None Include="wwwroot\js\gesture.js" />
 </ItemGroup>
 
@@ -47,6 +50,14 @@
   <Content Update="wwwroot\data\weather-2022-11.csv">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>
+</ItemGroup>
+
+<ItemGroup>
+  <Folder Include="wwwroot\data\meteo-france\" />
+</ItemGroup>
+
+<ItemGroup>
+  <UpToDateCheckInput Remove="Views\Index.cshtml" />
 </ItemGroup>
 
 </Project>
