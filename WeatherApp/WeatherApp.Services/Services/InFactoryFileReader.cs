@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using System.Globalization;
 using WeatherApp.Models;
 

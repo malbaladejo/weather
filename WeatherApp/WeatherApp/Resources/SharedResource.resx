@@ -132,6 +132,9 @@
   <data name="Humidity_Graph_Hum_Out" xml:space="preserve">
     <value>% of Humidity Out</value>
   </data>
+  <data name="Meteo_France_Portal" xml:space="preserve">
+    <value>Meteo France Portal</value>
+  </data>
   <data name="Month" xml:space="preserve">
     <value>Month</value>
   </data>

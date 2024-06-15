@@ -3,7 +3,7 @@ using WeatherApp.ViewModels;
 
 namespace WeatherApp
 {
-    public static class BootstrapperExtesions
+    public static class BootstrapperExtensions
     {
         public static void AddWeatherApp(this IServiceCollection serviceCollection)
         {

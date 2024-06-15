@@ -39,5 +39,8 @@
         public static readonly string Wind_Direction_W = Prefix + "Wind_Direction_W";
         public static readonly string Wind_Direction_NW = Prefix + "Wind_Direction_NW";
 
+
+        public static readonly string MeteoFrancePortal = Prefix + "Meteo_France_Portal";
+
     }
 }

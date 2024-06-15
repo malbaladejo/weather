@@ -1,4 +1,5 @@
-﻿using WeatherApp.Extensions;
+﻿using Microsoft.Extensions.Logging;
+using WeatherApp.Extensions;
 using WeatherApp.Models;
 
 namespace WeatherApp.Services
