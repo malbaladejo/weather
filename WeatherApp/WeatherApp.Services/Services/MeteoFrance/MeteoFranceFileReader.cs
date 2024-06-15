@@ -82,6 +82,9 @@ namespace WeatherApp.Services
 
             for (int i = 1; i < lines.Length; i++)
             {
+                if (string.IsNullOrEmpty(lines[i]))
+                    continue;
+
                 var data = lines[i].Split(";");
                 try
                 {

@@ -21,13 +21,15 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
-else
-{
-    //app.UseWebAssemblyDebugging();
-}
+// Blazor
+// else
+//{
+//    app.UseWebAssemblyDebugging();
+//}
 
-app.UseBlazorFrameworkFiles();
-app.MapFallbackToFile("index.html");
+//app.UseBlazorFrameworkFiles();
+//app.MapFallbackToFile("index.html");
+// Blazor
 
 app.AddWepApplicationLocalizations("fr-FR", "en-US");
 
