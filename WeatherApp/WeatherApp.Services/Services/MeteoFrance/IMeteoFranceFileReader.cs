@@ -1,9 +1,9 @@
 ﻿namespace WeatherApp.Services
 {
-	internal interface IMeteoFranceFileReader : IWeatherFileReader
-	{
-		IEnumerable<StationData> ParseCsv(string csv);
+    public interface IMeteoFranceFileReader : IWeatherFileReader
+    {
+        IEnumerable<HourStationData> ParseCsv(string csv);
 
-		Task<IReadOnlyCollection<StationData>> GetLastDataAsync();
-	}
+        Task<IReadOnlyCollection<HourStationData>> GetLastDataAsync();
+    }
 }

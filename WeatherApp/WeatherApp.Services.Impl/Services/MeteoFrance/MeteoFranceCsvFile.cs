@@ -9,8 +9,10 @@ namespace WeatherApp.Services
         private readonly ILogger logger;
 
         public MeteoFranceCsvFile(
-            string year, string month,
-            IWebHostEnvironment environment, ILogger logger)
+            string year,
+            string month,
+            IWebHostEnvironment environment,
+            ILogger logger)
         {
             this.Year = year;
             this.Month = month;
@@ -18,7 +20,7 @@ namespace WeatherApp.Services
             this.logger = logger;
         }
 
-        public string FilePath => Path.Combine(this.environment.WebRootPath, "data", "meteo-france", $"meteo-france-{this.Year}-{this.Month}.csv");
+        public string FilePath => Path.Combine(this.environment.WebRootPath, CercierConfig.FilePath(this.Year, this.Month));
 
         public string Year { get; }
 
@@ -28,6 +30,7 @@ namespace WeatherApp.Services
 
         public void WriteFile()
         {
+            this.EnsureFolder();
             this.logger.LogInformation($"{nameof(MeteoFranceCsvFile)},.WriteFile({this.FilePath})");
             if (File.Exists(this.FilePath))
             {
@@ -42,6 +45,7 @@ namespace WeatherApp.Services
 
         private void AppendLines()
         {
+            this.EnsureFolder();
             this.logger.LogInformation($"{nameof(MeteoFranceCsvFile)}, file {this.FilePath}, {this.Lines.Count - 1} lines to write.");
             var appendNewLine = false;
             if (!File.ReadAllText(this.FilePath).EndsWith(Environment.NewLine))
@@ -55,6 +59,15 @@ namespace WeatherApp.Services
                 for (int i = 1; i < this.Lines.Count; i++)
                     sw.WriteLine(this.Lines[i]);
             }
+        }
+
+        private void EnsureFolder()
+        {
+            var folderPath = Path.GetDirectoryName(this.FilePath);
+            if (Directory.Exists(folderPath))
+                return;
+
+            Directory.CreateDirectory(folderPath);
         }
     }
 }

@@ -32,7 +32,9 @@
   <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.6" />
   <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
   <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.1.0" />
+  <PackageReference Include="Microsoft.OpenApi" Version="1.6.15" />
   <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+  <PackageReference Include="Swashbuckle.AspNetCore.ApiDoc" Version="3.2.2" />
 </ItemGroup>
 
 <ItemGroup>
@@ -54,14 +56,11 @@
 </ItemGroup>
 
 <ItemGroup>
-  <Folder Include="wwwroot\data\meteo-france\" />
-</ItemGroup>
-
-<ItemGroup>
   <UpToDateCheckInput Remove="Views\Index.cshtml" />
 </ItemGroup>
 
 <ItemGroup>
+  <ProjectReference Include="..\WeatherApp.Services.Impl\WeatherApp.Services.Impl.csproj" />
   <ProjectReference Include="..\WeatherApp.Services\WeatherApp.Services.csproj" />
 </ItemGroup>
 

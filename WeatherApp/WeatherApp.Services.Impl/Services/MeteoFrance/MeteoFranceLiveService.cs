@@ -9,7 +9,7 @@ namespace WeatherApp.Services
     /// <summary>
     /// https://portail-api.meteofrance.fr/web/fr/
     /// </summary>
-    internal class MeteoFranceLiveService : IMeteoFranceLiveService
+    internal class MeteoFranceLiveService : IMeteoFranceLiveService, IMeteoFranceLiveApiService
     {
         private readonly string ApplicationId = "dFFFXzRNdzBwVVlSYlZURnZtemRzTUp4Zk9jYTphRW1CVHRVa2FDV1FIQ0ZoXzEwbWJ0YTNieXNh";
         private readonly IMeteoFranceFileReader meteoFranceFileReader;
@@ -17,8 +17,6 @@ namespace WeatherApp.Services
         private readonly ILogger<MeteoFranceLiveService> logger;
         private string token = "";
         private const string TokenCacheKey = "MeteoFranceToken";
-        public string Cercier => "74051002";
-        public string CommandTypeHour => "horaire";
 
         public MeteoFranceLiveService(
             IMeteoFranceFileReader meteoFranceFileReader,
@@ -34,7 +32,7 @@ namespace WeatherApp.Services
         {
             await this.InitializeAsync();
 
-            var commandId = await this.GetCommandStationAsync(Cercier, CommandTypeHour, beginDate, endDate);
+            var commandId = await this.GetCommandStationAsync(MeteoFranceConfig.Cercier, MeteoFranceConfig.CommandTypeHour, beginDate, endDate);
 
             var csv = await this.LoadCsvFromCommandIdAsync(commandId);
 
@@ -124,6 +122,33 @@ namespace WeatherApp.Services
             {
                 this.logger.LogError(nameof(LoadCsvFromCommandIdAsync));
                 this.logger.LogError(e.DumpAsString());
+                throw;
+            }
+        }
+
+        public async Task<IReadOnlyCollection<Station>> GetStationsAsync(string departmentId)
+        {
+            this.logger.LogInformation($"{nameof(GetStationsAsync)}({departmentId})");
+
+            await this.InitializeAsync();
+
+            var url = $"https://public-api.meteofrance.fr/public/DPClim/v1/liste-stations/quotidienne?id-departement={departmentId}";
+
+            logger.LogInformation(url);
+
+            try
+            {
+                var stations = await ReadFromJsonAsync<IReadOnlyCollection<Station>>(url);
+                logger.LogInformation($"Number of stations: {stations.Count}");
+
+                var openedStations = stations.Where(s => s.PosteOuvert).ToArray();
+                logger.LogInformation($"Number of opened stations: {openedStations.Length}");
+                return openedStations;
+            }
+            catch (Exception e)
+            {
+                logger.LogError(nameof(GetCommandStationAsync));
+                logger.LogError(e.DumpAsString());
                 throw;
             }
         }

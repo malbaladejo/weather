@@ -7,6 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews()
                 .AddMvcLocalizations();
 
+//builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddSwaggerGen(c =>
+//{
+//    c.SwaggerDoc("v1", new Info { Title = "Meteo France API", Version = "v1" });
+//});
+
 builder.Logging.AddLog4Net();
 
 builder.Services.AddServicesLocalizations();
@@ -20,6 +26,11 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
+    //app.UseSwagger();
+    //app.UseSwaggerUI(c =>
+    //{
+
+    //});
 }
 // Blazor
 // else

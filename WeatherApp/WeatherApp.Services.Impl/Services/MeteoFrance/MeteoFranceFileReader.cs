@@ -10,19 +10,20 @@ namespace WeatherApp.Services
     {
         private readonly ILogger<MeteoFranceFileReader> logger;
         private readonly string dataPath;
+
         public MeteoFranceFileReader(IWebHostEnvironment environment, ILogger<MeteoFranceFileReader> logger)
         {
-            this.dataPath = Path.Combine(environment.WebRootPath, "data", "meteo-france");
+            this.dataPath = environment.WebRootPath;
             this.logger = logger;
         }
 
         public IEnumerable<WeatherData> Parse(int year, int month)
         {
-            var inputFile = Path.Combine(this.dataPath, $"meteo-france-{year}-{month.ToString().PadLeft(2, '0')}.csv");
+            var inputFile = Path.Combine(this.dataPath, CercierConfig.FilePath(year, month));
             return this.ParseFile(inputFile).Select(x => x.ConvertToWeatherData());
         }
 
-        public IEnumerable<StationData> ParseCsv(string csv)
+        public IEnumerable<HourStationData> ParseCsv(string csv)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -36,20 +37,21 @@ namespace WeatherApp.Services
                 yield return item;
         }
 
-        public Task<IReadOnlyCollection<StationData>> GetLastDataAsync()
+        public Task<IReadOnlyCollection<HourStationData>> GetLastDataAsync()
         {
-            var lastFile = Directory.GetFiles(this.dataPath)
+            var cercierFolderPath = Path.Combine(this.dataPath, CercierConfig.FolderPath);
+
+            var lastFile = Directory.GetFiles(cercierFolderPath)
                                     .OrderByDescending(p => p)
                                     .FirstOrDefault();
 
             if (lastFile == null)
-                return Task.FromResult((IReadOnlyCollection<StationData>)new StationData[0]);
+                return Task.FromResult((IReadOnlyCollection<HourStationData>)new HourStationData[0]);
 
-            return Task.FromResult<IReadOnlyCollection<StationData>>(this.ParseFile(lastFile).ToArray());
+            return Task.FromResult<IReadOnlyCollection<HourStationData>>(this.ParseFile(lastFile).ToArray());
         }
 
-
-        private IEnumerable<StationData> ParseFile(string inputFile)
+        private IEnumerable<HourStationData> ParseFile(string inputFile)
         {
             if (!File.Exists(inputFile))
             {
@@ -68,14 +70,14 @@ namespace WeatherApp.Services
                 yield return item;
         }
 
-        private IEnumerable<StationData> ParseCsvLines(string[] lines)
+        private IEnumerable<HourStationData> ParseCsvLines(string[] lines)
         {
             this.logger.LogInformation($"csv contains {lines.Length} lines.");
 
             lines = lines.Select(l => l.Trim()).Where(l => !string.IsNullOrWhiteSpace(l)).ToArray();
             this.logger.LogInformation($"csv contains {lines.Length} not empty lines.");
 
-            var stationDailyData = new List<StationData>();
+            var stationDailyData = new List<HourStationData>();
             this.logger.LogInformation($"Parse csv");
 
             var headers = this.GetHeaders(lines[0]);
@@ -88,13 +90,13 @@ namespace WeatherApp.Services
                 var data = lines[i].Split(";");
                 try
                 {
-                    stationDailyData.Add(new StationData
+                    stationDailyData.Add(new HourStationData
                     {
-                        Post = data.GetValue<StationData>(headers, nameof(StationData.Post)),
-                        Date = data.GetDate<StationData>(headers, nameof(StationData.Date)),
-                        RainInMm = data.GetDecimal<StationData>(headers, nameof(StationData.RainInMm)),
-                        Temperature = data.GetDecimal<StationData>(headers, nameof(StationData.Temperature)),
-                        Pressure = data.GetDecimal<StationData>(headers, nameof(StationData.Pressure))
+                        Post = data.GetValue<HourStationData>(headers, nameof(HourStationData.Post)),
+                        Date = data.GetDate<HourStationData>(headers, nameof(HourStationData.Date)),
+                        RainInMm = data.GetDecimal<HourStationData>(headers, nameof(HourStationData.RainInMm)),
+                        Temperature = data.GetDecimal<HourStationData>(headers, nameof(HourStationData.Temperature)),
+                        Pressure = data.GetDecimal<HourStationData>(headers, nameof(HourStationData.Pressure))
                     });
                 }
                 catch (Exception e)

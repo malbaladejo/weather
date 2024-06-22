@@ -4,7 +4,7 @@ namespace WeatherApp.Services
 {
 	public static class StationDataExtensions
 	{
-		public static WeatherData ConvertToWeatherData(this StationData data)
+		public static WeatherData ConvertToWeatherData(this HourStationData data)
 			=> new WeatherData
 			{
 				AbsolutePressure = data.Pressure,

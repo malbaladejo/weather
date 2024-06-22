@@ -1,8 +1,8 @@
 ﻿namespace WeatherApp.Services
 {
-	internal interface IMeteoFranceService
-	{
-		Task<IReadOnlyCollection<StationData>> GetStationHourDataAsync(DateTime beginDate);
-		Task<IReadOnlyCollection<StationData>> GetStationHourDataAsync(DateTime beginDate, DateTime endDate);
-	}
+    public interface IMeteoFranceService
+    {
+        Task<IReadOnlyCollection<HourStationData>> GetStationHourDataAsync(DateTime beginDate);
+        Task<IReadOnlyCollection<HourStationData>> GetStationHourDataAsync(DateTime beginDate, DateTime endDate);
+    }
 }

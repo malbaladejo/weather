@@ -62,8 +62,8 @@ namespace WeatherApp.Services
             await this.RunAndRetryAsync(async () =>
             {
                 commandId = await this.meteoFranceLiveService.GetCommandStationAsync(
-                                    meteoFranceLiveService.Cercier,
-                                    meteoFranceLiveService.CommandTypeHour,
+                                    MeteoFranceConfig.Cercier,
+                                    MeteoFranceConfig.CommandTypeHour,
                                     firstDateToImport,
                                     lastDateToImport);
             });

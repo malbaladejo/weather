@@ -2,7 +2,7 @@
 
 namespace WeatherApp.Services
 {
-    internal interface IWeatherFileReader
+    public interface IWeatherFileReader
     {
         IEnumerable<WeatherData> Parse(int year, int month);
     }
