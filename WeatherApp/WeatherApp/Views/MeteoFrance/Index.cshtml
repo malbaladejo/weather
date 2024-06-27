@@ -1,8 +1,9 @@
-﻿@* @using WeatherApp.Blazor.Pages *@
+﻿@using WeatherApp.BlazorApp.Pages
 
 @{
     ViewData["Title"] = "Portail Météo France";
     ViewData["View"] = "meteoFrance";
 }
 
-@* <component type="typeof(Counter)" render-mode="WebAssemblyPrerendered" /> *@
+<h1>Explorateur Météo France</h1>
+<component type="typeof(Weather)" render-mode="WebAssembly" />

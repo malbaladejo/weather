@@ -26,21 +26,15 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    //app.UseSwagger();
-    //app.UseSwaggerUI(c =>
-    //{
 
-    //});
 }
-// Blazor
-// else
-//{
-//    app.UseWebAssemblyDebugging();
-//}
+else
+{
+    app.UseWebAssemblyDebugging();
+}
 
-//app.UseBlazorFrameworkFiles();
-//app.MapFallbackToFile("index.html");
-// Blazor
+app.UseBlazorFrameworkFiles();
+app.MapFallbackToFile("index.html");
 
 app.AddWepApplicationLocalizations("fr-FR", "en-US");
 

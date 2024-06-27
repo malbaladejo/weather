@@ -60,6 +60,7 @@
 </ItemGroup>
 
 <ItemGroup>
+  <ProjectReference Include="..\WeatherApp.BlazorApp\WeatherApp.BlazorApp.csproj" />
   <ProjectReference Include="..\WeatherApp.Services.Impl\WeatherApp.Services.Impl.csproj" />
   <ProjectReference Include="..\WeatherApp.Services\WeatherApp.Services.csproj" />
 </ItemGroup>

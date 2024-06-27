@@ -45,12 +45,12 @@
                     <i class="bi bi-speedometer2"></i> @translationService.Translate(TranslationKeys.Pressure)
                 </a>
             </li>
-            @* <li class="nav-item">
+            <li class="nav-item">
                 <a class="@("nav-link " + (@ViewData["View"]=="meteoFrance"  ? "active" : ""))"
                    asp-controller="MeteoFrance" asp-action="@(Model?.Action ?? "index")">
                     <i class="bi bi-sun"></i> @translationService.Translate(TranslationKeys.MeteoFrancePortal)
                 </a>
-            </li> *@
+            </li>
         </ul>
         <hr />
         <span class="nav-link px-3">@await Component.InvokeAsync("Version")</span>

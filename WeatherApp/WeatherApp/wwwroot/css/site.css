@@ -1,4 +1,8 @@
 
+.bold{
+    font-weight:bold;
+}
+
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
@@ -101,6 +105,10 @@ body {
     height: calc(100vh - 48px);
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.active-color {
+    color: #2470dc;
 }
 
 .sidebar .nav-link {

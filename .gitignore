@@ -8,3 +8,4 @@ output/
 */WeatherApp.Ftp/*config.json
 */WeatherApp.FileWatcherServiceWorker/*config.json
 *.user
+data/
