@@ -27,7 +27,7 @@
         public decimal FreezeDurationInMinutes { get; set; }
 
 
-        [CsvHeader("PMER")]
-        public decimal Pressure { get; set; }
+        //[CsvHeader("PMER")]
+        //public decimal Pressure { get; set; }
     }
 }

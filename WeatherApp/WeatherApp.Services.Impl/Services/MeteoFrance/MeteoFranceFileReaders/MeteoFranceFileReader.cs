@@ -4,8 +4,9 @@ using System.Diagnostics;
 using WeatherApp.Extensions;
 using WeatherApp.Models;
 
-namespace WeatherApp.Services
+namespace WeatherApp.Services.Impl.Services.MeteoFrance
 {
+    [Obsolete("use HourMeteoFranceFileReader")]
     internal class MeteoFranceFileReader : IWeatherFileReader, IMeteoFranceFileReader
     {
         private readonly ILogger<MeteoFranceFileReader> logger;
@@ -13,14 +14,14 @@ namespace WeatherApp.Services
 
         public MeteoFranceFileReader(IWebHostEnvironment environment, ILogger<MeteoFranceFileReader> logger)
         {
-            this.dataPath = environment.WebRootPath;
+            dataPath = environment.WebRootPath;
             this.logger = logger;
         }
 
         public IEnumerable<WeatherData> Parse(int year, int month)
         {
-            var inputFile = Path.Combine(this.dataPath, CercierConfig.FilePath(year, month));
-            return this.ParseFile(inputFile).Select(x => x.ConvertToWeatherData());
+            var inputFile = Path.Combine(dataPath, CercierConfig.FilePath(year, month));
+            return ParseFile(inputFile).Select(x => x.ConvertToWeatherData());
         }
 
         public IEnumerable<HourStationData> ParseCsv(string csv)
@@ -28,10 +29,10 @@ namespace WeatherApp.Services
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            var data = this.ParseCsvLines(csv.Split(Environment.NewLine));
+            var data = ParseCsvLines(csv.Split(Environment.NewLine));
 
             stopwatch.Stop();
-            this.logger.LogInformation($"Csv loaded in {stopwatch.ElapsedMilliseconds}ms.");
+            logger.LogInformation($"Csv loaded in {stopwatch.ElapsedMilliseconds}ms.");
 
             foreach (var item in data)
                 yield return item;
@@ -39,7 +40,7 @@ namespace WeatherApp.Services
 
         public Task<IReadOnlyCollection<HourStationData>> GetLastDataAsync()
         {
-            var cercierFolderPath = Path.Combine(this.dataPath, CercierConfig.FolderPath);
+            var cercierFolderPath = Path.Combine(dataPath, CercierConfig.FolderPath);
 
             var lastFile = Directory.GetFiles(cercierFolderPath)
                                     .OrderByDescending(p => p)
@@ -48,23 +49,23 @@ namespace WeatherApp.Services
             if (lastFile == null)
                 return Task.FromResult((IReadOnlyCollection<HourStationData>)new HourStationData[0]);
 
-            return Task.FromResult<IReadOnlyCollection<HourStationData>>(this.ParseFile(lastFile).ToArray());
+            return Task.FromResult<IReadOnlyCollection<HourStationData>>(ParseFile(lastFile).ToArray());
         }
 
         private IEnumerable<HourStationData> ParseFile(string inputFile)
         {
             if (!File.Exists(inputFile))
             {
-                this.logger.LogInformation($"The file {inputFile} does not exist.");
+                logger.LogInformation($"The file {inputFile} does not exist.");
                 yield break;
             }
 
-            this.logger.LogInformation($"Load file {inputFile}.");
+            logger.LogInformation($"Load file {inputFile}.");
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             var csv = inputFile.ReadAllLines();
 
-            var data = this.ParseCsvLines(csv);
+            var data = ParseCsvLines(csv);
 
             foreach (var item in data)
                 yield return item;
@@ -72,15 +73,15 @@ namespace WeatherApp.Services
 
         private IEnumerable<HourStationData> ParseCsvLines(string[] lines)
         {
-            this.logger.LogInformation($"csv contains {lines.Length} lines.");
+            logger.LogInformation($"csv contains {lines.Length} lines.");
 
             lines = lines.Select(l => l.Trim()).Where(l => !string.IsNullOrWhiteSpace(l)).ToArray();
-            this.logger.LogInformation($"csv contains {lines.Length} not empty lines.");
+            logger.LogInformation($"csv contains {lines.Length} not empty lines.");
 
             var stationDailyData = new List<HourStationData>();
-            this.logger.LogInformation($"Parse csv");
+            logger.LogInformation($"Parse csv");
 
-            var headers = this.GetHeaders(lines[0]);
+            var headers = GetHeaders(lines[0]);
 
             for (int i = 1; i < lines.Length; i++)
             {
@@ -101,12 +102,12 @@ namespace WeatherApp.Services
                 }
                 catch (Exception e)
                 {
-                    this.logger.LogError($"Error line {i}");
-                    this.logger.LogError(e.Message);
+                    logger.LogError($"Error line {i}");
+                    logger.LogError(e.Message);
                 }
             }
 
-            this.logger.LogInformation($"Parse csv done");
+            logger.LogInformation($"Parse csv done");
             return stationDailyData;
         }
 

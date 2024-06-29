@@ -1,0 +1,24 @@
+﻿@page "/"
+@page "/departments"
+@using  WeatherApp.Services;
+@inject IDepartmentService departmentService;
+
+<PageTitle>Home</PageTitle>
+
+@foreach (var department in departments)
+{
+    <div>
+        <NavLink class="nav-link" href="@("/departments/" + department.Code)">
+             @department.Name
+        </NavLink>
+    </div>
+}
+
+@code {
+    private IReadOnlyCollection<Department> departments;
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.departments = this.departmentService.GetDepartments();
+    }
+}

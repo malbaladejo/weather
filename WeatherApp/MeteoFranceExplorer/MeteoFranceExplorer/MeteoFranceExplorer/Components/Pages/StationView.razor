@@ -1,0 +1,74 @@
+﻿@page "/departments/{departmentId}/{stationId}"
+@using WeatherApp.Services;
+@inject IMeteoFranceFileApiService meteoFranceApiService;
+@inject IDepartmentService departmentService;
+
+<PageTitle>@($"{department?.Name} / {station?.Name} / {year}")</PageTitle>
+<h1>@($"{department?.Name} / {station?.Name} / {year}")</h1>
+
+@if (data != null)
+{
+    <table class="table">
+        <thead>
+
+            <tr>
+                <td>
+                   Date
+                </td>
+                <td>
+                   MinTemperature
+                </td>
+                <td>
+                    MaxTemperature
+                </td>
+                <td>
+                    Rain
+                </td>
+            </tr>
+        </thead>
+        @foreach (var item in data)
+        {
+            <tr>
+                <td>
+                    @item.Date
+                </td>
+                <td>
+                    @item.MinTemperature
+                </td>
+                <td>
+                    @item.MaxTemperature
+                </td>
+                <td>
+                    @item.RainInMm
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+@code {
+
+    [Parameter]
+    public string? stationId { get; set; }
+
+    [Parameter]
+    public string? departmentId { get; set; }
+
+    private Department? department;
+    private Station? station;
+    private IReadOnlyCollection<DailyStationData>? data;
+    private int year = 2023;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (string.IsNullOrWhiteSpace(this.stationId))
+        {
+            return;
+        }
+        var payload = await this.meteoFranceApiService.GetStationDataAsync(stationId, year);
+
+        this.department = payload.Department;
+        this.station = payload.Station;
+        this.data = payload.Data;
+    }
+}

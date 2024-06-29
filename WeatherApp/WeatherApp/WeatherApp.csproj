@@ -29,7 +29,6 @@
 </ItemGroup>
 
 <ItemGroup>
-  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.6" />
   <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
   <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.1.0" />
   <PackageReference Include="Microsoft.OpenApi" Version="1.6.15" />
@@ -60,7 +59,6 @@
 </ItemGroup>
 
 <ItemGroup>
-  <ProjectReference Include="..\WeatherApp.BlazorApp\WeatherApp.BlazorApp.csproj" />
   <ProjectReference Include="..\WeatherApp.Services.Impl\WeatherApp.Services.Impl.csproj" />
   <ProjectReference Include="..\WeatherApp.Services\WeatherApp.Services.csproj" />
 </ItemGroup>

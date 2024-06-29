@@ -14,6 +14,9 @@ namespace WeatherApp.Services
         public string DepartmentFilePath(string code)
             => Path.Combine(this.environment.WebRootPath, DepartmentConfig.FolderPath, $"{code}.json");
 
+        public Department GetDepartmentFromStationId(string stationId)
+            => this.GetDepartment(stationId.Substring(0, 2));
+
         public Department GetDepartment(string code)
         {
             this.EnsureDepartments();

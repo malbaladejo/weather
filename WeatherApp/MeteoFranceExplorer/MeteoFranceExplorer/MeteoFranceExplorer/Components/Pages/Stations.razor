@@ -1,0 +1,34 @@
+﻿@page "/departments/{departmentId}"
+@using WeatherApp.Services;
+@inject IMeteoFranceFileApiService meteoFranceApiService;
+
+<PageTitle>@department?.Name</PageTitle>
+<h1>@department?.Name</h1>
+@if (this.department != null)
+{
+    @foreach (var station in stations)
+    {
+        <NavLink class="nav-link" href="@($"/departments/{departmentId}/{station.Id}")">
+            @station.Name
+        </NavLink>
+    }
+}
+
+@code {
+    [Parameter]
+    public string? departmentId { get; set; }
+
+    private IReadOnlyCollection<Station> stations = new Station[0];
+    private Department? department;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (string.IsNullOrWhiteSpace(this.departmentId))
+        {
+            return;
+        }
+        var payload = await this.meteoFranceApiService.GetStationsAsync(this.departmentId);
+        this.department = payload.Department;
+        this.stations = payload.Stations;
+    }
+}

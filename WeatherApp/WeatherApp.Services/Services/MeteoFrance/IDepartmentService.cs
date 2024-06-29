@@ -6,6 +6,8 @@
 
         Department GetDepartment(string code);
 
+        Department GetDepartmentFromStationId(string stationId);
+
         IReadOnlyCollection<Department> GetDepartments();
 
         void RefreshDepartmentsStatus();

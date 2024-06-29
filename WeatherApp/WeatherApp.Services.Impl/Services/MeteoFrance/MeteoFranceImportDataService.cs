@@ -8,13 +8,13 @@ namespace WeatherApp.Services
     internal class MeteoFranceImportDataService : IMeteoFranceImportDataService
     {
         private readonly IMeteoFranceFileReader meteoFranceFileReader;
-        private readonly IMeteoFranceLiveService meteoFranceLiveService;
+        private readonly IMeteoFranceLiveApiService meteoFranceLiveService;
         private readonly IWebHostEnvironment environment;
         private readonly ILogger<MeteoFranceImportDataService> logger;
 
         public MeteoFranceImportDataService(
             IMeteoFranceFileReader meteoFranceFileReader,
-            IMeteoFranceLiveService meteoFranceLiveService,
+            IMeteoFranceLiveApiService meteoFranceLiveService,
             IWebHostEnvironment environment,
             ILogger<MeteoFranceImportDataService> logger)
         {
@@ -53,29 +53,12 @@ namespace WeatherApp.Services
 
         private async Task StartImportAsync(DateTime firstDateToImport, DateTime lastDateToImport)
         {
-            this.logger.LogInformation($"{nameof(ImportAsync)}: Step 1 - {nameof(this.meteoFranceLiveService.InitializeAsync)}");
-            await this.meteoFranceLiveService.InitializeAsync();
-
-            this.logger.LogInformation($"{nameof(ImportAsync)}: Step 2 - {nameof(this.meteoFranceLiveService.GetCommandStationAsync)}");
-            var commandId = string.Empty;
-
-            await this.RunAndRetryAsync(async () =>
-            {
-                commandId = await this.meteoFranceLiveService.GetCommandStationAsync(
+            this.logger.LogInformation($"{nameof(ImportAsync)}: Step 1 - {nameof(this.StartImportAsync)}");
+            var csv = await this.meteoFranceLiveService.GetStationDataAsync(
                                     MeteoFranceConfig.Cercier,
                                     MeteoFranceConfig.CommandTypeHour,
                                     firstDateToImport,
                                     lastDateToImport);
-            });
-
-            this.logger.LogInformation($"{nameof(ImportAsync)}: Step 3 - {nameof(this.meteoFranceLiveService.LoadCsvFromCommandIdAsync)}");
-            var csv = string.Empty;
-            await this.RunAndRetryAsync(async () =>
-            {
-                csv = await this.meteoFranceLiveService.LoadCsvFromCommandIdAsync(commandId);
-            });
-
-            this.logger.LogInformation($"{nameof(ImportAsync)}: Step 4 - {nameof(this.PrepareFiles)}");
             this.PrepareFiles(csv);
         }
 
