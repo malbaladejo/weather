@@ -26,7 +26,10 @@ namespace WeatherApp.Services
             this.logger = logger;
         }
 
-        public async Task<IReadOnlyCollection<Station>> GetStationsAsync(string departmentId)
+        public Task<IReadOnlyCollection<Station>> GetStationsAsync(string departmentId)
+            => this.RunAndRetryAsync(() => this.GetStationsAndRetryAsync(departmentId));
+
+        private async Task<IReadOnlyCollection<Station>> GetStationsAndRetryAsync(string departmentId)
         {
             this.logger.LogInformation($"{nameof(GetStationsAsync)}({departmentId})");
 

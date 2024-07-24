@@ -1,24 +1,54 @@
 ﻿@page "/"
-@page "/departments"
-@using  WeatherApp.Services;
+@using WeatherApp.Services;
+@using System.Linq;
 @inject IDepartmentService departmentService;
+@rendermode InteractiveAuto
 
 <PageTitle>Home</PageTitle>
 
-@foreach (var department in departments)
-{
-    <div>
-        <NavLink class="nav-link" href="@("/departments/" + department.Code)">
-             @department.Name
-        </NavLink>
+@* <input @bind="SearchText" /> *@
+
+<div class="container">
+    <div class="row">
+        @foreach (var department in departments)
+        {
+            <div class="card mf-card shadow-sm col-lg-1 col-md-2 col-sm-3" style="width: 18rem;">
+                @*   <img class="card-img-top" src="..." alt="Card image cap"> *@
+                <div class="card-body">
+                    <h5 class="card-title grid-1fr-auto">
+                        <div>
+                            @department.Code - @department.Name
+                        </div>
+                        @if (department.StationsLoaded)
+                        {
+                            <i class="bi bi-download"></i>
+                        }
+
+                    </h5>
+
+                    <a href="@("/departments/" + department.Code)" class="btn btn-primary">liste des stations</a>
+                </div>
+            </div>
+
+        }
     </div>
-}
+</div>
 
 @code {
+    private IReadOnlyCollection<Department> allDepartments;
+
     private IReadOnlyCollection<Department> departments;
+
+    public IReadOnlyCollection<Department> Departments
+    {
+        get { return departments; }
+        set { departments = value; }
+    }
+
 
     protected override async Task OnInitializedAsync()
     {
-        this.departments = this.departmentService.GetDepartments();
+        this.allDepartments = this.departmentService.GetDepartments();
+        this.departments = this.allDepartments;
     }
 }

@@ -6,6 +6,13 @@
 <PageTitle>@($"{department?.Name} / {station?.Name} / {year}")</PageTitle>
 <h1>@($"{department?.Name} / {station?.Name} / {year}")</h1>
 
+@if (data == null)
+{
+    <div>
+        Chargement...
+    </div>
+}
+
 @if (data != null)
 {
     <table class="table">

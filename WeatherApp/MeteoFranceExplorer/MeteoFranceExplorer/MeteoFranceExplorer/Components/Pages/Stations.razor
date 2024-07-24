@@ -4,14 +4,44 @@
 
 <PageTitle>@department?.Name</PageTitle>
 <h1>@department?.Name</h1>
+
+@if (stations == null)
+{
+    <div>
+        Chargement...
+    </div>
+}
+
 @if (this.department != null)
 {
-    @foreach (var station in stations)
-    {
-        <NavLink class="nav-link" href="@($"/departments/{departmentId}/{station.Id}")">
-            @station.Name
-        </NavLink>
-    }
+    <table class="table">
+        <thead>
+
+            <tr>
+                <td>
+                    Code
+                </td>
+                <td>
+                    Nom
+                </td>
+            </tr>
+        </thead>
+        @foreach (var station in stations)
+        {
+            <tr>
+                <td>
+                    <NavLink class="nav-link" href="@($"/departments/{departmentId}/{station.Id}")">
+                        @station.Id
+                    </NavLink>
+                </td>
+                <td>
+                    <NavLink class="nav-link" href="@($"/departments/{departmentId}/{station.Id}")">
+                        @station.Name
+                    </NavLink>
+                </td>
+            </tr>
+        }
+    </table>
 }
 
 @code {

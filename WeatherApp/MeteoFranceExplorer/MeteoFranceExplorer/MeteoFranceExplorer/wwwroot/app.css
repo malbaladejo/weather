@@ -49,3 +49,12 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+.mf-card{
+    margin:0 10px 10px 0;
+}
+
+.grid-1fr-auto{
+    display:grid;
+    grid-template-columns:1fr auto;
+}
